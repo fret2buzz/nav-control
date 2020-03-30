@@ -71,7 +71,7 @@
                     self.$navigation.css('height', height + 'px');
                     $el.addClass(self.settings.CLASSNAME_INACTIVE);
                     $el.parent().siblings().addClass(self.settings.CLASSNAME_INACTIVE);
-                    // $el.nextAll(self.settings.SELECTOR_NAV_LEVEL).first().find('.js-mega-nav-col a').first().focus();
+                    $el.nextAll(self.settings.SELECTOR_NAV_LEVEL).first().find('a').first().focus();
                 }, this.settings.duration);
             }
         },

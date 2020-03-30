@@ -12,21 +12,47 @@
 
 <div class="container">
     <header class="ex-header">Header</header>
-    <nav class="ex-nav js-nav-control">
-        <ul class="js-nav">
-            <li class="js-nav-item">
-                <a href="#" class="js-has-subnav" role="button"><span>Bluetooth</span></a>
-                <div class="js-nav-level">
-                    <button class="js-go-back"><span class="sr-only">Back to</span> Bluetooth</button>
-                    <ul>
-                        <li><a href="#">1 Minute</a></li>
-                        <li><a href="#">2 Minutes</a></li>
-                        <li><a href="#">3 Minutes</a></li>
+    <div class="ex-nav js-nav-control">
+        <nav class="js-nav">
+            <ul class="js-nav-level nav-level">
+                <li class="js-nav-item nav-item">
+                    <a href="#" class="js-has-subnav nav-item-button nav-item-button-has-child" role="button"><span>Level 1</span></a>
+                    <ul class="js-nav-level nav-level">
+                        <li>
+                            <button class="js-go-back nav-item-button nav-item-button-back"><span class="sr-only">Back to</span> Level 1</button>
+                        </li>
+                        <li class="js-nav-item nav-item">
+                            <a href="#" class="js-has-subnav nav-item-button nav-item-button-has-child" role="button"><span>Level 2</span></a>
+                            <ul class="js-nav-level nav-level">
+                                <li>
+                                    <button class="js-go-back nav-item-button nav-item-button-back"><span class="sr-only">Back to</span> Level 2</button>
+                                </li>
+                                <li>
+                                    <ul class="nav-level-item">
+                                        <li><a href="">1 Minute</a></li>
+                                        <li><a href="">2 Minutes</a></li>
+                                        <li><a href="">3 Minutes</a></li>
+                                        <li><a href="">4 Minutes</a></li>
+                                        <li><a href="">5 Minutes</a></li>
+                                        <li><a href="">6 Minutes</a></li>
+                                        <li><a href="">7 Minutes</a></li>
+                                        <li><a href="">8 Minutes</a></li>
+                                        <li><a href="">9 Minutes</a></li>
+                                        <li><a href="">10 Minutes</a></li>
+                                        <li><a href="">11 Minutes</a></li>
+                                        <li><a href="">12 Minutes</a></li>
+                                        <li><a href="">13 Minutes</a></li>
+                                        <li><a href="">14 Minutes</a></li>
+                                        <li><a href="">15 Minutes</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
-                </div>
-            </li>
-        </ul>
-    </nav>
+                </li>
+            </ul>
+        </nav>
+    </div>
     <section class="ex-section">
         <h1>Nav control example</h1>
     </section>
