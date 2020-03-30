@@ -27,6 +27,17 @@ body {
     background: #ddd;
     height: 2rem;
 }
+.ex-nav {
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    a:focus,
+    button:focus {
+        outline: 2px dashed #369;
+    }
+}
 .ex-section {
     background: #ffc;
     height: 20rem;
@@ -35,3 +46,6 @@ body {
     background: #ddd;
     height: 2rem;
 }
+
+@import 'nav-control-xs';
+@import 'nav-control-sm';

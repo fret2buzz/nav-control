@@ -8,9 +8,10 @@
 
     const pluginName = "navControl";
     const defaults = {
-        breakpoint: 768,
-        duration: 300,
+        breakpoint: 768, // tablet breakpoint
+        duration: 300, // animation time
         SELECTOR_NAV: '.js-nav',
+        SELECTOR_NAV_ITEM: '.js-nav-item',
         SELECTOR_NAV_LEVEL: '.js-nav-level',
         SELECTOR_BACK: '.js-go-back',
         SELECTOR_HAS_SUBNAV: '.js-has-subnav',
@@ -70,7 +71,7 @@
                     self.$navigation.css('height', height + 'px');
                     $el.addClass(self.settings.CLASSNAME_INACTIVE);
                     $el.parent().siblings().addClass(self.settings.CLASSNAME_INACTIVE);
-                    $el.nextAll(self.settings.SELECTOR_NAV_LEVEL).first().find('.js-mega-nav-col a').first().focus();
+                    // $el.nextAll(self.settings.SELECTOR_NAV_LEVEL).first().find('.js-mega-nav-col a').first().focus();
                 }, this.settings.duration);
             }
         },
@@ -80,7 +81,7 @@
             var $el = $(element);
 
             var parents = $el.parents(this.settings.SELECTOR_NAV_LEVEL);
-            var parentItem = $el.closest('.nav-item');
+            var parentItem = $el.closest(this.settings.SELECTOR_NAV_ITEM);
 
             parentItem.find(this.settings.SELECTOR_HAS_SUBNAV).removeClass(this.settings.CLASSNAME_INACTIVE);
             parentItem.siblings().removeClass(this.settings.CLASSNAME_INACTIVE);

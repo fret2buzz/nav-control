@@ -5,25 +5,25 @@
     <title>Navigation</title>
     <link rel="stylesheet" href="css/main.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="js/navControl.js"></script>
+    <script type="text/javascript" src="js/nav-control.js"></script>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 </head>
 <body>
 
 <div class="container">
     <header class="ex-header">Header</header>
-    <nav class="js-nav-control">
+    <nav class="ex-nav js-nav-control">
         <ul class="js-nav">
-            <li>
-                <a href=""><span>Bluetooth</span></a>
-                <ul>
+            <li class="js-nav-item">
+                <a href="#" class="js-has-subnav" role="button"><span>Bluetooth</span></a>
+                <div class="js-nav-level">
                     <button class="js-go-back"><span class="sr-only">Back to</span> Bluetooth</button>
-                    <div>
-                        <ul><li><a href="#">1 Minute</a></li></ul>
-                        <ul><li><a href="#">2 Minutes</a></li></ul>
-                        <ul><li><a href="#">3 Minutes</a></li></ul>
-                    </div>
-                </ul>
+                    <ul>
+                        <li><a href="#">1 Minute</a></li>
+                        <li><a href="#">2 Minutes</a></li>
+                        <li><a href="#">3 Minutes</a></li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </nav>

@@ -5386,6 +5386,17 @@ body {
 	height: 2rem;
 }
 
+.ex-nav ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ex-nav a:focus,
+.ex-nav button:focus {
+	outline: 2px dashed #369;
+}
+
 .ex-section {
 	background: #ffc;
 	height: 20rem;
