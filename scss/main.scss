@@ -1,0 +1,37 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+// Configuration
+@import "./bootstrap/scss/functions";
+@import "./bootstrap/scss/variables";
+@import "./bootstrap/scss/mixins";
+@import "./bootstrap/scss/utilities";
+
+// Layout & components
+@import "./bootstrap/scss/root";
+@import "./bootstrap/scss/reboot";
+@import "./bootstrap/scss/grid";
+
+html {
+    font-size: 16px;
+}
+body {
+    font-size: 1rem;
+}
+.ex-header {
+    background: #ddd;
+    height: 2rem;
+}
+.ex-section {
+    background: #ffc;
+    height: 20rem;
+}
+.ex-footer {
+    background: #ddd;
+    height: 2rem;
+}

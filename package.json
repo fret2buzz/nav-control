@@ -1,0 +1,27 @@
+{
+  "name": "app_storefront_custom",
+  "version": "1.0.0",
+  "description": "Demo project",
+  "main": "gulpfile.js",
+  "scripts": {
+    "upload": "dwupload --cartridge app_storefront_custom",
+    "upload-all": "dwupload",
+    "watch": "dwupload watch --cartridge app_storefront_custom",
+    "watch-all": "dwupload watch",
+    "watch-skip": "dwupload watch --skip-upload"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dwupload": "^3.8.0",
+    "gulp": "4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-connect": "^5.7.0",
+    "gulp-csscomb": "3.0.8",
+    "gulp-sass": "3.1.0",
+    "gulp-sourcemaps": "^2.6.5"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1"
+  }
+}
