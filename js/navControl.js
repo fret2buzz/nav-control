@@ -13,7 +13,9 @@
         SELECTOR_NAV: '.js-nav',
         SELECTOR_NAV_LEVEL: '.js-nav-level',
         SELECTOR_BACK: '.js-go-back',
-        SELECTOR_HAS_SUBNAV: '.js-has-subnav'
+        SELECTOR_HAS_SUBNAV: '.js-has-subnav',
+        CLASSNAME_ACTIVE: 'active-xs',
+        CLASSNAME_INACTIVE: 'inactive-xs'
     };
 
     function Plugin(element, options) {
@@ -45,13 +47,15 @@
             });
         },
         onClickNextButton: function(element, event) {
+            var self = this;
+
             if ($(window).width() < this.settings.breakpoint) {
                 event.preventDefault();
 
                 var $el = $(element);
 
                 this.topPosition = this.$el.scrollTop();
-                $el.parent().addClass('active-xs');
+                $el.parent().addClass(this.settings.CLASSNAME_ACTIVE);
 
                 var leftPosition = $el.parents(this.settings.SELECTOR_NAV_LEVEL).length * -100;
                 this.$firstMenuElement.css('left', leftPosition + '%');
@@ -60,40 +64,41 @@
 
                 $el.nextAll(this.settings.SELECTOR_NAV_LEVEL).first().css('top', this.topPosition + 'px');
 
-                setTimeout(() => {
-                    $el.nextAll(this.settings.SELECTOR_NAV_LEVEL).first().css('top', 0);
-                    this.$el.scrollTop(0);
-                    this.$navigation.css('height', height + 'px');
-                    $el.addClass('inactive-xs');
-                    $el.parent().siblings().addClass('inactive-xs');
-                    $el.nextAll(this.settings.SELECTOR_NAV_LEVEL).first().find('.js-mega-nav-col a').first().focus();
-                }, this.duration);
+                setTimeout(function() {
+                    $el.nextAll(self.settings.SELECTOR_NAV_LEVEL).first().css('top', 0);
+                    self.$el.scrollTop(0);
+                    self.$navigation.css('height', height + 'px');
+                    $el.addClass(self.settings.CLASSNAME_INACTIVE);
+                    $el.parent().siblings().addClass(self.settings.CLASSNAME_INACTIVE);
+                    $el.nextAll(self.settings.SELECTOR_NAV_LEVEL).first().find('.js-mega-nav-col a').first().focus();
+                }, this.settings.duration);
             }
         },
         onClickGoBackButton: function(element, event) {
+            var self = this;
             event.preventDefault();
             var $el = $(element);
 
             var parents = $el.parents(this.settings.SELECTOR_NAV_LEVEL);
             var parentItem = $el.closest('.nav-item');
 
-            parentItem.find('.js-has-subnav').removeClass('inactive-xs');
-            parentItem.siblings().removeClass('inactive-xs');
+            parentItem.find(this.settings.SELECTOR_HAS_SUBNAV).removeClass(this.settings.CLASSNAME_INACTIVE);
+            parentItem.siblings().removeClass(this.settings.CLASSNAME_INACTIVE);
 
             this.$el.scrollTop(this.topPosition);
             $el.closest(this.settings.SELECTOR_NAV_LEVEL).css('top', this.topPosition);
 
-            // setTimeout(() => {
-            //     console.log(this.$navigation);
-            //     this.$navigation.css('height', 'auto');
-            //     parentItem.removeClass('active-xs');
-            // }, this.duration);
+            setTimeout(function() {
+                console.log(self.$navigation);
+                self.$navigation.css('height', 'auto');
+                parentItem.removeClass(self.settings.CLASSNAME_ACTIVE);
+            }, this.settings.duration);
 
-            // var leftPosition = (parents.length - 2) * -100;
-            // this.$firstMenuElement.css('left', leftPosition + '%');
-            // setTimeout(() => {
-            //     parentItem.find('.js-has-subnav').focus();
-            // }, this.duration);
+            var leftPosition = (parents.length - 2) * -100;
+            this.$firstMenuElement.css('left', leftPosition + '%');
+            setTimeout(function() {
+                parentItem.find(self.settings.SELECTOR_HAS_SUBNAV).focus();
+            }, this.settings.duration);
         }
     });
 
