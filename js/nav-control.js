@@ -104,9 +104,10 @@
             this.$el.scrollTop(this.topPosition);
             $el.closest(this.settings.SELECTOR_NAV_LEVEL).css('top', this.topPosition);
 
+            var height = parentItem.parent().height();
+
             setTimeout(function () {
-                console.log(self.$navigation);
-                self.$navigation.css('height', 'auto');
+                self.$navigation.css('height', height + 'px');
                 parentItem.removeClass(self.settings.CLASSNAME_ACTIVE);
             }, this.settings.duration);
 
