@@ -1,19 +1,14 @@
 {
-  "name": "app_storefront_custom",
+  "name": "navControl",
   "version": "1.0.0",
   "description": "Demo project",
   "main": "gulpfile.js",
   "scripts": {
-    "upload": "dwupload --cartridge app_storefront_custom",
-    "upload-all": "dwupload",
-    "watch": "dwupload watch --cartridge app_storefront_custom",
-    "watch-all": "dwupload watch",
-    "watch-skip": "dwupload watch --skip-upload"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "fret2buzz",
   "license": "ISC",
   "devDependencies": {
-    "dwupload": "^3.8.0",
     "gulp": "4.0.0",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-connect": "^5.7.0",
@@ -26,10 +21,10 @@
     "lodash.template": "^4.5.0"
   },
   "prettier": {
-      "trailingComma": "es5",
-      "tabWidth": 4,
-      "semi": true,
-      "singleQuote": true,
-      "printWidth": 255
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true,
+    "printWidth": 255
   }
 }
