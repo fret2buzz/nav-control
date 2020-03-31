@@ -9,7 +9,7 @@
     const pluginName = "navControl";
     const defaults = {
         breakpoint: 992, // desktop breakpoint
-        duration: 300, // animation time
+        duration: 500, // animation time
         fixedHeader: true,
         SELECTOR_NAV: '.js-nav',
         SELECTOR_NAV_ITEM: '.js-nav-item',
@@ -39,7 +39,7 @@
             this.$firstMenuElement = this.$navigation.find(' > ' + this.settings.SELECTOR_NAV_LEVEL);
 
             if (this.settings.fixedHeader > 0) {
-                this.$el.find(this.settings.SELECTOR_HEADER).parent('li').addClass('nav-level-header-fixed');
+                this.$el.find(this.settings.SELECTOR_HEADER).addClass('nav-level-header-fixed');
             }
 
             this.$el.on('click', this.settings.SELECTOR_BACK, function(e){

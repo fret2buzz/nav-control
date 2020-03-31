@@ -17,6 +17,9 @@
 @import "./bootstrap/scss/reboot";
 @import "./bootstrap/scss/grid";
 
+$arrow-xs: 1.2rem;
+$arrow-lg: 0.75rem;
+
 html {
     font-size: 16px;
 }
@@ -34,7 +37,7 @@ body {
 }
 .ex-header {
     background: $gray-400;
-    height: 2rem;
+    padding: ($spacer * 2) $spacer;
 }
 .ex-nav {
     ul {
@@ -49,13 +52,14 @@ body {
     }
 }
 .ex-section {
+    padding: ($spacer * 2) $spacer;
     background: $gray-200;
 }
 .ex-footer {
     background: $gray-400;
-    height: 2rem;
+    padding: ($spacer * 2) $spacer;
 }
 
 @import 'svg';
 @import 'nav-control-xs';
-@import 'nav-control-md';
+@import 'nav-control-lg';
