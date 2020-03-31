@@ -4,7 +4,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var csscomb = require('gulp-csscomb');
 var connect = require('gulp-connect');
 var sourcemaps = require('gulp-sourcemaps');
 
@@ -39,7 +38,6 @@ function buildCss() {
             {"includePaths": libraries}
         ).on('error', sass.logError))
     .pipe(autoprefixer(autoprefixerOptions))
-    .pipe(csscomb())
     // .pipe(sourcemaps.write())
     // .pipe(sourcemaps.write("../maps/"))
     .pipe(gulp.dest(output))
