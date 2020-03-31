@@ -33,7 +33,7 @@ body {
     }
 }
 .ex-header {
-    background: #ddd;
+    background: $gray-400;
     height: 2rem;
 }
 .ex-nav {
@@ -49,11 +49,10 @@ body {
     }
 }
 .ex-section {
-    background: #ffc;
-    height: 20rem;
+    background: $gray-200;
 }
 .ex-footer {
-    background: #ddd;
+    background: $gray-400;
     height: 2rem;
 }
 

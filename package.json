@@ -21,6 +21,8 @@
     "gulp-sourcemaps": "^2.6.5"
   },
   "dependencies": {
-    "bootstrap": "^4.4.1"
+    "bootstrap": "^4.4.1",
+    "lodash": "^4.17.15",
+    "lodash.template": "^4.5.0"
   }
 }
