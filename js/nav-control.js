@@ -8,13 +8,15 @@
 
     const pluginName = "navControl";
     const defaults = {
-        breakpoint: 768, // tablet breakpoint
+        breakpoint: 992, // desktop breakpoint
         duration: 300, // animation time
+        fixedHeader: true,
         SELECTOR_NAV: '.js-nav',
         SELECTOR_NAV_ITEM: '.js-nav-item',
         SELECTOR_NAV_LEVEL: '.js-nav-level',
         SELECTOR_BACK: '.js-go-back',
         SELECTOR_HAS_SUBNAV: '.js-has-subnav',
+        SELECTOR_HEADER: '.js-nav-level-header',
         CLASSNAME_ACTIVE: 'active-xs',
         CLASSNAME_INACTIVE: 'inactive-xs'
     };
@@ -38,6 +40,10 @@
 
             if (this.settings.duration > 0) {
                 this.$firstMenuElement.css('transitionDuration', this.settings.duration + 'ms');
+            }
+
+            if (this.settings.fixedHeader > 0) {
+                this.$el.find(this.settings.SELECTOR_HEADER).parent('li').addClass('nav-level-header-fixed');
             }
 
             this.$el.on('click', this.settings.SELECTOR_BACK, function(e){

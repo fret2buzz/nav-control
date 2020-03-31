@@ -21,7 +21,16 @@ html {
     font-size: 16px;
 }
 body {
+    font-family: 'Roboto', sans-serif;
     font-size: 1rem;
+
+    a {
+        color: $black;
+
+        @include hover {
+            color: $black;
+        }
+    }
 }
 .ex-header {
     background: #ddd;
@@ -36,7 +45,7 @@ body {
     a:focus,
     button:focus {
         outline-offset: -2px;
-        outline: 2px dashed #369;
+        outline: 2px dashed $blue;
     }
 }
 .ex-section {
@@ -48,5 +57,6 @@ body {
     height: 2rem;
 }
 
+@import 'svg';
 @import 'nav-control-xs';
 @import 'nav-control-md';
