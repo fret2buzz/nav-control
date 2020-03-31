@@ -4295,5 +4295,9 @@ body {
           padding: 0; }
           .ex-nav .nav-item:hover .nav-level .nav-item-button span::after {
             display: none; }
+    .ex-nav .nav-item .nav-item {
+      padding-left: 1rem; }
+      .ex-nav .nav-item .nav-item:first-child {
+        padding-left: 0; }
     .ex-nav .nav-item .nav-level-header + .nav-item {
       padding-left: 0; } }

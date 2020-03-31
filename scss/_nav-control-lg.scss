@@ -99,6 +99,13 @@
                     }
                 }
             }
+            .nav-item {
+                padding-left: $spacer;
+
+                &:first-child {
+                    padding-left: 0;
+                }
+            }
             .nav-level-header + .nav-item {
                 padding-left: 0;
             }

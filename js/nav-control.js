@@ -32,7 +32,6 @@
         init: function () {
             var self = this;
             this.$el = $(this.element);
-            console.log(this.settings.duration);
 
             this.$navigation = this.$el.find(this.settings.SELECTOR_NAV);
             this.$firstMenuElement = this.$navigation.find(' > ' + this.settings.SELECTOR_NAV_LEVEL);
