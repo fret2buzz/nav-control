@@ -2,11 +2,10 @@
  *  navControl 2020
  *  Under MIT License
  */
-;
-(function($, window, document, undefined) {
-    "use strict";
+(function ($, window, document, undefined) {
+    'use strict';
 
-    const pluginName = "navControl";
+    const pluginName = 'navControl';
     const defaults = {
         breakpoint: 992, // desktop breakpoint
         duration: 500, // animation time
@@ -18,7 +17,7 @@
         SELECTOR_HAS_SUBNAV: '.js-has-subnav',
         SELECTOR_HEADER: '.js-nav-level-header',
         CLASSNAME_ACTIVE: 'active-xs',
-        CLASSNAME_INACTIVE: 'inactive-xs'
+        CLASSNAME_INACTIVE: 'inactive-xs',
     };
 
     function Plugin(element, options) {
@@ -30,7 +29,7 @@
     }
 
     $.extend(Plugin.prototype, {
-        init: function() {
+        init: function () {
             var self = this;
             this.$el = $(this.element);
             console.log(this.settings.duration);
@@ -42,24 +41,24 @@
                 this.$el.find(this.settings.SELECTOR_HEADER).addClass('nav-level-header-fixed');
             }
 
-            this.$el.on('click', this.settings.SELECTOR_BACK, function(e){
+            this.$el.on('click', this.settings.SELECTOR_BACK, function (e) {
                 self.onClickGoBackButton(this, e);
             });
-            this.$el.on('click', this.settings.SELECTOR_HAS_SUBNAV, function(e){
+            this.$el.on('click', this.settings.SELECTOR_HAS_SUBNAV, function (e) {
                 self.onClickNextButton(this, e);
             });
         },
-        transition: function() {
+        transition: function () {
             var self = this;
 
             if (this.settings.duration > 0) {
                 this.$firstMenuElement.css('transitionDuration', this.settings.duration + 'ms');
-                setTimeout(function() {
+                setTimeout(function () {
                     self.$firstMenuElement.css('transitionDuration', '0ms');
                 }, this.settings.duration);
             }
         },
-        onClickNextButton: function(element, event) {
+        onClickNextButton: function (element, event) {
             var self = this;
 
             if ($(window).width() < this.settings.breakpoint) {
@@ -76,9 +75,11 @@
 
                 var height = $el.nextAll(this.settings.SELECTOR_NAV_LEVEL).first().height();
 
-                $el.nextAll(this.settings.SELECTOR_NAV_LEVEL).first().css('top', this.topPosition + 'px');
+                $el.nextAll(this.settings.SELECTOR_NAV_LEVEL)
+                    .first()
+                    .css('top', this.topPosition + 'px');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $el.nextAll(self.settings.SELECTOR_NAV_LEVEL).first().css('top', 0);
                     self.$el.scrollTop(0);
                     self.$navigation.css('height', height + 'px');
@@ -88,7 +89,7 @@
                 }, this.settings.duration);
             }
         },
-        onClickGoBackButton: function(element, event) {
+        onClickGoBackButton: function (element, event) {
             var self = this;
             event.preventDefault();
             var $el = $(element);
@@ -103,7 +104,7 @@
             this.$el.scrollTop(this.topPosition);
             $el.closest(this.settings.SELECTOR_NAV_LEVEL).css('top', this.topPosition);
 
-            setTimeout(function() {
+            setTimeout(function () {
                 console.log(self.$navigation);
                 self.$navigation.css('height', 'auto');
                 parentItem.removeClass(self.settings.CLASSNAME_ACTIVE);
@@ -111,19 +112,17 @@
 
             var leftPosition = (parents.length - 2) * -100;
             this.$firstMenuElement.css('left', leftPosition + '%');
-            setTimeout(function() {
+            setTimeout(function () {
                 parentItem.find(self.settings.SELECTOR_HAS_SUBNAV).focus();
             }, this.settings.duration);
-        }
+        },
     });
 
-    $.fn[pluginName] = function(options) {
-        return this.each(function() {
-            if (!$.data(this, "plugin_" + pluginName)) {
-                $.data(this, "plugin_" +
-                    pluginName, new Plugin(this, options));
+    $.fn[pluginName] = function (options) {
+        return this.each(function () {
+            if (!$.data(this, 'plugin_' + pluginName)) {
+                $.data(this, 'plugin_' + pluginName, new Plugin(this, options));
             }
         });
     };
-
 })(jQuery, window, document);
