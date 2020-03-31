@@ -5418,7 +5418,6 @@ body a:hover {
 @media (max-width: 991.98px) {
 	.ex-nav {
 		width: 100%;
-		position: relative;
 		background: #fff;
 		overflow: hidden;
 		height: 100%;
@@ -5529,12 +5528,21 @@ body a:hover {
 		background: transparent url('data:image/svg+xml;charset%3Dutf8,%3Csvg xmlns%3D%22http://www.w3.org/2000/svg%22 width%3D%2232%22 height%3D%2232%22%3E%3Cpath fill%3D%22%23007bff%22 d%3D%22M23.731 28.657a.998.998 0 00-.088-1.445l-12.99-11.144L23.649 4.784c.435-.379.47-1.026.078-1.445s-1.063-.454-1.499-.075L8.351 15.314a1 1 0 00.003 1.523l.001.001 13.877 11.904a1.09 1.09 0 001.499-.085z%22/%3E%3C/svg%3E%0A') no-repeat 50% 50%;
 		background-size: 100%;
 	}
-	.ex-nav .nav-level-in {
-		padding: 1rem;
-	}
 	.ex-nav .nav-level-item li a {
 		display: block;
 		padding: 1rem;
-		border-bottom: 1px solid #ccc;
+		border-bottom: 1px solid #dee2e6;
+	}
+}
+
+@media (min-width: 992px) {
+	.ex-nav .nav-level-header {
+		display: none;
+	}
+	.ex-nav .nav {
+		height: auto !important;
+	}
+	.ex-nav .nav-level {
+		left: 0 !important;
 	}
 }

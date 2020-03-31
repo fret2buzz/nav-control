@@ -38,10 +38,6 @@
             this.$navigation = this.$el.find(this.settings.SELECTOR_NAV);
             this.$firstMenuElement = this.$navigation.find(' > ' + this.settings.SELECTOR_NAV_LEVEL);
 
-            if (this.settings.duration > 0) {
-                this.$firstMenuElement.css('transitionDuration', this.settings.duration + 'ms');
-            }
-
             if (this.settings.fixedHeader > 0) {
                 this.$el.find(this.settings.SELECTOR_HEADER).parent('li').addClass('nav-level-header-fixed');
             }
@@ -52,6 +48,16 @@
             this.$el.on('click', this.settings.SELECTOR_HAS_SUBNAV, function(e){
                 self.onClickNextButton(this, e);
             });
+        },
+        transition: function() {
+            var self = this;
+
+            if (this.settings.duration > 0) {
+                this.$firstMenuElement.css('transitionDuration', this.settings.duration + 'ms');
+                setTimeout(function() {
+                    self.$firstMenuElement.css('transitionDuration', '0ms');
+                }, this.settings.duration);
+            }
         },
         onClickNextButton: function(element, event) {
             var self = this;
@@ -66,6 +72,7 @@
 
                 var leftPosition = $el.parents(this.settings.SELECTOR_NAV_LEVEL).length * -100;
                 this.$firstMenuElement.css('left', leftPosition + '%');
+                this.transition();
 
                 var height = $el.nextAll(this.settings.SELECTOR_NAV_LEVEL).first().height();
 
@@ -91,6 +98,7 @@
 
             parentItem.find(this.settings.SELECTOR_HAS_SUBNAV).removeClass(this.settings.CLASSNAME_INACTIVE);
             parentItem.siblings().removeClass(this.settings.CLASSNAME_INACTIVE);
+            this.transition();
 
             this.$el.scrollTop(this.topPosition);
             $el.closest(this.settings.SELECTOR_NAV_LEVEL).css('top', this.topPosition);

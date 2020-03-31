@@ -1,0 +1,16 @@
+@include media-breakpoint-up('lg') {
+    .ex-nav {
+        // Hiding mobile specific blocks
+        .nav-level-header {
+            display: none;
+        }
+
+        // Overriding mobile inline styles
+        .nav {
+            height: auto !important;
+        }
+        .nav-level {
+            left: 0 !important;
+        }
+    }
+}

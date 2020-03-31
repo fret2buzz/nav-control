@@ -2,7 +2,6 @@
     .ex-nav {
         $arrow: 1.2rem;
         width: 100%;
-        position: relative;
         background: $white;
         overflow: hidden;
         height: 100%;
@@ -51,7 +50,7 @@
                 .nav-item-button {
                     border: 0;
                     display: block;
-                    padding: 1rem;
+                    padding: $spacer;
                     width: 100%;
                     background: 0 0;
                     text-align: left;
@@ -65,14 +64,14 @@
                 }
                 .nav-item-button-has-child {
                     position: relative;
-                    padding-right: calc(#{$arrow} + #{1rem * 2});
+                    padding-right: calc(#{$arrow} + #{$spacer * 2});
 
                     &::after {
                         content: '';
                         width: $arrow;
                         height: $arrow;
                         position: absolute;
-                        right: 1rem;
+                        right: $spacer;
                         top: 50%;
                         margin-top: -#{$arrow / 2};
 
@@ -84,7 +83,7 @@
                     text-align: center;
                     font-weight: 700;
                     font-size: 1rem;
-                    padding: 1rem;
+                    padding: $spacer;
                     margin: 0;
                     background: $gray-100;
                     position: relative;
@@ -111,7 +110,7 @@
                         width: $arrow;
                         height: $arrow;
                         position: absolute;
-                        left: 1rem;
+                        left: $spacer;
                         top: 50%;
                         margin-top: -#{$arrow / 2};
 
@@ -120,14 +119,11 @@
                 }
             }
         }
-        .nav-level-in {
-            padding: 1rem;
-        }
         .nav-level-item {
             li a {
                 display: block;
-                padding: 1rem;
-                border-bottom: 1px solid #ccc;
+                padding: $spacer;
+                border-bottom: 1px solid $gray-300;
             }
         }
     }
