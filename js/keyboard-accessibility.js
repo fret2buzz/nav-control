@@ -9,11 +9,7 @@
     const defaults = {
         breakpoint: 992, // desktop breakpoint
         SELECTOR_FIRST_LEVEL_LINK: '.js-nav-first-level-link',
-        SELECTOR_NAV_ITEM: '.js-nav-item',
-        SELECTOR_NAV_LEVEL: '.js-nav-level',
-        SELECTOR_BACK: '.js-go-back',
         SELECTOR_HAS_SUBNAV: '.js-has-subnav',
-        SELECTOR_HEADER: '.js-nav-level-header',
         CLASSNAME_ACTIVE: 'active',
     };
 
@@ -30,36 +26,39 @@
             var self = this;
             this.$el = $(this.element);
 
-            this.$el.on('focus mouseenter', this.settings.SELECTOR_FIRST_LEVEL_LINK, function () {
-                if ($(window).width() >= self.settings.breakpoint) {
+            // removing 'active' class from navigation item with subnav on focus
+            // on any of the first level links
+            this.$el.on('focus', this.settings.SELECTOR_FIRST_LEVEL_LINK, function () {
+                var isActive = $(this).parent().hasClass(self.settings.CLASSNAME_ACTIVE);
+                if ($(window).width() >= self.settings.breakpoint && !isActive) {
                     self.removeActiveItem();
                 }
             });
             this.$el.on('keydown', this.settings.SELECTOR_HAS_SUBNAV, function (e) {
                 if ($(window).width() >= self.settings.breakpoint) {
-                    // console.log(this);
-                    self.enterKey(this, e);
+                    var key = event.which;
+                    var supportedKeyCodes = [32, 13]; // spacer, enter
+                    if (supportedKeyCodes.indexOf(key) >= 0) {
+                        this.toggleActive(this, e);
+                    }
+                }
+            });
+            this.$el.on('click', this.settings.SELECTOR_HAS_SUBNAV, function (e) {
+                if ($(window).width() >= self.settings.breakpoint) {
+                    self.toggleActive(this, e);
                 }
             });
         },
         removeActiveItem: function () {
             var $el = this.$el.find(this.settings.SELECTOR_FIRST_LEVEL_LINK);
-            // console.log($el);
             $el.attr('aria-expanded', 'false');
-            // $el.css("background", "red");
             $el.parent().removeClass(this.settings.CLASSNAME_ACTIVE);
         },
-        enterKey: function (element, event) {
-            var self = this;
+        toggleActive: function (element, event) {
             var $el = $(element);
-            var key = event.which;
-            var supportedKeyCodes = [32, 13]; // spacer, enter
-
-            if (supportedKeyCodes.indexOf(key) >= 0) {
-                event.preventDefault();
-                $el.parent().toggleClass(this.settings.CLASSNAME_ACTIVE);
-                $el.attr('aria-expanded', $el.parent().hasClass(this.settings.CLASSNAME_ACTIVE));
-            }
+            event.preventDefault();
+            $el.parent().toggleClass(this.settings.CLASSNAME_ACTIVE);
+            $el.attr('aria-expanded', $el.parent().hasClass(this.settings.CLASSNAME_ACTIVE));
         },
     });
 

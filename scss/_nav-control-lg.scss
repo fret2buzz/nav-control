@@ -1,116 +1,115 @@
 @include media-breakpoint-up('lg') {
     .ex-nav {
         background: $gray-100;
+    }
 
-        // Hiding mobile specific blocks
-        .nav-level-header {
-            display: none;
+    // Hiding mobile specific blocks
+    .nav-level-header {
+        display: none;
+    }
+
+    // Overriding mobile inline styles
+    .nav {
+        height: auto !important;
+    }
+    .nav-level {
+        left: 0 !important;
+        display: flex;
+        position: relative;
+    }
+    .nav-item {
+        .nav-item-button-has-child span {
+            display: block;
+            position: relative;
+            padding-right: calc(#{$arrow-lg} + #{$spacer * 0.5});
+
+            &::after {
+                content: '';
+                width: $arrow-lg;
+                height: $arrow-lg;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                margin-top: -#{$arrow-lg / 2};
+
+                @include svg-mono($icon-arrow-down, $blue);
+            }
         }
+        .nav-item-button {
+            font-weight: 700;
+            padding: $spacer;
+            display: block;
+            position: relative;
 
-        // Overriding mobile inline styles
-        .nav {
-            height: auto !important;
+            &:hover {
+                text-decoration: none;
+            }
+            &::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 4px;
+                transition: width 0.5s, background 0.5s;
+            }
         }
         .nav-level {
-            left: 0 !important;
-            display: flex;
-            position: relative;
+            display: none;
         }
-        .nav-item {
-            .nav-item-button-has-child span {
+        // &:hover .nav-item-button,
+        &.active .nav-item-button {
+            &::after {
+                width: 100%;
+                background: $black;
+            }
+        }
+        // &:hover .nav-level,
+        &.active .nav-level {
+            position: absolute;
+            left: 0;
+            top: 100% !important;
+            width: 100%;
+            background: $gray-300;
+            padding: $spacer;
+            display: flex;
+
+            .nav-level {
                 display: block;
                 position: relative;
-                padding-right: calc(#{$arrow-lg} + #{$spacer * 0.5});
-
-                &::after {
-                    content: '';
-                    width: $arrow-lg;
-                    height: $arrow-lg;
-                    position: absolute;
-                    right: 0;
-                    top: 50%;
-                    margin-top: -#{$arrow-lg / 2};
-
-                    @include svg-mono($icon-arrow-down, $blue);
-                }
+                top: 0 !important;
+                padding: 0;
             }
             .nav-item-button {
-                font-weight: 700;
-                padding: $spacer;
-                display: block;
-                position: relative;
+                background: 0 0;
+                padding: 0;
+                margin: 0 0 $spacer;
 
+                &::after {
+                    display: none;
+                }
                 &:hover {
-                    text-decoration: none;
+                    text-decoration: underline;
                 }
-                &::after {
-                    content: '';
-                    position: absolute;
-                    width: 0;
-                    bottom: 0;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    height: 4px;
-                    transition: width 0.5s, background 0.5s;
-                }
-            }
-            .nav-level {
-                display: none;
-            }
-            &:hover .nav-item-button,
-            &.active .nav-item-button {
-                &::after {
-                    width: 100%;
-                    background: $black;
-                }
-            }
-            &:hover .nav-level,
-            &.active .nav-level {
-                display: block;
-                position: absolute;
-                left: 0;
-                top: 100% !important;
-                width: 100%;
-                background: $gray-300;
-                padding: $spacer;
-                display: flex;
-
-                .nav-level {
-                    display: block;
-                    position: relative;
-                    top: 0 !important;
+                span {
                     padding: 0;
-                }
-                .nav-item-button {
-                    background: 0 0;
-                    padding: 0;
-                    margin: 0 0 $spacer;
 
                     &::after {
                         display: none;
                     }
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                    span {
-                        padding: 0;
-
-                        &::after {
-                            display: none;
-                        }
-                    }
                 }
             }
-            .nav-item {
-                padding-left: $spacer;
+        }
+        .nav-item {
+            padding-left: $spacer;
 
-                &:first-child {
-                    padding-left: 0;
-                }
-            }
-            .nav-level-header + .nav-item {
+            &:first-child {
                 padding-left: 0;
             }
+        }
+        .nav-level-header + .nav-item {
+            padding-left: 0;
         }
     }
 }
