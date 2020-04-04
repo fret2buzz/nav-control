@@ -57,13 +57,15 @@
             .nav-level {
                 display: none;
             }
-            &:hover .nav-item-button {
+            &:hover .nav-item-button,
+            &.active .nav-item-button {
                 &::after {
                     width: 100%;
                     background: $black;
                 }
             }
-            &:hover .nav-level {
+            &:hover .nav-level,
+            &.active .nav-level {
                 display: block;
                 position: absolute;
                 left: 0;

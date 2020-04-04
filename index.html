@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/main.css" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="js/nav-control.js"></script>
+    <script src="js/keyboard-accessibility.js"></script>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
 </head>
 <body>
@@ -17,7 +18,7 @@
         <nav class="js-nav nav">
             <ul class="js-nav-level nav-level">
                 <li class="js-nav-item nav-item">
-                    <a href="#" class="js-has-subnav nav-item-button nav-item-button-has-child" role="button"><span>Men</span></a>
+                    <a href="#" class="js-has-subnav js-nav-first-level-link nav-item-button nav-item-button-has-child" role="button"><span>Men</span></a>
                     <ul class="js-nav-level nav-level">
                         <li class="nav-level-header js-nav-level-header">
                             <h2>
@@ -59,7 +60,7 @@
                     </ul>
                 </li>
                 <li class="js-nav-item nav-item">
-                    <a href="#" class="js-has-subnav nav-item-button nav-item-button-has-child" role="button"><span>Women</span></a>
+                    <a href="#" class="js-has-subnav js-nav-first-level-link nav-item-button nav-item-button-has-child" role="button"><span>Women</span></a>
                     <ul class="js-nav-level nav-level">
                         <li class="nav-level-header js-nav-level-header">
                             <h2>
@@ -84,17 +85,17 @@
                         </ul>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-item-button"><span>Sale</span></a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-item-button"><span>Brands</span></a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-item-button"><span>Departments</span></a>
+                <li class="js-nav-item nav-item">
+                    <a href="#" class="js-nav-first-level-link nav-item-button"><span>Sale</span></a>
                 </li>
                 <li class="js-nav-item nav-item">
-                    <a href="#" class="js-has-subnav nav-item-button nav-item-button-has-child" role="button"><span>Kids</span></a>
+                    <a href="#" class="js-nav-first-level-link nav-item-button"><span>Brands</span></a>
+                </li>
+                <li class="js-nav-item nav-item">
+                    <a href="#" class="js-nav-first-level-link nav-item-button"><span>Departments</span></a>
+                </li>
+                <li class="js-nav-item nav-item">
+                    <a href="#" class="js-has-subnav js-nav-first-level-link nav-item-button nav-item-button-has-child" role="button"><span>Kids</span></a>
                     <ul class="js-nav-level nav-level">
                         <li class="nav-level-header js-nav-level-header">
                             <h2>
@@ -133,6 +134,7 @@
 <script>
     $(document).ready(function(){
         $(".js-nav-control").navControl();
+        $(".js-nav-control").keyboardAccessibility();
     });
 </script>
 </body>
