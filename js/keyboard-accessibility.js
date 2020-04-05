@@ -9,8 +9,8 @@
     const defaults = {
         breakpoint: 992, // desktop breakpoint
         SELECTOR_FIRST_LEVEL_LINK: '.js-nav-first-level-link',
-        SELECTOR_HAS_SUBNAV: '.js-has-subnav',
         CLASSNAME_ACTIVE: 'active',
+        SELECTOR_CLICKABLE: '.js-nav-clickable',
     };
 
     function Plugin(element, options) {
@@ -28,22 +28,22 @@
 
             // removing 'active' class from navigation item with subnav on focus
             // on any of the first level links
-            this.$el.on('focus', this.settings.SELECTOR_FIRST_LEVEL_LINK, function () {
-                var isActive = $(this).parent().hasClass(self.settings.CLASSNAME_ACTIVE);
-                if ($(window).width() >= self.settings.breakpoint && !isActive) {
-                    self.removeActiveItem();
-                }
-            });
-            this.$el.on('keydown', this.settings.SELECTOR_HAS_SUBNAV, function (e) {
+            // this.$el.on('focus', this.settings.SELECTOR_FIRST_LEVEL_LINK, function () {
+            //     var isActive = $(this).parent().hasClass(self.settings.CLASSNAME_ACTIVE);
+            //     if ($(window).width() >= self.settings.breakpoint && !isActive) {
+            //         self.removeActiveItem();
+            //     }
+            // });
+            this.$el.on('keydown', this.settings.SELECTOR_CLICKABLE, function (e) {
                 if ($(window).width() >= self.settings.breakpoint) {
                     var key = event.which;
                     var supportedKeyCodes = [32, 13]; // spacer, enter
                     if (supportedKeyCodes.indexOf(key) >= 0) {
-                        this.toggleActive(this, e);
+                        self.toggleActive(this, e);
                     }
                 }
             });
-            this.$el.on('click', this.settings.SELECTOR_HAS_SUBNAV, function (e) {
+            this.$el.on('click', this.settings.SELECTOR_CLICKABLE, function (e) {
                 if ($(window).width() >= self.settings.breakpoint) {
                     self.toggleActive(this, e);
                 }
@@ -56,9 +56,13 @@
         },
         toggleActive: function (element, event) {
             var $el = $(element);
+            var isActive = $el.parent().hasClass(this.settings.CLASSNAME_ACTIVE);
             event.preventDefault();
-            $el.parent().toggleClass(this.settings.CLASSNAME_ACTIVE);
-            $el.attr('aria-expanded', $el.parent().hasClass(this.settings.CLASSNAME_ACTIVE));
+            this.removeActiveItem();
+            if (!isActive) {
+                $el.parent().addClass(this.settings.CLASSNAME_ACTIVE);
+                $el.attr('aria-expanded', 'true');
+            }
         },
     });
 

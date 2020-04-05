@@ -4262,6 +4262,7 @@ body {
       transition: width 0.5s, background 0.5s; }
   .nav-item .nav-level {
     display: none; }
+  .nav-item:hover .nav-item-button::after,
   .nav-item.active .nav-item-button::after {
     width: 100%;
     background: #000; }
