@@ -4090,7 +4090,8 @@ html {
 
 body {
   font-family: 'Roboto', sans-serif;
-  font-size: 1rem; }
+  font-size: 1rem;
+  overflow-y: scroll; }
   body a {
     color: #000; }
     body a:hover {
@@ -4112,7 +4113,8 @@ body {
 
 .ex-section {
   padding: 2rem 1rem;
-  background: #e9ecef; }
+  background: #e9ecef;
+  height: 48rem; }
 
 .ex-footer {
   background: #ced4da;
