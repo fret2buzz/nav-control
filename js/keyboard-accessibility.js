@@ -8,13 +8,12 @@
     const pluginName = 'keyboardAccessibility';
     const defaults = {
         breakpoint: 992, // desktop breakpoint
-        SELECTOR_NAV_FIRST: '.js-nav-item-first',
-        SELECTOR_FIRST_LEVEL_LINK: '.js-nav-item-first > a',
-        SELECTOR_NAV_LEVEL: '.js-nav-level',
-        SELECTOR_CLICKABLE: '.js-nav-clickable',
+        CLASSNAME_NAV_LEVEL: 'js-nav-level',
         CLASSNAME_ACTIVE: 'active',
-        CLASSNAME_NAV_ITEM_FIRST: 'js-nav-item-first',
-        CLASSNAME_CLICKABLE: 'js-nav-clickable',
+        CLASSNAME_NAV_ITEM_PARENT: 'js-nav-item-parent',
+        CLASSNAME_ITEM_LINK: 'js-nav-item-link',
+        CLASSNAME_DROPDOWN: 'js-nav-dropdown',
+        CLASSNAME_HAS_SUBNAV: 'js-has-subnav',
     };
 
     function Plugin(element, options) {
@@ -30,65 +29,73 @@
             var self = this;
             this.$el = $(this.element);
             var breakpoint = typeof this.settings.breakpoint === 'number' && $(window).width() >= this.settings.breakpoint;
+            var selectors = {
+                inner: '.' + this.settings.CLASSNAME_DROPDOWN + ' a',
+                main: '.' + this.settings.CLASSNAME_ITEM_LINK,
+            };
+            this.$innerLinks = $(selectors.inner);
+            this.$mainLinks = $(selectors.main);
 
-            this.$el.on('keydown', 'a', function (e) {
+            this.$el.on('keydown', selectors.inner + ', ' + selectors.main, function (e) {
+                // console.log(this);
+
+                var hasSubnav = $(this).hasClass(self.settings.CLASSNAME_HAS_SUBNAV);
+                var firstLevel = $(this).parent().hasClass(self.settings.CLASSNAME_NAV_ITEM_PARENT);
+                var active = $(this).parent().hasClass(self.settings.CLASSNAME_ACTIVE);
+
                 if (breakpoint) {
                     var key = e.which;
+
+                    if (e.which === 9 && e.shiftKey && firstLevel) {
+                        // shift + Tab
+                        self.removeActiveItem();
+                    }
+
+                    var supportedKeyCodes = [32, 13]; // spacer, enter
+
+                    if (supportedKeyCodes.indexOf(key) >= 0 && hasSubnav) {
+                        e.preventDefault();
+                        self.toggleActive(this, active);
+                    }
+
                     if (key === 27) {
                         // escape
+                        e.preventDefault();
                         self.removeActiveItem();
                     }
                     if (key === 37) {
                         // left
-                        self.horizontal(this, false, e);
+                        self.horizontal(this, false, e, firstLevel);
                     }
                     if (key === 39) {
                         // right
-                        self.horizontal(this, true, e);
+                        self.horizontal(this, true, e, firstLevel);
                     }
                     if (key === 38) {
                         // up
-                        self.vertical(this, false, e);
+                        self.vertical(this, false, e, firstLevel, active);
                     }
                     if (key === 40) {
                         // down
-                        self.vertical(this, true, e);
+                        self.vertical(this, true, e, firstLevel, active);
                     }
                 }
             });
-            this.$el.on('keydown', this.settings.SELECTOR_FIRST_LEVEL_LINK, function (e) {
-                if (breakpoint) {
-                    var key = e.which;
-                    if (e.which === 9 && e.shiftKey) {
-                        // shift + Tab
-                        self.removeActiveItem();
-                    }
-                }
-            });
-            this.$el.on('keydown', this.settings.SELECTOR_CLICKABLE, function (e) {
-                if (breakpoint) {
-                    var key = e.which;
-                    var supportedKeyCodes = [32, 13]; // spacer, enter
-                    if (supportedKeyCodes.indexOf(key) >= 0) {
-                        e.preventDefault();
-                        self.toggleActive(this);
-                    }
-                }
-            });
-            this.$el.on('click', this.settings.SELECTOR_CLICKABLE, function (e) {
-                if (breakpoint) {
+            this.$el.on('click', '.' + this.settings.CLASSNAME_ITEM_LINK, function (e) {
+                if (breakpoint && $(this).hasClass(self.settings.CLASSNAME_HAS_SUBNAV)) {
+                    var active = $(this).parent().hasClass(self.settings.CLASSNAME_ACTIVE);
                     e.preventDefault();
-                    self.toggleActive(this);
+                    self.toggleActive(this, active);
                 }
             });
         },
-        horizontal: function (element, next, event) {
+        horizontal: function (element, next, event, firstLevel) {
             var $el = $(element);
             var $parent = $el.parent();
-            var $closestItem = $el.closest(this.settings.SELECTOR_NAV_FIRST);
+            var $closestItem = $el.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT);
             event.preventDefault();
             this.removeActiveItem();
-            if ($parent.hasClass(this.settings.CLASSNAME_NAV_ITEM_FIRST)) {
+            if (firstLevel) {
                 // top level
                 // set focus on prev/next of the parent links
                 $parent = next ? $parent.next() : $parent.prev();
@@ -99,38 +106,42 @@
                 $closestItem.find('a').first().focus();
             }
         },
-        vertical: function (element, down, event) {
+        vertical: function (element, down, event, firstLevel, active) {
             var $el = $(element);
             var $parent = $el.parent();
             event.preventDefault();
-            // if (down) {
-            //     // top level
-            //     if ($el.hasClass(this.settings.CLASSNAME_CLICKABLE) && !$parent.hasClass(this.settings.CLASSNAME_ACTIVE)) {
-            //         this.toggleActive(element);
-            //     }
-            //     // $parent.find(this.settings.SELECTOR_NAV_LEVEL+' a').first().focus();
-            // } else {
-            //     if ($el.hasClass(this.settings.CLASSNAME_CLICKABLE) && $parent.hasClass(this.settings.CLASSNAME_ACTIVE)) {
-            //         this.toggleActive(element);
-            //     }
-            // }
+            if (down) {
+                // top level
+                if (firstLevel && !active) {
+                    this.removeActiveItem();
+                    this.addActiveItem(element);
+                } else {
+                    this.$innerLinks.first().focus();
+                }
+            } else {
+                // top level
+                if (firstLevel && active) {
+                    this.removeActiveItem();
+                }
+            }
         },
         removeActiveItem: function () {
-            var $el = this.$el.find('.'+this.settings.CLASSNAME_ACTIVE);
-            console.log($el);
-            $el.attr('aria-expanded', 'false');
-            $el.removeClass(this.settings.CLASSNAME_ACTIVE);
+            var $el = this.$el.find('.' + this.settings.CLASSNAME_ACTIVE);
+            if ($el.length) {
+                $el.attr('aria-expanded', 'false');
+                $el.removeClass(this.settings.CLASSNAME_ACTIVE);
+                var index = $el.index();
+                this.$mainLinks.eq(index).focus();
+            }
         },
         addActiveItem: function (element) {
             var $el = $(element);
             $el.parent().addClass(this.settings.CLASSNAME_ACTIVE);
             $el.attr('aria-expanded', 'true');
         },
-        toggleActive: function (element) {
-            var $el = $(element);
-            var isActive = $el.parent().hasClass(this.settings.CLASSNAME_ACTIVE);
+        toggleActive: function (element, active) {
             this.removeActiveItem();
-            if (!isActive) {
+            if (!active) {
                 this.addActiveItem(element);
             }
         },
