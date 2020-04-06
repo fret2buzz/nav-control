@@ -8,7 +8,6 @@
     const pluginName = 'keyboardAccessibility';
     const defaults = {
         breakpoint: 992, // desktop breakpoint
-        CLASSNAME_NAV_LEVEL: 'js-nav-level',
         CLASSNAME_ACTIVE: 'active',
         CLASSNAME_NAV_ITEM_PARENT: 'js-nav-item-parent',
         CLASSNAME_ITEM_LINK: 'js-nav-item-link',
@@ -33,29 +32,32 @@
                 inner: '.' + this.settings.CLASSNAME_DROPDOWN + ' a',
                 main: '.' + this.settings.CLASSNAME_ITEM_LINK,
             };
-            this.$innerLinks = $(selectors.inner);
-            this.$mainLinks = $(selectors.main);
+            this.$mainLinks = this.$el.find(selectors.main);
 
             this.$el.on('keydown', selectors.inner + ', ' + selectors.main, function (e) {
                 // console.log(this);
 
-                var hasSubnav = $(this).hasClass(self.settings.CLASSNAME_HAS_SUBNAV);
-                var firstLevel = $(this).parent().hasClass(self.settings.CLASSNAME_NAV_ITEM_PARENT);
-                var active = $(this).parent().hasClass(self.settings.CLASSNAME_ACTIVE);
+                self.currentLink = this;
+                self.$currentLink = $(self.currentLink);
+                self.$innerLinks = self.$currentLink.closest('.' + self.settings.CLASSNAME_NAV_ITEM_PARENT).find(selectors.inner);
+                self.currentIndex = self.$innerLinks.index(self.currentLink);
+                self.hasSubnav = self.$currentLink.hasClass(self.settings.CLASSNAME_HAS_SUBNAV);
+                self.firstLevel = self.$currentLink.parent().hasClass(self.settings.CLASSNAME_NAV_ITEM_PARENT);
+                self.active = self.$currentLink.parent().hasClass(self.settings.CLASSNAME_ACTIVE);
 
                 if (breakpoint) {
                     var key = e.which;
 
-                    if (e.which === 9 && e.shiftKey && firstLevel) {
+                    if (e.which === 9 && e.shiftKey && self.firstLevel) {
                         // shift + Tab
                         self.removeActiveItem();
                     }
 
                     var supportedKeyCodes = [32, 13]; // spacer, enter
 
-                    if (supportedKeyCodes.indexOf(key) >= 0 && hasSubnav) {
+                    if (supportedKeyCodes.indexOf(key) >= 0 && self.hasSubnav) {
                         e.preventDefault();
-                        self.toggleActive(this, active);
+                        self.toggleActive();
                     }
 
                     if (key === 27) {
@@ -65,37 +67,38 @@
                     }
                     if (key === 37) {
                         // left
-                        self.horizontal(this, false, e, firstLevel);
+                        self.horizontal(false, e);
                     }
                     if (key === 39) {
                         // right
-                        self.horizontal(this, true, e, firstLevel);
+                        self.horizontal(true, e);
                     }
                     if (key === 38) {
                         // up
-                        self.vertical(this, false, e, firstLevel, active);
+                        self.vertical(false, e);
                     }
                     if (key === 40) {
                         // down
-                        self.vertical(this, true, e, firstLevel, active);
+                        self.vertical(true, e);
                     }
                 }
             });
             this.$el.on('click', '.' + this.settings.CLASSNAME_ITEM_LINK, function (e) {
-                if (breakpoint && $(this).hasClass(self.settings.CLASSNAME_HAS_SUBNAV)) {
-                    var active = $(this).parent().hasClass(self.settings.CLASSNAME_ACTIVE);
+                self.$currentLink = $(this);
+                self.hasSubnav = self.$currentLink.hasClass(self.settings.CLASSNAME_HAS_SUBNAV);
+                self.active = self.$currentLink.parent().hasClass(self.settings.CLASSNAME_ACTIVE);
+                if (breakpoint && self.hasSubnav) {
                     e.preventDefault();
-                    self.toggleActive(this, active);
+                    self.toggleActive();
                 }
             });
         },
-        horizontal: function (element, next, event, firstLevel) {
-            var $el = $(element);
-            var $parent = $el.parent();
-            var $closestItem = $el.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT);
+        horizontal: function (next, event) {
+            var $parent = this.$currentLink.parent();
+            var $closestItem = this.$currentLink.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT);
             event.preventDefault();
             this.removeActiveItem();
-            if (firstLevel) {
+            if (this.firstLevel) {
                 // top level
                 // set focus on prev/next of the parent links
                 $parent = next ? $parent.next() : $parent.prev();
@@ -106,22 +109,27 @@
                 $closestItem.find('a').first().focus();
             }
         },
-        vertical: function (element, down, event, firstLevel, active) {
-            var $el = $(element);
-            var $parent = $el.parent();
+        vertical: function (down, event) {
             event.preventDefault();
             if (down) {
                 // top level
-                if (firstLevel && !active) {
+                if (this.firstLevel && this.hasSubnav && !this.active) {
                     this.removeActiveItem();
-                    this.addActiveItem(element);
+                    this.addActiveItem();
+                } else if (this.firstLevel) {
+                    console.log(this.$innerLinks);
+                    this.$innerLinks.eq(0).focus();
                 } else {
-                    this.$innerLinks.first().focus();
+                    console.log(this.currentIndex);
+                    this.$innerLinks.eq(this.currentIndex + 1).focus();
                 }
             } else {
                 // top level
-                if (firstLevel && active) {
+                if (this.firstLevel && this.hasSubnav && this.active) {
                     this.removeActiveItem();
+                } else {
+                    console.log(this.currentIndex);
+                    this.$innerLinks.eq(this.currentIndex - 1).focus();
                 }
             }
         },
@@ -134,15 +142,14 @@
                 this.$mainLinks.eq(index).focus();
             }
         },
-        addActiveItem: function (element) {
-            var $el = $(element);
-            $el.parent().addClass(this.settings.CLASSNAME_ACTIVE);
-            $el.attr('aria-expanded', 'true');
+        addActiveItem: function () {
+            this.$currentLink.parent().addClass(this.settings.CLASSNAME_ACTIVE);
+            this.$currentLink.attr('aria-expanded', 'true');
         },
-        toggleActive: function (element, active) {
+        toggleActive: function (active) {
             this.removeActiveItem();
-            if (!active) {
-                this.addActiveItem(element);
+            if (!this.active) {
+                this.addActiveItem();
             }
         },
     });
