@@ -16,6 +16,7 @@
 @import "./bootstrap/scss/root";
 @import "./bootstrap/scss/reboot";
 @import "./bootstrap/scss/grid";
+@import "./bootstrap/scss/tables";
 
 $arrow-xs: 1.2rem;
 $arrow-lg: 0.75rem;
@@ -39,6 +40,10 @@ body {
 .ex-header {
     background: $gray-400;
     padding: ($spacer * 2) $spacer;
+
+    .table:last-child {
+        margin-bottom: 0;
+    }
 }
 .ex-nav {
     ul {
@@ -60,6 +65,14 @@ body {
 .ex-footer {
     background: $gray-400;
     padding: ($spacer * 2) $spacer;
+}
+kbd {
+    border: 2px outset $gray-200;
+    background-color: $gray-200;
+    padding: 5px;
+    cursor: default;
+    color: $black;
+    display: inline-block;
 }
 
 @import 'svg';

@@ -144,6 +144,12 @@
                 $el.attr('aria-expanded', 'false');
                 $el.removeClass(this.settings.CLASSNAME_ACTIVE);
             }
+            if (!this.firstLevel) {
+                this.$currentLink
+                    .closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT)
+                    .find(this.selectors.main)
+                    .focus();
+            }
         },
         addActiveItem: function () {
             this.$currentLink.parent().addClass(this.settings.CLASSNAME_ACTIVE);
