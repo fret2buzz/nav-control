@@ -27,7 +27,6 @@
         init: function () {
             var self = this;
             this.$el = $(this.element);
-            var breakpoint = typeof this.settings.breakpoint === 'number' && $(window).width() >= this.settings.breakpoint;
             this.selectors = {
                 inner: '.' + this.settings.CLASSNAME_DROPDOWN + ' a',
                 main: '.' + this.settings.CLASSNAME_ITEM_LINK,
@@ -42,7 +41,7 @@
                 self.firstLevel = self.$currentLink.parent().hasClass(self.settings.CLASSNAME_NAV_ITEM_PARENT);
                 self.active = self.$currentLink.parent().hasClass(self.settings.CLASSNAME_ACTIVE);
 
-                if (breakpoint) {
+                if (typeof self.settings.breakpoint === 'number' && $(window).width() >= self.settings.breakpoint) {
                     var key = e.which;
                     var supportedKeyCodes = [32, 13]; // spacer, enter
                     if (supportedKeyCodes.indexOf(key) >= 0 && self.hasSubnav) {
@@ -76,7 +75,7 @@
                 self.$currentLink = $(this);
                 self.hasSubnav = self.$currentLink.hasClass(self.settings.CLASSNAME_HAS_SUBNAV);
                 self.active = self.$currentLink.parent().hasClass(self.settings.CLASSNAME_ACTIVE);
-                if (breakpoint && self.hasSubnav) {
+                if (typeof self.settings.breakpoint === 'number' && $(window).width() >= self.settings.breakpoint && self.hasSubnav) {
                     e.preventDefault();
                     self.toggleActive();
                 }
