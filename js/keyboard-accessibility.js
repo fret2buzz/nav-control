@@ -28,38 +28,27 @@
             var self = this;
             this.$el = $(this.element);
             var breakpoint = typeof this.settings.breakpoint === 'number' && $(window).width() >= this.settings.breakpoint;
-            var selectors = {
+            this.selectors = {
                 inner: '.' + this.settings.CLASSNAME_DROPDOWN + ' a',
                 main: '.' + this.settings.CLASSNAME_ITEM_LINK,
             };
-            this.$mainLinks = this.$el.find(selectors.main);
+            this.$mainLinks = this.$el.find(this.selectors.main);
+            this.currentIndex = 0;
 
-            this.$el.on('keydown', selectors.inner + ', ' + selectors.main, function (e) {
-                // console.log(this);
-
+            this.$el.on('keydown', self.selectors.inner + ', ' + self.selectors.main, function (e) {
                 self.currentLink = this;
                 self.$currentLink = $(self.currentLink);
-                self.$innerLinks = self.$currentLink.closest('.' + self.settings.CLASSNAME_NAV_ITEM_PARENT).find(selectors.inner);
-                self.currentIndex = self.$innerLinks.index(self.currentLink);
                 self.hasSubnav = self.$currentLink.hasClass(self.settings.CLASSNAME_HAS_SUBNAV);
                 self.firstLevel = self.$currentLink.parent().hasClass(self.settings.CLASSNAME_NAV_ITEM_PARENT);
                 self.active = self.$currentLink.parent().hasClass(self.settings.CLASSNAME_ACTIVE);
 
                 if (breakpoint) {
                     var key = e.which;
-
-                    if (e.which === 9 && e.shiftKey && self.firstLevel) {
-                        // shift + Tab
-                        self.removeActiveItem();
-                    }
-
                     var supportedKeyCodes = [32, 13]; // spacer, enter
-
                     if (supportedKeyCodes.indexOf(key) >= 0 && self.hasSubnav) {
                         e.preventDefault();
                         self.toggleActive();
                     }
-
                     if (key === 27) {
                         // escape
                         e.preventDefault();
@@ -97,7 +86,6 @@
             var $parent = this.$currentLink.parent();
             var $closestItem = this.$currentLink.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT);
             event.preventDefault();
-            this.removeActiveItem();
             if (this.firstLevel) {
                 // top level
                 // set focus on prev/next of the parent links
@@ -111,26 +99,25 @@
         },
         vertical: function (down, event) {
             event.preventDefault();
+            var $innerLinks = this.$currentLink.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT).find(this.selectors.inner);
+
             if (down) {
                 // top level
                 if (this.firstLevel && this.hasSubnav && !this.active) {
                     this.removeActiveItem();
                     this.addActiveItem();
                 } else if (this.firstLevel) {
-                    console.log(this.$innerLinks);
-                    this.$innerLinks.eq(0).focus();
-                } else {
                     console.log(this.currentIndex);
-                    this.$innerLinks.eq(this.currentIndex + 1).focus();
+                    $innerLinks.eq(0).focus();
                 }
             } else {
                 // top level
-                if (this.firstLevel && this.hasSubnav && this.active) {
-                    this.removeActiveItem();
-                } else {
-                    console.log(this.currentIndex);
-                    this.$innerLinks.eq(this.currentIndex - 1).focus();
-                }
+                // if (this.firstLevel && this.hasSubnav && this.active) {
+                //     this.removeActiveItem();
+                // } else {
+                //     console.log(this.currentIndex);
+                //     $innerLinks.eq(this.currentIndex - 1).focus();
+                // }
             }
         },
         removeActiveItem: function () {
@@ -138,8 +125,6 @@
             if ($el.length) {
                 $el.attr('aria-expanded', 'false');
                 $el.removeClass(this.settings.CLASSNAME_ACTIVE);
-                var index = $el.index();
-                this.$mainLinks.eq(index).focus();
             }
         },
         addActiveItem: function () {
