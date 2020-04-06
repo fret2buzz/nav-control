@@ -141,7 +141,7 @@
         removeActiveItem: function () {
             var $el = this.$el.find('.' + this.settings.CLASSNAME_ACTIVE);
             if ($el.length) {
-                $el.attr('aria-expanded', 'false');
+                $el.find(this.selectors.main).attr('aria-expanded', 'false');
                 $el.removeClass(this.settings.CLASSNAME_ACTIVE);
             }
             if (!this.firstLevel) {
