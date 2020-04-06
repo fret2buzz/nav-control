@@ -104,20 +104,38 @@
             if (down) {
                 // top level
                 if (this.firstLevel && this.hasSubnav && !this.active) {
+                    this.currentIndex = 0;
                     this.removeActiveItem();
                     this.addActiveItem();
-                } else if (this.firstLevel) {
-                    console.log(this.currentIndex);
+                } else if (this.firstLevel && this.hasSubnav) {
                     $innerLinks.eq(0).focus();
+                } else if (this.currentIndex < $innerLinks.length - 1) {
+                    this.currentIndex = $innerLinks.index(document.activeElement);
+                    this.currentIndex++;
+                    $innerLinks.eq(this.currentIndex).focus();
+                } else {
+                    this.$currentLink
+                        .closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT)
+                        .next()
+                        .find(this.selectors.main)
+                        .focus();
                 }
             } else {
                 // top level
-                // if (this.firstLevel && this.hasSubnav && this.active) {
-                //     this.removeActiveItem();
-                // } else {
-                //     console.log(this.currentIndex);
-                //     $innerLinks.eq(this.currentIndex - 1).focus();
-                // }
+                if (this.firstLevel && this.hasSubnav && this.active) {
+                    this.removeActiveItem();
+                } else if (this.firstLevel) {
+                    this.$currentLink.parent().prev().find(this.selectors.main).focus();
+                } else if (this.currentIndex === 0) {
+                    this.$currentLink
+                        .closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT)
+                        .find(this.selectors.main)
+                        .focus();
+                } else {
+                    this.currentIndex = $innerLinks.index(document.activeElement);
+                    this.currentIndex--;
+                    $innerLinks.eq(this.currentIndex).focus();
+                }
             }
         },
         removeActiveItem: function () {
