@@ -31,7 +31,6 @@
                 inner: '.' + this.settings.CLASSNAME_DROPDOWN + ' a',
                 main: '.' + this.settings.CLASSNAME_ITEM_LINK,
             };
-            this.$mainLinks = this.$el.find(this.selectors.main);
             this.currentIndex = 0;
 
             this.$el.on('keydown', self.selectors.inner + ', ' + self.selectors.main, function (e) {
