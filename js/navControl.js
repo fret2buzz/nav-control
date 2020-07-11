@@ -9,7 +9,7 @@ function NavControl(options) {
     this.defaults = {
         selector: '.js-nav-control',
         breakpoint: 992, // desktop breakpoint
-        duration: 500, // animation time
+        duration: 400, // animation time
         fixedHeader: true,
         SELECTOR_NAV: '.js-nav',
         SELECTOR_NAV_ITEM: '.js-nav-item',
@@ -43,11 +43,13 @@ NavControl.prototype.init = function () {
         }
 
         this.el.addEventListener('click', function (e) {
-            let target = e.target;
-            if (target.classList.contains(self.settings.SELECTOR_BACK.substr(1))) {
-                // self.onClickGoBackButton(target, e);
+            var target = e.target;
+            var selBack = self.settings.SELECTOR_BACK.substr(1);
+            var selNext = self.settings.SELECTOR_HAS_SUBNAV.substr(1);
+            if (target.classList.contains(selBack)) {
+                self.onClickGoBackButton(target, e);
             };
-            if (target.classList.contains(self.settings.SELECTOR_HAS_SUBNAV.substr(1))) {
+            if (target.classList.contains(selNext)) {
                 self.onClickNextButton(target, e);
             };
         });
@@ -67,6 +69,17 @@ NavControl.prototype.transition = function () {
         }, this.settings.duration);
     }
 };
+NavControl.prototype.parents = function (element) {
+    var node = element;
+    var leftPosition = 0;
+    while (node.className.indexOf(this.settings.selector.substr(1)) < 0) {
+        node = node.parentNode;
+        if(node.classList.contains(this.settings.SELECTOR_NAV_LEVEL.substr(1))) {
+            leftPosition++;
+        };
+    }
+    return leftPosition;
+}
 NavControl.prototype.onClickNextButton = function (element, event) {
     var self = this;
     if (window.innerWidth < this.settings.breakpoint) {
@@ -76,15 +89,7 @@ NavControl.prototype.onClickNextButton = function (element, event) {
 
         element.parentNode.classList.add(this.settings.CLASSNAME_ACTIVE);
 
-        var node = element;
-        var leftPosition = 0;
-
-        while (node.className.indexOf(this.settings.selector.substr(1)) < 0) {
-            node = node.parentNode;
-            if(node.classList.contains(this.settings.SELECTOR_NAV_LEVEL.substr(1))) {
-                leftPosition++;
-            };
-        }
+        var leftPosition = this.parents(element);
 
         this.firstMenuElement.forEach(function(element){
             element.style.left = (leftPosition * -100) + '%';
@@ -95,21 +100,44 @@ NavControl.prototype.onClickNextButton = function (element, event) {
         element.parentNode.querySelector(this.settings.SELECTOR_NAV_LEVEL).style.top = this.topPosition + 'px';
 
         setTimeout(function () {
-            element.parentNode.querySelector(self.settings.SELECTOR_NAV_LEVEL).style.top = 0;
+            element.parentNode.querySelector(self.settings.SELECTOR_NAV_LEVEL).style.top = '0';
             self.el.scrollTop = 0;
             self.navigation.style.height = height + 'px';
             element.classList.add(self.settings.CLASSNAME_INACTIVE);
-            var elementParent = element.parentNode.nextElementSibling;
-            while (elementParent) {
-                elementParent.classList.add(self.settings.CLASSNAME_INACTIVE);
-                elementParent = elementParent.nextElementSibling;
-            }
-            elementParent = element.parentNode.previousElementSibling;
-            while (elementParent) {
-                elementParent.classList.add(self.settings.CLASSNAME_INACTIVE);
-                elementParent = elementParent.previousElementSibling;
-            }
-            element.parentNode.querySelector(self.settings.SELECTOR_NAV_LEVEL + ' a').focus();
+            Array.from(element.parentNode.parentNode.children).forEach(function (el){
+                el.classList.add(self.settings.CLASSNAME_INACTIVE);
+            });
+            element.parentNode.classList.remove(self.settings.CLASSNAME_INACTIVE);
+            element.parentNode.querySelector(self.settings.SELECTOR_NAV_LEVEL).querySelector('a').focus();
         }, this.settings.duration);
     }
+};
+NavControl.prototype.onClickGoBackButton = function (element, event) {
+    var self = this;
+    event.preventDefault();
+    var parentItem = element.closest(this.settings.SELECTOR_NAV_ITEM);
+
+    parentItem.querySelector(this.settings.SELECTOR_HAS_SUBNAV).classList.remove(this.settings.CLASSNAME_INACTIVE);
+    Array.from(parentItem.parentNode.children).forEach(function (el){
+        el.classList.remove(self.settings.CLASSNAME_INACTIVE);
+    });
+    this.transition();
+    var pos = this.topPosition - this.el.scrollTop;
+    this.el.scrollTop = this.topPosition;
+
+    element.closest(this.settings.SELECTOR_NAV_LEVEL).style.top =  pos + 'px';
+
+    var height = parentItem.parentNode.offsetHeight;
+
+    var leftPosition = this.parents(element);
+    this.firstMenuElement.forEach(function(element){
+        element.style.left = ((leftPosition - 2) * -100) + '%';
+    });
+
+    setTimeout(function () {
+        self.navigation.style.height = height + 'px';
+        parentItem.classList.remove(self.settings.CLASSNAME_ACTIVE);
+        element.closest(self.settings.SELECTOR_NAV_LEVEL).style.top = '0';
+        parentItem.querySelector(self.settings.SELECTOR_HAS_SUBNAV).focus();
+    }, this.settings.duration);
 };

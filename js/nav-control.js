@@ -8,7 +8,7 @@
     const pluginName = 'navControl';
     const defaults = {
         breakpoint: 992, // desktop breakpoint
-        duration: 500, // animation time
+        duration: 400, // animation time
         fixedHeader: true,
         SELECTOR_NAV: '.js-nav',
         SELECTOR_NAV_ITEM: '.js-nav-item',
@@ -79,7 +79,7 @@
                     .css('top', this.topPosition + 'px');
 
                 setTimeout(function () {
-                    $el.nextAll(self.settings.SELECTOR_NAV_LEVEL).first().css('top', 0);
+                    $el.nextAll(self.settings.SELECTOR_NAV_LEVEL).first().css('top', '0');
                     self.$el.scrollTop(0);
                     self.$navigation.css('height', height + 'px');
                     $el.addClass(self.settings.CLASSNAME_INACTIVE);
@@ -100,19 +100,18 @@
             parentItem.siblings().removeClass(this.settings.CLASSNAME_INACTIVE);
             this.transition();
 
+            var pos = this.topPosition - this.$el.scrollTop();
             this.$el.scrollTop(this.topPosition);
-            $el.closest(this.settings.SELECTOR_NAV_LEVEL).css('top', this.topPosition);
+            $el.closest(this.settings.SELECTOR_NAV_LEVEL).css('top', pos + 'px');
 
             var height = parentItem.parent().height();
-
-            setTimeout(function () {
-                self.$navigation.css('height', height + 'px');
-                parentItem.removeClass(self.settings.CLASSNAME_ACTIVE);
-            }, this.settings.duration);
 
             var leftPosition = (parents.length - 2) * -100;
             this.$firstMenuElement.css('left', leftPosition + '%');
             setTimeout(function () {
+                self.$navigation.css('height', height + 'px');
+                parentItem.removeClass(self.settings.CLASSNAME_ACTIVE);
+                $el.closest(self.settings.SELECTOR_NAV_LEVEL).css('top', '0');
                 parentItem.find(self.settings.SELECTOR_HAS_SUBNAV).focus();
             }, this.settings.duration);
         },
