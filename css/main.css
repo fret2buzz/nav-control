@@ -4431,6 +4431,8 @@ kbd {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap; }
+        .ex-nav .nav-level li .nav-item-button * {
+          pointer-events: none; }
       .ex-nav .nav-level li .nav-item-button-info {
         padding-left: 0.5rem;
         color: #333; }
@@ -4529,6 +4531,8 @@ kbd {
       height: 4px;
       -webkit-transition: width 0.5s, background 0.5s;
       transition: width 0.5s, background 0.5s; }
+    .nav-item .nav-item-button * {
+      pointer-events: none; }
   .nav-item .nav-level {
     display: none; }
   .nav-item:hover .nav-item-button::after,

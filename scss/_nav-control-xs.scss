@@ -54,6 +54,10 @@
                     color: $black;
 
                     @include text-truncate;
+
+                    * {
+                        pointer-events: none;
+                    }
                 }
                 .nav-item-button-info {
                     padding-left: 0.5rem;

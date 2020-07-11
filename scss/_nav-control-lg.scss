@@ -54,6 +54,9 @@
                 height: 4px;
                 transition: width 0.5s, background 0.5s;
             }
+            * {
+                pointer-events: none;
+            }
         }
         .nav-level {
             display: none;
