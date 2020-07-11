@@ -88,7 +88,9 @@
                 // top level
                 // set focus on prev/next of the parent links
                 $parent = next ? $parent.next() : $parent.prev();
-                $parent.find('a').first().focus();
+                if ($parent.length) {
+                    $parent.find('a').first().focus();
+                }
             } else {
                 // set focus on prev/next of the parent links
                 $closestItem = next ? $closestItem.next() : $closestItem.prev();

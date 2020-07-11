@@ -62,7 +62,6 @@ NavControl.prototype.init = function () {
             // LG click
             self.hasSubnav = target.classList.contains(self.settings.CLASSNAME_HAS_SUBNAV);
             self.active = target.parentNode.classList.contains(self.settings.CLASSNAME_VISIBLE);
-            console.log(target);
             if (typeof self.settings.breakpoint === 'number' && window.innerWidth >= self.settings.breakpoint && self.hasSubnav) {
                 e.preventDefault();
                 self.toggleActive(target);
@@ -91,7 +90,7 @@ NavControl.prototype.init = function () {
                 if (key === 27) {
                     // escape
                     e.preventDefault();
-                    self.removeActiveItem();
+                    self.removeActiveItem(e.target);
                 }
                 if (key === 37) {
                     // left
@@ -207,7 +206,9 @@ NavControl.prototype.horizontal = function (next, event) {
         // top level
         // set focus on prev/next of the parent links
         parent = next ? parent.nextElementSibling : parent.previousElementSibling;
-        parent.querySelector('a').focus();
+        if (parent) {
+            parent.querySelector('a').focus();
+        }
     } else {
         // set focus on prev/next of the parent links
         closestItem = next ? closestItem.nextElementSibling : closestItem.previousElementSibling;
