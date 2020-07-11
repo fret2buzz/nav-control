@@ -213,7 +213,7 @@ NavControl.prototype.horizontal = function (next, event) {
         closestItem = next ? closestItem.nextElementSibling : closestItem.previousElementSibling;
         closestItem.querySelector('a').focus();
     }
-}
+};
 NavControl.prototype.vertical = function (down, event) {
     event.preventDefault();
     var navItemParent = event.target.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT);
@@ -233,7 +233,6 @@ NavControl.prototype.vertical = function (down, event) {
             this.currentIndex++;
             innerLinks[this.currentIndex].focus();
         } else if (navItemParent.nextElementSibling) {
-            console.log(111111, navItemParent.nextElementSibling);
             navItemParent.nextElementSibling.querySelector(this.selectors.main).focus();
         }
     } else {
@@ -258,7 +257,9 @@ NavControl.prototype.removeActiveItem = function (link) {
         el.classList.remove(this.settings.CLASSNAME_VISIBLE);
     }
     if (!this.firstLevel) {
-        link.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT).querySelector(this.selectors.main).focus();
+        link.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT)
+            .querySelector(this.selectors.main)
+            .focus();
     }
 };
 NavControl.prototype.addActiveItem = function (link) {
