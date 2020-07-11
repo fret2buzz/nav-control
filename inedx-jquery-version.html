@@ -5,7 +5,9 @@
     <title>Navigation</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/main.css" />
-    <script src="js/navControl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="js/nav-control.js"></script>
+    <script src="js/keyboard-accessibility.js"></script>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
 </head>
 <body>
@@ -179,10 +181,10 @@
 </div>
 
 <script>
-    window.onload = function () {
-        var navigation = new NavControl();
-        navigation.init();
-    };
+    $(document).ready(function(){
+        $(".js-nav-control").navControl();
+        $(".js-nav-control").keyboardAccessibility();
+    });
 </script>
 </body>
 </html>
