@@ -37,7 +37,7 @@
             this.$firstMenuElement = this.$navigation.find(' > ' + this.settings.SELECTOR_NAV_LEVEL);
 
             if (this.settings.fixedHeader > 0) {
-                this.$el.find(this.settings.SELECTOR_HEADER).addClass('nav-level-header-fixed');
+                this.$el.find(this.settings.SELECTOR_HEADER).addClass('b-nav__level-header--fixed');
             }
 
             this.$el.on('click', this.settings.SELECTOR_BACK, function (e) {

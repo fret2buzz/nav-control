@@ -44,7 +44,7 @@ NavControl.prototype.init = function () {
         if (this.settings.fixedHeader > 0) {
             var fixedHeaders = this.el.querySelectorAll(this.settings.SELECTOR_HEADER);
             fixedHeaders.forEach(function (element) {
-                element.classList.add('nav-level-header-fixed');
+                element.classList.add('b-nav__level-header--fixed');
             });
         }
 
