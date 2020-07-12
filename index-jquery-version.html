@@ -12,33 +12,12 @@
 </head>
 <body>
 
-<div class="container">
-    <header class="ex-header d-none d-lg-block">
-        <table class="table table-dark">
-            <tr>
-                <td><kbd>&#8592;</kbd>, <kbd>&#8594;</kbd></td>
-                <td>Use left and right keys to navigate through first level of menu items</td>
-            </tr>
-            <tr>
-                <td><kbd>&#8593;</kbd>, <kbd>&#8595;</kbd></td>
-                <td>Use up and down keys to navigate through the entire menu. First press on the down key on the first level menu expands the submenu</td>
-            </tr>
-            <tr>
-                <td><kbd>esc</kbd></td>
-                <td>Use escape key to close submenu</td>
-            </tr>
-            <tr>
-                <td><kbd>enter</kbd>, <kbd>space</kbd></td>
-                <td>Use enter or space to expand submenu</td>
-            </tr>
-            <tr>
-                <td><kbd>tab</kbd>, <kbd>shift</kbd>+<kbd>tab</kbd></td>
-                <td>Use tab or shift+tab to navigate through menu</td>
-            </tr>
-        </table>
+<div class="l-container">
+    <header class="b-header">
+        <h1>Header</h1>
     </header>
     <div class="b-nav js-nav-control">
-        <nav class="js-nav nav">
+        <nav class="js-nav b-nav__in">
             <ul class="js-nav-level b-nav__level">
                 <li
                     class="js-nav-item js-nav-item-parent b-nav__item"
@@ -172,10 +151,31 @@
             </ul>
         </nav>
     </div>
-    <section class="ex-section">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. In iusto architecto non, quam itaque repellendus sunt consectetur quo, at illo ratione vel voluptatibus incidunt mollitia qui provident. Quisquam, officiis, nisi.
+    <section class="b-section">
+        <table class="b-section__table">
+            <tr>
+                <td><kbd>left arrow</kbd>, <kbd>right arrow</kbd></td>
+                <td>Use left and right keys to navigate through first level of menu items</td>
+            </tr>
+            <tr>
+                <td><kbd>up arrow</kbd>, <kbd>down arrow</kbd></td>
+                <td>Use up and down keys to navigate through the entire menu. First press on the down key on the first level menu expands the submenu</td>
+            </tr>
+            <tr>
+                <td><kbd>esc</kbd></td>
+                <td>Use escape key to close submenu</td>
+            </tr>
+            <tr>
+                <td><kbd>enter</kbd>, <kbd>space</kbd></td>
+                <td>Use enter or space to expand submenu</td>
+            </tr>
+            <tr>
+                <td><kbd>tab</kbd>, <kbd>shift</kbd>+<kbd>tab</kbd></td>
+                <td>Use tab or shift+tab to navigate through menu</td>
+            </tr>
+        </table>
     </section>
-    <footer class="ex-footer">
+    <footer class="b-footer">
         Footer
     </footer>
 </div>

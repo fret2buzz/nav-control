@@ -1,8 +1,11 @@
 @include media-breakpoint-down('md') {
     .b-nav {
+        position: fixed;
+        left: 0;
+        top: 0;
         width: 100%;
         background: $white;
-        height: 367px;
+        height: 100%;
         overflow-x: hidden;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;

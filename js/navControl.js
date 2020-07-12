@@ -85,7 +85,7 @@ NavControl.prototype.init = function () {
                 var supportedKeyCodes = [32, 13]; // spacer, enter
                 if (supportedKeyCodes.indexOf(key) >= 0 && self.hasSubnav) {
                     e.preventDefault();
-                    self.toggleActive();
+                    self.toggleActive(e.target);
                 }
                 if (key === 27) {
                     // escape
