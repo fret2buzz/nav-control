@@ -10,6 +10,7 @@ function NavControl(options) {
         breakpoint: 992, // desktop breakpoint
         duration: 400, // animation time
         fixedHeader: true,
+        event: 'click',
         SELECTOR_CONTAINER: '.js-nav-control',
         SELECTOR_NAV: '.js-nav',
         SELECTOR_NAV_ITEM: '.js-nav-item',
@@ -48,8 +49,33 @@ NavControl.prototype.init = function () {
             });
         }
 
+        if (this.settings.event == 'hover') {
+            var items = this.el.querySelectorAll('.' + self.settings.CLASSNAME_NAV_ITEM_PARENT);
+            var hoverFn = function (e) {
+                var target = e.currentTarget;
+                self.hasSubnav = target.querySelector('.' + self.settings.CLASSNAME_HAS_SUBNAV);
+                self.active = target.classList.contains(self.settings.CLASSNAME_VISIBLE);
+                if (window.innerWidth >= self.settings.breakpoint && self.hasSubnav) {
+                    e.preventDefault();
+                    if (e.type == 'mouseenter') {
+                        if(!self.active) {
+                            self.addActiveItem(self.hasSubnav);
+                        }
+                    } else {
+                        self.removeActiveItem(self.hasSubnav);
+                    }
+                }
+            };
+            items.forEach(function(el){
+                el.addEventListener('mouseenter', hoverFn, false);
+                el.addEventListener('mouseleave', hoverFn, false);
+            });
+        }
+
         this.el.addEventListener('click', function (e) {
             var target = e.target;
+
+            // Navigation for XS
             var selBack = self.settings.SELECTOR_BACK.substr(1);
             var selNext = self.settings.SELECTOR_HAS_SUBNAV.substr(1);
             if (target.classList.contains(selBack)) {
@@ -62,9 +88,11 @@ NavControl.prototype.init = function () {
             // LG click
             self.hasSubnav = target.classList.contains(self.settings.CLASSNAME_HAS_SUBNAV);
             self.active = target.parentNode.classList.contains(self.settings.CLASSNAME_VISIBLE);
-            if (typeof self.settings.breakpoint === 'number' && window.innerWidth >= self.settings.breakpoint && self.hasSubnav) {
+            if (window.innerWidth >= self.settings.breakpoint && self.hasSubnav) {
                 e.preventDefault();
-                self.toggleActive(target);
+                if (self.settings.event == 'click') {
+                    self.toggleActive(target);
+                }
             }
         });
 
@@ -91,6 +119,12 @@ NavControl.prototype.init = function () {
                     // escape
                     e.preventDefault();
                     self.removeActiveItem(e.target);
+                    if (!self.firstLevel) {
+                        self.currentIndex = 0;
+                        e.target.closest('.' + self.settings.CLASSNAME_NAV_ITEM_PARENT)
+                            .querySelector(self.selectors.main)
+                            .focus();
+                    }
                 }
                 if (key === 37) {
                     // left
@@ -256,11 +290,6 @@ NavControl.prototype.removeActiveItem = function (link) {
     if (el) {
         el.querySelector(this.selectors.main).setAttribute('aria-expanded', 'false');
         el.classList.remove(this.settings.CLASSNAME_VISIBLE);
-    }
-    if (!this.firstLevel) {
-        link.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT)
-            .querySelector(this.selectors.main)
-            .focus();
     }
 };
 NavControl.prototype.addActiveItem = function (link) {
