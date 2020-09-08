@@ -1,24 +1,24 @@
 @include media-breakpoint-up('lg') {
-    .ex-nav {
+    .b-nav {
         background: $gray-100;
     }
 
     // Hiding mobile specific blocks
-    .nav-level-header {
+    .b-nav__level-header {
         display: none;
     }
 
     // Overriding mobile inline styles
-    .nav {
+    .b-nav__in {
         height: auto !important;
     }
-    .nav-level {
+    .b-nav__level {
         left: 0 !important;
         display: flex;
         position: relative;
     }
-    .nav-item {
-        .nav-item-button-has-child span {
+    .b-nav__item {
+        .b-nav__item-button--has-child span {
             display: block;
             position: relative;
             padding-right: calc(#{$arrow-lg} + #{$spacer * 0.5});
@@ -35,7 +35,7 @@
                 @include svg-mono($icon-arrow-down, $blue);
             }
         }
-        .nav-item-button {
+        .b-nav__item-button {
             font-weight: 700;
             padding: $spacer;
             display: block;
@@ -54,19 +54,22 @@
                 height: 4px;
                 transition: width 0.5s, background 0.5s;
             }
+            * {
+                pointer-events: none;
+            }
         }
-        .nav-level {
+        .b-nav__level {
             display: none;
         }
-        &:hover .nav-item-button,
-        &.active .nav-item-button {
+        &:hover .b-nav__item-button,
+        &.active .b-nav__item-button {
             &::after {
                 width: 100%;
                 background: $black;
             }
         }
-        // &:hover .nav-level,
-        &.active .nav-level {
+        // &:hover .b-nav__level,
+        &.active .b-nav__level {
             position: absolute;
             left: 0;
             top: 100% !important;
@@ -75,13 +78,13 @@
             padding: $spacer;
             display: flex;
 
-            .nav-level {
+            .b-nav__level {
                 display: block;
                 position: relative;
                 top: 0 !important;
                 padding: 0;
             }
-            .nav-item-button {
+            .b-nav__item-button {
                 background: 0 0;
                 padding: 0;
                 margin: 0 0 $spacer;
@@ -101,14 +104,14 @@
                 }
             }
         }
-        .nav-item {
+        .b-nav__item {
             padding-left: $spacer;
 
             &:first-child {
                 padding-left: 0;
             }
         }
-        .nav-level-header + .nav-item {
+        .b-nav__level-header + .b-nav__item {
             padding-left: 0;
         }
     }

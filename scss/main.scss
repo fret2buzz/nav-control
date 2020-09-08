@@ -12,11 +12,18 @@
 @import "./bootstrap/scss/mixins";
 @import "./bootstrap/scss/utilities";
 
-// Layout & components
+// Layout
 @import "./bootstrap/scss/root";
 @import "./bootstrap/scss/reboot";
-@import "./bootstrap/scss/grid";
-@import "./bootstrap/scss/tables";
+
+.l-container {
+    width: 375px;
+    margin: 0 auto;
+
+    @include media-breakpoint-up('lg') {
+        width: 980px;
+    }
+}
 
 $arrow-xs: 1.2rem;
 $arrow-lg: 0.75rem;
@@ -37,15 +44,16 @@ body {
         }
     }
 }
-.ex-header {
+.b-header {
+    display: none;
     background: $gray-400;
     padding: ($spacer * 2) $spacer;
 
-    .table:last-child {
-        margin-bottom: 0;
+    @include media-breakpoint-up('lg') {
+        display: block;
     }
 }
-.ex-nav {
+.b-nav {
     ul {
         list-style: none;
         padding: 0;
@@ -57,24 +65,42 @@ body {
         outline: 2px dashed $blue;
     }
 }
-.ex-section {
+.b-section {
+    display: none;
     padding: ($spacer * 2) $spacer;
     background: $gray-200;
     height: 48rem;
+
+    &__table {
+        font-size: 12px;
+
+        td {
+            padding: 7px 20px 7px 0;
+        }
+        kbd {
+            border: 1px outset $gray-200;
+            background-color: $white;
+            padding: 5px;
+            cursor: default;
+            color: $black;
+            display: inline-block;
+        }
+    }
+
+    @include media-breakpoint-up('lg') {
+        display: block;
+    }
 }
-.ex-footer {
+.b-footer {
+    display: none;
     background: $gray-400;
     padding: ($spacer * 2) $spacer;
-}
-kbd {
-    border: 2px outset $gray-200;
-    background-color: $gray-200;
-    padding: 5px;
-    cursor: default;
-    color: $black;
-    display: inline-block;
+
+    @include media-breakpoint-up('lg') {
+        display: block;
+    }
 }
 
 @import 'svg';
-@import 'nav-control-xs';
-@import 'nav-control-lg';
+@import 'b-nav';
+@import 'b-nav-lg';
