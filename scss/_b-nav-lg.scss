@@ -2,7 +2,7 @@
 
 @include media(lg-up) {
 	.b-nav {
-		background: $gray-100;
+		background: $gray-200;
 	}
 
 	// Hiding mobile specific blocks
@@ -59,12 +59,16 @@
 			display: none;
 		}
 
+		&.active {
+			background: $white;
+		}
+
 		&.active .b-nav__level {
 			position: absolute;
 			left: 0;
 			top: 100% !important;
 			width: 100%;
-			background: $gray-400;
+			background: $gray-200;
 			padding: $spacer;
 			display: flex;
 

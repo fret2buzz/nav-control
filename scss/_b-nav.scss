@@ -24,7 +24,7 @@
 
 			li {
 				&.b-nav__item {
-					border-top: 1px solid $gray-300;
+					border-top: 1px solid $gray-100;
 
 					&:first-child {
 						border-top: 0;
@@ -121,7 +121,7 @@
 					font-size: 1rem;
 					padding: $spacer;
 					margin: 0;
-					background: $gray-100;
+					background: $gray-200;
 					position: relative;
 				}
 				&--fixed {
@@ -136,7 +136,7 @@
 			li a {
 				display: block;
 				padding: $spacer;
-				border-bottom: 1px solid $gray-300;
+				border-bottom: 1px solid $gray-100;
 			}
 		}
 	}

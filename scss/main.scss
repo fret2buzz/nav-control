@@ -26,10 +26,10 @@ $black: #000;
 $white: #fff;
 $blue: #369;
 
-$gray-100: #fff;
-$gray-200: #888;
-$gray-300: #bebebe;
-$gray-400: #ddd;
+$color-block: #eee;
+
+$gray-100: #888;
+$gray-200: #ccc;
 
 html {
 	font-size: 16px;
@@ -47,7 +47,7 @@ body {
 
 .b-header {
 	display: none;
-	background: $gray-400;
+	background: $color-block;
 	padding: ($spacer * 2) $spacer;
 
 	@include media(lg-up) {
@@ -72,7 +72,7 @@ body {
 .b-section {
 	display: none;
 	padding: ($spacer * 2) $spacer;
-	background: $gray-300;
+	background: $white;
 	height: 48rem;
 
 	&__table {
@@ -83,7 +83,7 @@ body {
 		}
 
 		kbd {
-			border: 1px outset $gray-200;
+			border: 1px outset $gray-100;
 			background-color: $white;
 			padding: 5px;
 			cursor: default;
@@ -99,7 +99,7 @@ body {
 
 .b-footer {
 	display: none;
-	background: $gray-400;
+	background: $color-block;
 	padding: ($spacer * 2) $spacer;
 
 	@include media(lg-up) {
