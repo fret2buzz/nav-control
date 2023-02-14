@@ -254,25 +254,11 @@ body a {
   .b-nav__item .b-nav__item-button:hover {
     text-decoration: none;
   }
-  .b-nav__item .b-nav__item-button::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 4px;
-    transition: width 0.5s, background 0.5s;
-  }
   .b-nav__item .b-nav__item-button * {
     pointer-events: none;
   }
   .b-nav__item .b-nav__level {
     display: none;
-  }
-  .b-nav__item:hover .b-nav__item-button::after, .b-nav__item.active .b-nav__item-button::after {
-    width: 100%;
-    background: #000;
   }
   .b-nav__item.active .b-nav__level {
     position: absolute;

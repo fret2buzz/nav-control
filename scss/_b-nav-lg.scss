@@ -50,17 +50,6 @@
 				text-decoration: none;
 			}
 
-			&::after {
-				content: '';
-				position: absolute;
-				width: 0;
-				bottom: 0;
-				left: 50%;
-				transform: translateX(-50%);
-				height: 4px;
-				transition: width 0.5s, background 0.5s;
-			}
-
 			* {
 				pointer-events: none;
 			}
@@ -70,15 +59,6 @@
 			display: none;
 		}
 
-		&:hover .b-nav__item-button,
-		&.active .b-nav__item-button {
-			&::after {
-				width: 100%;
-				background: $black;
-			}
-		}
-
-		// &:hover .b-nav__level,
 		&.active .b-nav__level {
 			position: absolute;
 			left: 0;
