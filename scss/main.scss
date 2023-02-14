@@ -1,106 +1,110 @@
+@import 'svg';
+@import 'media';
+
 *,
 *:after,
 *:before {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
-
-// Configuration
-@import "./bootstrap/scss/functions";
-@import "./bootstrap/scss/variables";
-@import "./bootstrap/scss/mixins";
-@import "./bootstrap/scss/utilities";
-
-// Layout
-@import "./bootstrap/scss/root";
-@import "./bootstrap/scss/reboot";
 
 .l-container {
-    width: 375px;
-    margin: 0 auto;
+	width: 375px;
+	margin: 0 auto;
 
-    @include media-breakpoint-up('lg') {
-        width: 980px;
-    }
+	@include media(lg-up) {
+		width: 980px;
+	}
 }
 
+$spacer: 1rem;
 $arrow-xs: 1.2rem;
 $arrow-lg: 0.75rem;
 
+$black: #000;
+$white: #fff;
+$blue: #369;
+$gray-100: #c33;
+$gray-200: #c33;
+$gray-300: #c33;
+$gray-400: #c33;
+$gray-500: #c33;
+
 html {
-    font-size: 16px;
+	font-size: 16px;
 }
+
 body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    overflow-y: scroll;
+	font-family: 'Arial', sans-serif;
+	font-size: 1rem;
+	overflow-y: scroll;
 
-    a {
-        color: $black;
-
-        @include hover {
-            color: $black;
-        }
-    }
+	a {
+		color: $black;
+	}
 }
+
 .b-header {
-    display: none;
-    background: $gray-400;
-    padding: ($spacer * 2) $spacer;
+	display: none;
+	background: $gray-400;
+	padding: ($spacer * 2) $spacer;
 
-    @include media-breakpoint-up('lg') {
-        display: block;
-    }
+	@include media(lg-up) {
+		display: block;
+	}
 }
+
 .b-nav {
-    ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    a:focus,
-    button:focus {
-        outline-offset: -2px;
-        outline: 2px dashed $blue;
-    }
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	a:focus,
+	button:focus {
+		outline-offset: -2px;
+		outline: 2px dashed $blue;
+	}
 }
+
 .b-section {
-    display: none;
-    padding: ($spacer * 2) $spacer;
-    background: $gray-200;
-    height: 48rem;
+	display: none;
+	padding: ($spacer * 2) $spacer;
+	background: $gray-200;
+	height: 48rem;
 
-    &__table {
-        font-size: 12px;
+	&__table {
+		font-size: 12px;
 
-        td {
-            padding: 7px 20px 7px 0;
-        }
-        kbd {
-            border: 1px outset $gray-200;
-            background-color: $white;
-            padding: 5px;
-            cursor: default;
-            color: $black;
-            display: inline-block;
-        }
-    }
+		td {
+			padding: 7px 20px 7px 0;
+		}
+		kbd {
+			border: 1px outset $gray-200;
+			background-color: $white;
+			padding: 5px;
+			cursor: default;
+			color: $black;
+			display: inline-block;
+		}
+	}
 
-    @include media-breakpoint-up('lg') {
-        display: block;
-    }
+	@include media(lg-up) {
+		display: block;
+	}
 }
+
 .b-footer {
-    display: none;
-    background: $gray-400;
-    padding: ($spacer * 2) $spacer;
+	display: none;
+	background: $gray-400;
+	padding: ($spacer * 2) $spacer;
 
-    @include media-breakpoint-up('lg') {
-        display: block;
-    }
+	@include media(lg-up) {
+		display: block;
+	}
 }
 
-@import 'svg';
 @import 'b-nav';
 @import 'b-nav-lg';

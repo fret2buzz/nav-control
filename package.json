@@ -1,28 +1,24 @@
 {
   "name": "navControl",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "navigation",
-  "main": "gulpfile.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint-scss": "stylelint scss/**/*.scss"
+    "start": "npx live-server",
+    "watch": "npx sass --load-path=node_modules scss/main.scss css/main.css -w",
+    "dev": "npx sass --load-path=node_modules scss/main.scss css/main.css --no-source-map",
+    "build": "npm run dev && npm run prefix",
+    "prefix": "npx postcss css/main.css --use autoprefixer --replace"
   },
   "author": "fret2buzz",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "4.0.0",
-    "gulp-autoprefixer": "^8.0.0",
-    "gulp-connect": "^5.7.0",
-    "gulp-sass": "3.1.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "stylelint": "^9.10.1",
-    "stylelint-order": "^2.2.0",
-    "stylelint-scss": "^3.8.0"
-  },
-  "dependencies": {
-    "bootstrap": "^4.4.1",
-    "lodash": "^4.17.21",
-    "lodash.template": "^4.5.0"
+    "autoprefixer": "^10.4.13",
+    "live-server": "^1.2.1",
+    "postcss": "^8.4.21",
+    "postcss-cli": "^10.1.0",
+    "sass": "^1.58.1"
   },
   "prettier": {
     "trailingComma": "es5",
@@ -30,5 +26,9 @@
     "semi": true,
     "singleQuote": true,
     "printWidth": 255
-  }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 3%"
+  ]
 }
