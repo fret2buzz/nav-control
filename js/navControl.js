@@ -1,5 +1,5 @@
 /*
- *  navControl 2020
+ *  navControl 2023
  *  Under MIT License
  */
 function NavControl(options) {
@@ -146,6 +146,7 @@ NavControl.prototype.init = function () {
         });
     }
 };
+
 NavControl.prototype.transition = function () {
     var self = this;
 
@@ -160,6 +161,7 @@ NavControl.prototype.transition = function () {
         }, this.settings.duration);
     }
 };
+
 NavControl.prototype.parents = function (element) {
     var node = element;
     var leftPosition = 0;
@@ -171,6 +173,7 @@ NavControl.prototype.parents = function (element) {
     }
     return leftPosition;
 };
+
 NavControl.prototype.onClickNextButton = function (element, event) {
     var self = this;
     if (window.innerWidth < this.settings.breakpoint) {
@@ -203,6 +206,7 @@ NavControl.prototype.onClickNextButton = function (element, event) {
         }, this.settings.duration);
     }
 };
+
 NavControl.prototype.onClickGoBackButton = function (element, event) {
     var self = this;
     event.preventDefault();
@@ -232,6 +236,7 @@ NavControl.prototype.onClickGoBackButton = function (element, event) {
         parentItem.querySelector(self.settings.SELECTOR_HAS_SUBNAV).focus();
     }, this.settings.duration);
 };
+
 NavControl.prototype.horizontal = function (next, event) {
     var parent = event.target.parentNode;
     var closestItem = event.target.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT);
@@ -249,6 +254,7 @@ NavControl.prototype.horizontal = function (next, event) {
         closestItem.querySelector('a').focus();
     }
 };
+
 NavControl.prototype.vertical = function (down, event) {
     event.preventDefault();
     var navItemParent = event.target.closest('.' + this.settings.CLASSNAME_NAV_ITEM_PARENT);
@@ -285,6 +291,7 @@ NavControl.prototype.vertical = function (down, event) {
         }
     }
 };
+
 NavControl.prototype.removeActiveItem = function (link) {
     var el = this.el.querySelector('.' + this.settings.CLASSNAME_VISIBLE);
     if (el) {
@@ -292,10 +299,12 @@ NavControl.prototype.removeActiveItem = function (link) {
         el.classList.remove(this.settings.CLASSNAME_VISIBLE);
     }
 };
+
 NavControl.prototype.addActiveItem = function (link) {
     link.parentNode.classList.add(this.settings.CLASSNAME_VISIBLE);
     link.setAttribute('aria-expanded', 'true');
 };
+
 NavControl.prototype.toggleActive = function (link) {
     this.removeActiveItem(link);
     if (!this.active) {
