@@ -1,184 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Navigation</title>
-    <link rel="stylesheet" href="css/main.css" />
-    <script src="js/navControl.js"></script>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Navigation</title>
+<link rel="stylesheet" href="css/main.css">
+<script src="js/nav.js"></script>
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
 </head>
 <body>
-
 <div class="l-container">
-    <header class="b-header">
-        <h1>Header</h1>
-    </header>
-    <div class="b-nav js-nav-control">
-        <nav class="js-nav b-nav__in">
-            <ul class="js-nav-level b-nav__level">
-                <li
-                    class="js-nav-item js-nav-item-parent b-nav__item"
-                >
-                    <a
-                        href="#"
-                        class="js-has-subnav js-nav-item-link b-nav__item-button b-nav__item-button--has-child"
-                        role="button"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        <span>Men</span>
-                    </a>
-                    <ul class="js-nav-level js-nav-dropdown b-nav__level">
-                        <li class="b-nav__level-header js-nav-level-header">
-                            <h2>
-                                <button class="js-go-back b-nav__item-button-back"><span class="sr-only">Back to root</span></button>
-                                Men
-                            </h2>
-                        </li>
-                        <li class="js-nav-item b-nav__item">
-                            <a href="#" class="js-has-subnav b-nav__item-button b-nav__item-button--has-child" role="button"><span>Shoes</span></a>
-                            <ul class="js-nav-level b-nav__level">
-                                <li class="b-nav__level-header js-nav-level-header">
-                                    <h2>
-                                        <button class="js-go-back b-nav__item-button-back"><span class="sr-only">Back to Men</span></button>
-                                        Shoes
-                                    </h2>
-                                </li>
-                                <li>
-                                    <ul class="b-nav__level-item">
-                                        <li><a href="#view_all_mens_shoes">View all Mens shoes</a></li>
-                                        <li><a href="#autumn">Autumn</a></li>
-                                        <li><a href="#basketball">Basketball</a></li>
-                                        <li><a href="#cycling">Cycling</a></li>
-                                        <li><a href="#football">Football</a></li>
-                                        <li><a href="#running">Running</a></li>
-                                        <li><a href="#school">School</a></li>
-                                        <li><a href="#skating">Skating</a></li>
-                                        <li><a href="#soccer">Soccer</a></li>
-                                        <li><a href="#summer">Summer</a></li>
-                                        <li><a href="#tennis">Tennis</a></li>
-                                        <li><a href="#walking">Walking</a></li>
-                                        <li><a href="#winter">Winter</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="js-nav-item b-nav__item">
-                            <a href="#" class="b-nav__item-button"><span>Shorts</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="js-nav-item js-nav-item-parent b-nav__item">
-                    <a
-                        href="#"
-                        class="js-has-subnav js-nav-item-link b-nav__item-button b-nav__item-button--has-child"
-                        role="button"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        <span>Women</span>
-                    </a>
-                    <ul class="js-nav-level js-nav-dropdown b-nav__level">
-                        <li class="b-nav__level-header js-nav-level-header">
-                            <h2>
-                                <button class="js-go-back b-nav__item-button-back"><span class="sr-only">Back to root</span></button>
-                                Women
-                            </h2>
-                        </li>
-                        <ul class="b-nav__level-item">
-                            <li><a href="#view_all_womens_clothing">View all Womens clothing</a></li>
-                            <li><a href="#autumn">Autumn</a></li>
-                            <li><a href="#basketball">Basketball</a></li>
-                            <li><a href="#cycling">Cycling</a></li>
-                            <li><a href="#football">Football</a></li>
-                            <li><a href="#running">Running</a></li>
-                            <li><a href="#school">School</a></li>
-                            <li><a href="#skating">Skating</a></li>
-                            <li><a href="#soccer">Soccer</a></li>
-                            <li><a href="#summer">Summer</a></li>
-                            <li><a href="#tennis">Tennis</a></li>
-                            <li><a href="#walking">Walking</a></li>
-                            <li><a href="#winter">Winter</a></li>
-                        </ul>
-                    </ul>
-                </li>
-                <li class="js-nav-item js-nav-item-parent b-nav__item">
-                    <a href="#" class="js-nav-item-link b-nav__item-button"><span>Sale</span></a>
-                </li>
-                <li class="js-nav-item js-nav-item-parent b-nav__item">
-                    <a href="#" class="js-nav-item-link b-nav__item-button"><span>Brands</span></a>
-                </li>
-                <li class="js-nav-item js-nav-item-parent b-nav__item">
-                    <a href="#" class="js-nav-item-link b-nav__item-button"><span>Departments</span></a>
-                </li>
-                <li class="js-nav-item js-nav-item-parent b-nav__item">
-                    <a
-                        href="#"
-                        class="js-has-subnav js-nav-item-link b-nav__item-button b-nav__item-button--has-child"
-                        role="button"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        <span>Kids</span>
-                    </a>
-                    <ul class="js-nav-level js-nav-dropdown b-nav__level">
-                        <li class="b-nav__level-header js-nav-level-header">
-                            <h2>
-                                <button class="js-go-back b-nav__item-button-back"><span class="sr-only">Back to root</span></button>
-                                Kids
-                            </h2>
-                        </li>
-                        <ul class="b-nav__level-item">
-                            <li><a href="#view_all_kids_clothing">View all Kids clothing</a></li>
-                            <li><a href="#autumn">Autumn</a></li>
-                            <li><a href="#basketball">Basketball</a></li>
-                            <li><a href="#cycling">Cycling</a></li>
-                            <li><a href="#football">Football</a></li>
-                            <li><a href="#running">Running</a></li>
-                            <li><a href="#school">School</a></li>
-                            <li><a href="#skating">Skating</a></li>
-                            <li><a href="#soccer">Soccer</a></li>
-                            <li><a href="#summer">Summer</a></li>
-                            <li><a href="#tennis">Tennis</a></li>
-                            <li><a href="#walking">Walking</a></li>
-                            <li><a href="#winter">Winter</a></li>
-                        </ul>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <section class="b-section">
-        <table class="b-section__table">
-            <tr>
-                <td><kbd>left arrow</kbd>, <kbd>right arrow</kbd></td>
-                <td>Use left and right keys to navigate through first level of menu items</td>
-            </tr>
-            <tr>
-                <td><kbd>up arrow</kbd>, <kbd>down arrow</kbd></td>
-                <td>Use up and down keys to navigate through the entire menu. First press on the down key on the first level menu expands the submenu</td>
-            </tr>
-            <tr>
-                <td><kbd>esc</kbd></td>
-                <td>Use escape key to close submenu</td>
-            </tr>
-            <tr>
-                <td><kbd>enter</kbd>, <kbd>space</kbd></td>
-                <td>Use enter or space to expand submenu</td>
-            </tr>
-            <tr>
-                <td><kbd>tab</kbd>, <kbd>shift</kbd>+<kbd>tab</kbd></td>
-                <td>Use tab or shift+tab to navigate through menu</td>
-            </tr>
-        </table>
-    </section>
-    <footer class="b-footer">
-        Footer
-    </footer>
+<header class="b-header">
+<h1>Header</h1>
+</header>
+<div class="b-nav">
+<nav class="b-nav__in">
+<ul class="js-nav b-nav__level b-nav__level--1">
+<li class="b-nav__item">
+<button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false">
+<span>Men</span>
+</button>
+<ul class="b-nav__level b-nav__level--2" aria-hidden="true">
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Shoes</span>
+</a>
+<ul class="b-nav__level b-nav__level--3">
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Autumn</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Basketball</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Cycling</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Football</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Running</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>School</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Skating</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Soccer</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Summer</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Tennis</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Walking</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Winter</span>
+</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="b-nav__item">
+<button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false">
+<span>Women</span>
+</button>
+<ul class="b-nav__level b-nav__level--2" aria-hidden="true">
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Autumn</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Basketball</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Cycling</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Football</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Running</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>School</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Skating</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Soccer</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Summer</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Tennis</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Walking</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Winter</span>
+</a>
+</li>
+</ul>
+</li>
+<li class="b-nav__item">
+<a href="#" class="b-nav__item-link">
+<span>Accessories</span>
+</a>
+</li>
+<li class="b-nav__item">
+<button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false">
+<span>Men</span>
+</button>
+<ul class="b-nav__level b-nav__level--2" aria-hidden="true">
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Autumn</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Basketball</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Cycling</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Football</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Running</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>School</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Skating</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Soccer</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Summer</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Tennis</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Walking</span>
+</a>
+</li>
+<li>
+<a href="#" class="b-nav__item-link">
+<span>Winter</span>
+</a>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
 </div>
-
+<main class="b-section">
+<table class="b-section__table">
+<tr>
+<td><kbd>left arrow</kbd>, <kbd>right arrow</kbd></td>
+<td>Use left and right keys to navigate through first level of menu items</td>
+</tr>
+<tr>
+<td><kbd>up arrow</kbd>, <kbd>down arrow</kbd></td>
+<td>Use up and down keys to navigate through the entire menu. First press on the down key on the first level menu expands the submenu</td>
+</tr>
+<tr>
+<td><kbd>esc</kbd></td>
+<td>Use escape key to close submenu</td>
+</tr>
+<tr>
+<td><kbd>enter</kbd>, <kbd>space</kbd></td>
+<td>Use enter or space to expand submenu</td>
+</tr>
+<tr>
+<td><kbd>tab</kbd>, <kbd>shift</kbd>+<kbd>tab</kbd></td>
+<td>Use tab or shift+tab to navigate through menu</td>
+</tr>
+</table>
+</main>
+<footer class="b-footer">
+Footer
+</footer>
+</div>
 <script>
-    window.onload = function () {
+window.onload = function () {
         var navigation = new NavControl();
         navigation.init();
     };

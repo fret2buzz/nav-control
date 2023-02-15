@@ -76,6 +76,7 @@
 					padding-left: 0.5rem;
 					color: #333;
 				}
+
 				.b-nav__item-button--has-child {
 					position: relative;
 					padding-right: calc(#{$arrow-xs} + #{$spacer * 2});
@@ -89,9 +90,10 @@
 						top: 50%;
 						margin-top: math.div($arrow-xs, -2);
 
-						@include svg-mono($icon-arrow-right, $blue);
+						@include svg-mono($icon-arrow-right, $black);
 					}
 				}
+
 				.b-nav__item-button-back {
 					position: absolute;
 					left: 0;
@@ -110,7 +112,7 @@
 						top: 50%;
 						margin-top: math.div($arrow-xs, -2);
 
-						@include svg-mono($icon-arrow-left, $blue);
+						@include svg-mono($icon-arrow-left, $black);
 					}
 				}
 			}

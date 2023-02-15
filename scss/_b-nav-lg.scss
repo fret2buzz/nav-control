@@ -22,7 +22,7 @@
 	}
 
 	.b-nav__item {
-		.b-nav__item-button--has-child span {
+		.b-nav__item-button span {
 			display: block;
 			position: relative;
 			padding-right: calc(#{$arrow-lg} + #{$spacer * 0.5});
@@ -36,14 +36,19 @@
 				top: 50%;
 				margin-top: math.div($arrow-lg, -2);
 
-				@include svg-mono($icon-arrow-down, $blue);
+				@include svg-mono($icon-arrow-down, $black);
 			}
 		}
 
-		.b-nav__item-button {
+		.b-nav__item-button,
+		.b-nav__item-link {
+			background: 0 0;
+			border: 0;
+			cursor: pointer;
+			display: block;
+			font-size: 1rem;
 			font-weight: 700;
 			padding: $spacer;
-			display: block;
 			position: relative;
 
 			&:hover {

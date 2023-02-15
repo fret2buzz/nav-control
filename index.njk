@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Navigation</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/nav.js"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+</head>
+<body>
+
+{% macro navigationItem(item) %}
+    {% set hiddenItem = item.children and item.level == 1 %}
+
+    <li {% if item.level == 1 %}class="b-nav__item"{% endif %}>
+        {% if hiddenItem %}
+            <button
+                class="b-nav__item-button"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
+                <span>{{ item.name }}</span>
+            </button>
+        {% else %}
+            <a
+                href="#"
+                class="b-nav__item-link"
+            >
+                <span>{{ item.name }}</span>
+            </a>
+        {% endif %}
+
+        {% if item.children %}
+            <ul class="b-nav__level b-nav__level--{{item.level + 1}}" {% if hiddenItem %}aria-hidden="true"{% endif %}>
+                {% for item in item.children %}
+                    {{ navigationItem(item) }}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endmacro %}
+
+<div class="l-container">
+    <header class="b-header">
+        <h1>Header</h1>
+    </header>
+    <div class="b-nav">
+        <nav class="b-nav__in">
+            <ul class="js-nav b-nav__level b-nav__level--1">
+                {% for item in navigation %}
+                    {{ navigationItem(item) }}
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+    <main class="b-section">
+        <table class="b-section__table">
+            <tr>
+                <td><kbd>left arrow</kbd>, <kbd>right arrow</kbd></td>
+                <td>Use left and right keys to navigate through first level of menu items</td>
+            </tr>
+            <tr>
+                <td><kbd>up arrow</kbd>, <kbd>down arrow</kbd></td>
+                <td>Use up and down keys to navigate through the entire menu. First press on the down key on the first level menu expands the submenu</td>
+            </tr>
+            <tr>
+                <td><kbd>esc</kbd></td>
+                <td>Use escape key to close submenu</td>
+            </tr>
+            <tr>
+                <td><kbd>enter</kbd>, <kbd>space</kbd></td>
+                <td>Use enter or space to expand submenu</td>
+            </tr>
+            <tr>
+                <td><kbd>tab</kbd>, <kbd>shift</kbd>+<kbd>tab</kbd></td>
+                <td>Use tab or shift+tab to navigate through menu</td>
+            </tr>
+        </table>
+    </main>
+    <footer class="b-footer">
+        Footer
+    </footer>
+</div>
+
+<script>
+    window.onload = function () {
+        var navigation = new NavControl();
+        navigation.init();
+    };
+</script>
+</body>
+</html>

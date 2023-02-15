@@ -6,16 +6,21 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx live-server",
-    "watch": "npx sass --load-path=node_modules scss/main.scss css/main.css -w",
-    "dev": "npx sass --load-path=node_modules scss/main.scss css/main.css --no-source-map",
-    "build": "npm run dev && npm run prefix",
-    "prefix": "npx postcss css/main.css --use autoprefixer --replace"
+    "watch:css": "npx sass --load-path=node_modules scss/main.scss css/main.css -w",
+    "watch:html": "node index.js watch",
+    "build:html": "node index.js",
+    "build:css": "npx sass --load-path=node_modules scss/main.scss css/main.css --no-source-map",
+    "prefix": "npx postcss css/main.css --use autoprefixer --replace",
+    "build:all": "npm run build:html && npm run build:css && npm run prefix"
   },
   "author": "fret2buzz",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^10.4.13",
+    "chokidar": "^3.5.3",
+    "html-minifier": "^4.0.0",
     "live-server": "^1.2.1",
+    "nunjucks": "^3.2.3",
     "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
     "sass": "^1.58.1"

@@ -1,0 +1,213 @@
+{
+    "navigation": [
+        {
+            "level": 1,
+            "name": "Men",
+            "children": [
+                {
+                    "level": 2,
+                    "name": "Shoes",
+                    "children": [
+                        {
+                            "level": 3,
+                            "name": "Autumn",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Basketball",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Cycling",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Football",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Running",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "School",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Skating",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Soccer",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Summer",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Tennis",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Walking",
+                            "children": false
+                        },
+                        {
+                            "level": 3,
+                            "name": "Winter",
+                            "children": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 1,
+            "name": "Women",
+            "children": [
+                {
+                    "level": 2,
+                    "name": "Autumn",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Basketball",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Cycling",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Football",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Running",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "School",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Skating",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Soccer",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Summer",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Tennis",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Walking",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Winter",
+                    "children": false
+                }
+            ]
+        },
+        {
+            "level": 1,
+            "name": "Accessories",
+            "children": false
+        },
+        {
+            "level": 1,
+            "name": "Men",
+            "children": [
+                {
+                    "level": 2,
+                    "name": "Autumn",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Basketball",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Cycling",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Football",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Running",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "School",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Skating",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Soccer",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Summer",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Tennis",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Walking",
+                    "children": false
+                },
+                {
+                    "level": 2,
+                    "name": "Winter",
+                    "children": false
+                }
+            ]
+        }
+    ]
+}
