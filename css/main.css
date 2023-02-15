@@ -48,6 +48,22 @@ body a {
   outline: 2px dashed #c33;
 }
 
+.b-skip {
+  background: #fff;
+  left: 0;
+  opacity: 0;
+  padding: 1rem;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  border: 3px solid #000;
+}
+.b-skip:focus-within {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .b-section {
   display: none;
   padding: 2rem 1rem;
@@ -216,30 +232,15 @@ body a {
     background: #ccc;
     position: relative;
   }
-  .b-nav__skip {
-    background: #fff;
-    left: 0;
-    opacity: 0;
-    padding: 1rem;
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    z-index: 1;
-    border: 3px solid #000;
-  }
-  .b-nav__skip:focus-within {
-    opacity: 1;
-    pointer-events: auto;
-  }
   .b-nav__level {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  .b-nav__item.active {
+  .b-nav__item.m-active {
     background: #fff;
   }
-  .b-nav__item.active .b-nav__level--2 {
+  .b-nav__item.m-active .b-nav__level--2 {
     background: #fff;
     display: block;
     left: 0;
@@ -261,6 +262,10 @@ body a {
   .b-nav__item-button:hover,
   .b-nav__item-link:hover {
     text-decoration: none;
+  }
+  .b-nav__item-button:focus-visible,
+  .b-nav__item-link:focus-visible {
+    outline-offset: -2px;
   }
   .b-nav__item-button *,
   .b-nav__item-link * {

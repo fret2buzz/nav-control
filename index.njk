@@ -11,6 +11,11 @@
 
 {% macro navigationItem(item) %}
     {% set hiddenItem = item.children and item.level == 1 %}
+    {% set dropdown = item.children and item.level == 2 %}
+
+    {% if dropdown %}
+        aaaaa
+    {% endif %}
 
     <li {% if item.level == 1 %}class="b-nav__item"{% endif %}>
         {% if hiddenItem %}
@@ -46,12 +51,11 @@
         <h1>Header</h1>
     </header>
 
+    <div class="b-skip">
+        <a href="#main">Skip to main content</a> or <a href="#footer">Skip to footer</a>
+    </div>
+
     <div class="b-nav">
-        <div class="b-nav__skip">
-
-            <a href="#main">Skip to main content</a> or <a href="#footer">Skip to footer</a>
-
-        </div>
         <nav class="b-nav__in">
             <ul class="js-nav b-nav__level b-nav__level--1">
                 {% for item in navigation %}

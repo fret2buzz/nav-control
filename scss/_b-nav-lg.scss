@@ -4,23 +4,6 @@
 	.b-nav {
 		background: $gray-200;
 		position: relative;
-
-		&__skip {
-			background: $white;
-			left: 0;
-			opacity: 0;
-			padding: 1rem;
-			pointer-events: none;
-			position: fixed;
-			top: 0;
-			z-index: 1;
-			border: 3px solid $black;
-
-			&:focus-within {
-				opacity: 1;
-				pointer-events: auto;
-			}
-		}
 	}
 
 	.b-nav__level {
@@ -30,7 +13,7 @@
 	}
 
 	.b-nav__item {
-		&.active {
+		&.m-active {
 			background: $white;
 
 			.b-nav__level--2 {
@@ -57,6 +40,10 @@
 
 		&:hover {
 			text-decoration: none;
+		}
+
+		&:focus-visible {
+			outline-offset: -2px;
 		}
 
 		* {
