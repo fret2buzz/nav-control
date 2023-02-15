@@ -11,13 +11,8 @@
 
 {% macro navigationItem(item) %}
     {% set hiddenItem = item.children and item.level == 1 %}
-    {% set dropdown = item.children and item.level == 2 %}
 
-    {% if dropdown %}
-        aaaaa
-    {% endif %}
-
-    <li {% if item.level == 1 %}class="b-nav__item"{% endif %}>
+    <li {% if item.level == 1 %}class="b-nav__item" data-main{% endif %}>
         {% if hiddenItem %}
             <button
                 class="b-nav__item-button"
@@ -38,6 +33,13 @@
 
         {% if item.children %}
             <ul class="b-nav__level b-nav__level--{{item.level + 1}}" {% if hiddenItem %}aria-hidden="true"{% endif %}>
+                {% if hiddenItem %}
+                <li>
+                    <button type="button" data-close>
+                        Close
+                    </button>
+                </li>
+                {% endif %}
                 {% for item in item.children %}
                     {{ navigationItem(item) }}
                 {% endfor %}
@@ -70,11 +72,11 @@
             <h1>
                 <a href="#">Description</a>
             </h1>
-            <tr>
+            <tr style="opacity: 0.5;">
                 <td><kbd>left arrow</kbd>, <kbd>right arrow</kbd></td>
                 <td>Use left and right keys to navigate through first level of menu items</td>
             </tr>
-            <tr>
+            <tr style="opacity: 0.5;">
                 <td><kbd>up arrow</kbd>, <kbd>down arrow</kbd></td>
                 <td>Use up and down keys to navigate through the entire menu. First press on the down key on the first level menu expands the submenu</td>
             </tr>

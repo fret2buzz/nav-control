@@ -18,17 +18,21 @@
 <div class="b-nav">
 <nav class="b-nav__in">
 <ul class="js-nav b-nav__level b-nav__level--1">
-<li class="b-nav__item">
+<li class="b-nav__item" data-main>
 <button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false">
 <span>Men</span>
 </button>
 <ul class="b-nav__level b-nav__level--2" aria-hidden="true">
 <li>
+<button type="button" data-close>
+Close
+</button>
+</li>
+<li>
 <a href="#" class="b-nav__item-link">
 <span>View All Men</span>
 </a>
 </li>
-aaaaa
 <li>
 <a href="#" class="b-nav__item-link">
 <span>Shoes</span>
@@ -46,7 +50,6 @@ aaaaa
 </li>
 </ul>
 </li>
-aaaaa
 <li>
 <a href="#" class="b-nav__item-link">
 <span>Top wear</span>
@@ -71,11 +74,16 @@ aaaaa
 </li>
 </ul>
 </li>
-<li class="b-nav__item">
+<li class="b-nav__item" data-main>
 <button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false">
 <span>Women</span>
 </button>
 <ul class="b-nav__level b-nav__level--2" aria-hidden="true">
+<li>
+<button type="button" data-close>
+Close
+</button>
+</li>
 <li>
 <a href="#" class="b-nav__item-link">
 <span>View All Women</span>
@@ -108,16 +116,21 @@ aaaaa
 </li>
 </ul>
 </li>
-<li class="b-nav__item">
+<li class="b-nav__item" data-main>
 <a href="#" class="b-nav__item-link">
 <span>Accessories</span>
 </a>
 </li>
-<li class="b-nav__item">
+<li class="b-nav__item" data-main>
 <button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false">
 <span>Kids</span>
 </button>
 <ul class="b-nav__level b-nav__level--2" aria-hidden="true">
+<li>
+<button type="button" data-close>
+Close
+</button>
+</li>
 <li>
 <a href="#" class="b-nav__item-link">
 <span>View All Kids</span>
@@ -153,11 +166,11 @@ aaaaa
 <h1>
 <a href="#">Description</a>
 </h1>
-<tr>
+<tr style="opacity: 0.5;">
 <td><kbd>left arrow</kbd>, <kbd>right arrow</kbd></td>
 <td>Use left and right keys to navigate through first level of menu items</td>
 </tr>
-<tr>
+<tr style="opacity: 0.5;">
 <td><kbd>up arrow</kbd>, <kbd>down arrow</kbd></td>
 <td>Use up and down keys to navigate through the entire menu. First press on the down key on the first level menu expands the submenu</td>
 </tr>

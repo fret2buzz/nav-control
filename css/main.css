@@ -248,6 +248,7 @@ body a {
     position: absolute;
     top: 100%;
     width: 100%;
+    z-index: 2;
   }
   .b-nav__item-button,
   .b-nav__item-link {
