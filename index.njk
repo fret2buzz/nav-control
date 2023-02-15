@@ -45,7 +45,13 @@
     <header class="b-header">
         <h1>Header</h1>
     </header>
+
     <div class="b-nav">
+        <div class="b-nav__skip">
+
+            <a href="#main">Skip to main content</a> or <a href="#footer">Skip to footer</a>
+
+        </div>
         <nav class="b-nav__in">
             <ul class="js-nav b-nav__level b-nav__level--1">
                 {% for item in navigation %}
@@ -54,8 +60,12 @@
             </ul>
         </nav>
     </div>
-    <main class="b-section">
+
+    <main class="b-section" id="main" tabindex="-1">
         <table class="b-section__table">
+            <h1>
+                <a href="#">Description</a>
+            </h1>
             <tr>
                 <td><kbd>left arrow</kbd>, <kbd>right arrow</kbd></td>
                 <td>Use left and right keys to navigate through first level of menu items</td>
@@ -78,8 +88,8 @@
             </tr>
         </table>
     </main>
-    <footer class="b-footer">
-        Footer
+    <footer class="b-footer" id="footer" tabindex="-1">
+        <a href="#">Footer</a>
     </footer>
 </div>
 

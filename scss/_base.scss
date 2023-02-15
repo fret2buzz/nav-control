@@ -52,24 +52,19 @@ body {
 	}
 }
 
-.b-nav {
-	ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
+*:focus {
+	outline: none;
+}
 
-	a:focus,
-	button:focus {
-		outline-offset: -3px;
-		outline: 3px dashed $color-focus;
-	}
+*:focus-visible {
+	// outline-offset: -1px;
+	outline: 2px dashed $color-focus;
 }
 
 .b-section {
 	display: none;
 	padding: ($spacer * 2) $spacer;
-	background: $white;
+	background: $color-block;
 	height: 48rem;
 
 	&__table {
@@ -96,7 +91,7 @@ body {
 
 .b-footer {
 	display: none;
-	background: $color-block;
+	background: $gray-200;
 	padding: ($spacer * 2) $spacer;
 
 	@include media(lg-up) {

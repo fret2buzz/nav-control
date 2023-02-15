@@ -30,33 +30,34 @@ NavControl.prototype.init = function () {
                 //desktop
                 let hasSubnav = target.getAttribute('aria-haspopup') == 'true';
 
-                if (hasSubnav) {
-                    e.preventDefault();
-                    let parentElement = target.parentElement;
-                    let classNameActive = settings.CLASSNAME_VISIBLE;
-                    let activeElement = document.querySelector(settings.SELECTOR_NAV + ' .' + classNameActive);
+                if (!hasSubnav) {
+                    return false;
+                }
 
-                    function expand() {
-                        parentElement.querySelector('[aria-hidden]').setAttribute('aria-hidden', 'false');
-                        target.setAttribute('aria-expanded', 'true');
-                        parentElement.classList.add(classNameActive)
-                    }
+                e.preventDefault();
+                let parentElement = target.parentElement;
+                let classNameActive = settings.CLASSNAME_VISIBLE;
+                let activeElement = document.querySelector(settings.SELECTOR_NAV + ' .' + classNameActive);
+                let hiddenArea = parentElement.querySelector('[aria-hidden]');
 
-                    function collapse() {
-                        parentElement.querySelector('[aria-hidden]').setAttribute('aria-hidden', 'true');
-                        target.setAttribute('aria-expanded', 'false');
-                        activeElement.classList.remove(classNameActive);
-                    }
+                function expand() {
+                    hiddenArea.setAttribute('aria-hidden', 'false');
+                    target.setAttribute('aria-expanded', 'true');
+                    parentElement.classList.add(classNameActive);
+                }
 
-                    if (parentElement.classList.contains(classNameActive)) {
-                        collapse();
-                    } else {
-                        expand();
-                    }
+                function collapse() {
+                    hiddenArea.setAttribute('aria-hidden', 'true');
+                    target.setAttribute('aria-expanded', 'false');
+                    activeElement.classList.remove(classNameActive);
+                }
 
-                    if (activeElement !== null) {
-                        collapse();
-                    }
+                if (!parentElement.classList.contains(classNameActive)) {
+                    expand();
+                }
+
+                if (activeElement !== null) {
+                    collapse();
                 }
             } else {
                 //mobile

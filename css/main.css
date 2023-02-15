@@ -40,21 +40,18 @@ body a {
   }
 }
 
-.b-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+*:focus {
+  outline: none;
 }
-.b-nav a:focus,
-.b-nav button:focus {
-  outline-offset: -3px;
-  outline: 3px dashed #c33;
+
+*:focus-visible {
+  outline: 2px dashed #c33;
 }
 
 .b-section {
   display: none;
   padding: 2rem 1rem;
-  background: #fff;
+  background: #eee;
   height: 48rem;
 }
 .b-section__table {
@@ -79,7 +76,7 @@ body a {
 
 .b-footer {
   display: none;
-  background: #eee;
+  background: #ccc;
   padding: 2rem 1rem;
 }
 @media screen and (min-width: 1024px) {
@@ -217,24 +214,64 @@ body a {
 @media screen and (min-width: 1024px) {
   .b-nav {
     background: #ccc;
-  }
-  .b-nav__level-header {
-    display: none;
-  }
-  .b-nav__in {
-    height: auto !important;
-  }
-  .b-nav__level {
-    left: 0 !important;
-    display: flex;
     position: relative;
   }
-  .b-nav__item .b-nav__item-button span {
+  .b-nav__skip {
+    background: #fff;
+    left: 0;
+    opacity: 0;
+    padding: 1rem;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    border: 3px solid #000;
+  }
+  .b-nav__skip:focus-within {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .b-nav__level {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .b-nav__item.active {
+    background: #fff;
+  }
+  .b-nav__item.active .b-nav__level--2 {
+    background: #fff;
+    display: block;
+    left: 0;
+    padding: 1rem;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+  }
+  .b-nav__item-button,
+  .b-nav__item-link {
+    background: 0 0;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    padding: 1rem;
+    position: relative;
+    vertical-align: top;
+  }
+  .b-nav__item-button:hover,
+  .b-nav__item-link:hover {
+    text-decoration: none;
+  }
+  .b-nav__item-button *,
+  .b-nav__item-link * {
+    pointer-events: none;
+  }
+  .b-nav__item-button span {
     display: block;
     position: relative;
     padding-right: calc(0.75rem + 0.5rem);
   }
-  .b-nav__item .b-nav__item-button span::after {
+  .b-nav__item-button span::after {
     content: "";
     width: 0.75rem;
     height: 0.75rem;
@@ -245,71 +282,25 @@ body a {
     background: transparent url("data:image/svg+xml;charset%3Dutf8,%3Csvg xmlns%3D%22http://www.w3.org/2000/svg%22 width%3D%2232%22 height%3D%2232%22%3E%3Cpath fill%3D%22%23000%22 d%3D%22M28.657 8.268a.998.998 0 00-1.445.088l-11.144 12.99L4.784 8.35a.998.998 0 00-1.445-.078 1.088 1.088 0 00-.075 1.499l12.05 13.877a1 1 0 001.524-.004L28.742 9.767a1.09 1.09 0 00-.085-1.499z%22/%3E%3C/svg%3E%0A") no-repeat 50% 50%;
     background-size: 100%;
   }
-  .b-nav__item .b-nav__item-button,
-  .b-nav__item .b-nav__item-link {
-    background: 0 0;
-    border: 0;
-    cursor: pointer;
-    display: block;
+  .b-nav__level--1 {
+    display: flex;
+    position: relative;
+  }
+  .b-nav__level--1 > .b-nav__item > .b-nav__item-button,
+  .b-nav__level--1 > .b-nav__item > .b-nav__item-link {
     font-size: 1rem;
     font-weight: 700;
-    padding: 1rem;
-    position: relative;
   }
-  .b-nav__item .b-nav__item-button:hover,
-  .b-nav__item .b-nav__item-link:hover {
-    text-decoration: none;
-  }
-  .b-nav__item .b-nav__item-button *,
-  .b-nav__item .b-nav__item-link * {
-    pointer-events: none;
-  }
-  .b-nav__item .b-nav__level {
+  .b-nav__level--2 {
     display: none;
+    border: 2px solid black;
   }
-  .b-nav__item.active {
-    background: #fff;
+  .b-nav__level--3 {
+    border: 2px solid #888;
+    margin-left: 2rem;
   }
-  .b-nav__item.active .b-nav__level {
-    position: absolute;
-    left: 0;
-    top: 100% !important;
-    width: 100%;
-    background: #ccc;
-    padding: 1rem;
-    display: flex;
-  }
-  .b-nav__item.active .b-nav__level .b-nav__level {
-    display: block;
-    position: relative;
-    top: 0 !important;
-    padding: 0;
-  }
-  .b-nav__item.active .b-nav__level .b-nav__item-button {
-    background: 0 0;
-    padding: 0;
-    margin: 0 0 1rem;
-  }
-  .b-nav__item.active .b-nav__level .b-nav__item-button::after {
-    display: none;
-  }
-  .b-nav__item.active .b-nav__level .b-nav__item-button:hover {
-    text-decoration: underline;
-  }
-  .b-nav__item.active .b-nav__level .b-nav__item-button span {
-    padding: 0;
-  }
-  .b-nav__item.active .b-nav__level .b-nav__item-button span::after {
-    display: none;
-  }
-  .b-nav__item .b-nav__item {
-    padding-left: 1rem;
-  }
-  .b-nav__item .b-nav__item:first-child {
-    padding-left: 0;
-  }
-  .b-nav__item .b-nav__level-header + .b-nav__item {
-    padding-left: 0;
+  .b-nav__level--3 li {
+    font-size: 0.85rem;
   }
 }
 

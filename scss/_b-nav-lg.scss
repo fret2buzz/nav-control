@@ -3,120 +3,107 @@
 @include media(lg-up) {
 	.b-nav {
 		background: $gray-200;
-	}
+		position: relative;
 
-	// Hiding mobile specific blocks
-	.b-nav__level-header {
-		display: none;
-	}
+		&__skip {
+			background: $white;
+			left: 0;
+			opacity: 0;
+			padding: 1rem;
+			pointer-events: none;
+			position: fixed;
+			top: 0;
+			z-index: 1;
+			border: 3px solid $black;
 
-	// Overriding mobile inline styles
-	.b-nav__in {
-		height: auto !important;
+			&:focus-within {
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
 	}
 
 	.b-nav__level {
-		left: 0 !important;
-		display: flex;
-		position: relative;
+		list-style: none;
+		padding: 0;
+		margin: 0;
 	}
 
 	.b-nav__item {
-		.b-nav__item-button span {
-			display: block;
-			position: relative;
-			padding-right: calc(#{$arrow-lg} + #{$spacer * 0.5});
-
-			&::after {
-				content: '';
-				width: $arrow-lg;
-				height: $arrow-lg;
-				position: absolute;
-				right: 0;
-				top: 50%;
-				margin-top: math.div($arrow-lg, -2);
-
-				@include svg-mono($icon-arrow-down, $black);
-			}
-		}
-
-		.b-nav__item-button,
-		.b-nav__item-link {
-			background: 0 0;
-			border: 0;
-			cursor: pointer;
-			display: block;
-			font-size: 1rem;
-			font-weight: 700;
-			padding: $spacer;
-			position: relative;
-
-			&:hover {
-				text-decoration: none;
-			}
-
-			* {
-				pointer-events: none;
-			}
-		}
-
-		.b-nav__level {
-			display: none;
-		}
-
 		&.active {
 			background: $white;
-		}
 
-		&.active .b-nav__level {
-			position: absolute;
-			left: 0;
-			top: 100% !important;
-			width: 100%;
-			background: $gray-200;
-			padding: $spacer;
-			display: flex;
-
-			.b-nav__level {
+			.b-nav__level--2 {
+				background: $white;
 				display: block;
-				position: relative;
-				top: 0 !important;
-				padding: 0;
-			}
-
-			.b-nav__item-button {
-				background: 0 0;
-				padding: 0;
-				margin: 0 0 $spacer;
-
-				&::after {
-					display: none;
-				}
-
-				&:hover {
-					text-decoration: underline;
-				}
-
-				span {
-					padding: 0;
-
-					&::after {
-						display: none;
-					}
-				}
+				left: 0;
+				padding: $spacer;
+				position: absolute;
+				top: 100%;
+				width: 100%;
 			}
 		}
+	}
 
-		.b-nav__item {
-			padding-left: $spacer;
+	.b-nav__item-button,
+	.b-nav__item-link {
+		background: 0 0;
+		border: 0;
+		cursor: pointer;
+		display: inline-block;
+		padding: $spacer;
+		position: relative;
+		vertical-align: top;
 
-			&:first-child {
-				padding-left: 0;
-			}
+		&:hover {
+			text-decoration: none;
 		}
 
-		.b-nav__level-header + .b-nav__item {
-			padding-left: 0;
+		* {
+			pointer-events: none;
+		}
+	}
+
+	.b-nav__item-button span {
+		display: block;
+		position: relative;
+		padding-right: calc(#{$arrow-lg} + #{$spacer * 0.5});
+
+		&::after {
+			content: '';
+			width: $arrow-lg;
+			height: $arrow-lg;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			margin-top: math.div($arrow-lg, -2);
+
+			@include svg-mono($icon-arrow-down, $black);
+		}
+	}
+
+	.b-nav__level--1 {
+		display: flex;
+		position: relative;
+
+		> .b-nav__item > .b-nav__item-button,
+		> .b-nav__item > .b-nav__item-link {
+			font-size: 1rem;
+			font-weight: 700;
+		}
+	}
+
+	.b-nav__level--2 {
+		display: none;
+		border: 2px solid black;
+	}
+
+	.b-nav__level--3 {
+		border: 2px solid $gray-100;
+		margin-left: 2rem;
+
+		li {
+			font-size: 0.85rem;
 		}
 	}
 }

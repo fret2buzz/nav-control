@@ -1,6 +1,5 @@
 const nunjucks = require('nunjucks');
 const chokidar = require('chokidar');
-const data = require('./data.json');
 const fs = require('fs');
 const minify = require('html-minifier').minify;
 
@@ -10,6 +9,8 @@ nunjucks.configure({
 });
 
 async function compileHtml() {
+    let data = JSON.parse(fs.readFileSync('./data.json'));
+    console.log(data);
     let html = await nunjucks.render('index.njk', data);
     html = await minify(html, {
         collapseWhitespace: true,
@@ -29,8 +30,8 @@ async function compileHtml() {
 compileHtml();
 
 if (process.argv[2] == 'watch') {
-    chokidar.watch('./index.njk').on('change', (event, path) => {
-        console.log(`index.njk changed...`);
+    chokidar.watch(['./index.njk', './data.json']).on('change', (event, path) => {
+        console.log(`${event} changed...`);
         compileHtml();
     });
 }
