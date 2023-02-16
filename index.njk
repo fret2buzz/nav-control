@@ -57,15 +57,13 @@
         <a href="#main">Skip to main content</a> or <a href="#footer">Skip to footer</a>
     </div>
 
-    <div class="b-nav">
-        <nav class="b-nav__in">
-            <ul class="js-nav b-nav__level b-nav__level--1">
-                {% for item in navigation %}
-                    {{ navigationItem(item) }}
-                {% endfor %}
-            </ul>
-        </nav>
-    </div>
+    <nav class="b-nav">
+        <ul class="js-nav b-nav__level b-nav__level--1">
+            {% for item in navigation %}
+                {{ navigationItem(item) }}
+            {% endfor %}
+        </ul>
+    </nav>
 
     <main class="b-section" id="main" tabindex="-1">
         <table class="b-section__table">
@@ -95,7 +93,7 @@
         </table>
     </main>
     <footer class="b-footer" id="footer" tabindex="-1">
-        <a href="#">Footer</a>
+        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/">Source</a>
     </footer>
 </div>
 

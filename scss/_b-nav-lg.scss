@@ -1,6 +1,10 @@
 @use 'sass:math';
 
 @include media(lg-up) {
+	body {
+		overflow-y: scroll;
+	}
+
 	.b-nav {
 		background: $gray-200;
 		position: relative;

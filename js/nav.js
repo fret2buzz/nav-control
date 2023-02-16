@@ -21,9 +21,6 @@ function NavControl(options) {
 
 NavControl.prototype.init = function () {
     if (this.el) {
-        let breakpointType = typeof this.settings.breakpoint === 'number';
-        let breakpointWidth = window.innerWidth >= this.settings.breakpoint;
-
         let lastToFocus = this.el.querySelectorAll('a, button');
         let index = lastToFocus.length - 1;
 
@@ -34,14 +31,15 @@ NavControl.prototype.init = function () {
         });
 
         this.el.addEventListener('click', (e) => {
+            let breakpointType = typeof this.settings.breakpoint === 'number';
+            let breakpointWidth = window.innerWidth >= this.settings.breakpoint;
             this.target = e.target;
+            this.parentContainer = this.findParent(this.target, 'main');
+            this.button = this.parentContainer.querySelector('[aria-haspopup]');
+            this.hiddenArea = this.parentContainer.querySelector('[aria-hidden]');
 
             if (breakpointType && breakpointWidth) {
                 //desktop
-                e.preventDefault();
-                this.parentContainer = this.findParent(this.target, 'main');
-                this.button = this.parentContainer.querySelector('[aria-haspopup]');
-                this.hiddenArea = this.parentContainer.querySelector('[aria-hidden]');
 
                 switch (true) {
                     case this.target.getAttribute('aria-haspopup') === 'true':
@@ -50,11 +48,14 @@ NavControl.prototype.init = function () {
                         } else {
                             this.collapse();
                         }
+                        e.preventDefault();
+
                         break;
 
                     case Object.keys(this.target.dataset).includes('close'):
                         this.collapse();
                         this.button.focus();
+                        e.preventDefault();
 
                         break;
 
@@ -63,10 +64,33 @@ NavControl.prototype.init = function () {
                 }
             } else {
                 //mobile
+                console.log('mobile');
+
+                switch (true) {
+                    case this.target.getAttribute('aria-haspopup') === 'true':
+                        if (!this.parentContainer.classList.contains(this.classNameActive)) {
+                            this.mobileExpand();
+                        }
+                        e.preventDefault();
+
+                        break;
+
+                        case Object.keys(this.target.dataset).includes('close'):
+                            this.mobileCollapse();
+                            e.preventDefault();
+
+                            break;
+
+                    default:
+                        break;
+                }
             }
         });
 
         this.el.addEventListener('keydown', (e) => {
+            let breakpointType = typeof this.settings.breakpoint === 'number';
+            let breakpointWidth = window.innerWidth >= this.settings.breakpoint;
+
             if (breakpointType && breakpointWidth) {
                 let key = e.which;
                 if (key === 27) {
@@ -106,4 +130,18 @@ NavControl.prototype.collapse = function() {
     this.button.setAttribute('aria-expanded', 'false');
     this.activeElement.classList.remove(this.classNameActive);
     this.activeElement = null;
+}
+
+NavControl.prototype.mobileExpand = function() {
+    console.log('expand');
+    this.hiddenArea.setAttribute('aria-hidden', 'false');
+    this.parentContainer.classList.add(this.classNameActive);
+    this.el.insertAdjacentHTML('afterend', this.button.nextElementSibling.outerHTML);
+}
+
+NavControl.prototype.mobileCollapse = function() {
+    console.log('collapse');
+    this.hiddenArea.setAttribute('aria-hidden', 'true');
+    this.parentContainer.classList.remove(this.classNameActive);
+    this.el.nextElementSibling.remove();
 }
