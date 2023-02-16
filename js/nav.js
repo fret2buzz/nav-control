@@ -8,7 +8,7 @@ function NavControl(options) {
     // Default settings
     this.defaults = {
         breakpoint: 1024,
-        SELECTOR_NAV: '.js-nav',
+        SELECTOR_NAV: 'js-nav',
         CLASSNAME_VISIBLE: 'm-active',
     };
 
@@ -16,7 +16,7 @@ function NavControl(options) {
     this.settings = Object.assign({}, this.defaults, options);
     this.classNameActive = this.settings.CLASSNAME_VISIBLE;
 
-    this.el = document.querySelector(this.settings.SELECTOR_NAV);
+    this.el = document.querySelector('.' + this.settings.SELECTOR_NAV);
 }
 
 NavControl.prototype.init = function () {
@@ -34,12 +34,12 @@ NavControl.prototype.init = function () {
             let breakpointType = typeof this.settings.breakpoint === 'number';
             let breakpointWidth = window.innerWidth >= this.settings.breakpoint;
             this.target = e.target;
-            this.parentContainer = this.findParent(this.target, 'main');
-            this.button = this.parentContainer.querySelector('[aria-haspopup]');
-            this.hiddenArea = this.parentContainer.querySelector('[aria-hidden]');
 
             if (breakpointType && breakpointWidth) {
                 //desktop
+                this.parentContainer = this.findParent(this.target, 'main');
+                this.button = this.parentContainer.querySelector('[aria-haspopup]');
+                this.hiddenArea = this.parentContainer.querySelector('[aria-hidden]');
 
                 switch (true) {
                     case this.target.getAttribute('aria-haspopup') === 'true':
@@ -68,6 +68,10 @@ NavControl.prototype.init = function () {
 
                 switch (true) {
                     case this.target.getAttribute('aria-haspopup') === 'true':
+                        this.parentContainer = this.findParent(this.target, 'main');
+                        this.button = this.parentContainer.querySelector('[aria-haspopup]');
+                        this.hiddenArea = this.parentContainer.querySelector('[aria-hidden]');
+
                         if (!this.parentContainer.classList.contains(this.classNameActive)) {
                             this.mobileExpand();
                         }
@@ -105,7 +109,9 @@ NavControl.prototype.init = function () {
 };
 
 NavControl.prototype.findParent = function (element, type) {
+    console.log(element.parentElement, element);
     let end = element.parentElement.classList.contains(this.settings.SELECTOR_NAV);
+
     if (Object.keys(element.dataset).includes(type)) {
         return element;
     } else if (element.parentElement && !end) {
@@ -122,7 +128,7 @@ NavControl.prototype.expand = function() {
     if (this.activeElement && this.parentContainer !== this.activeElement) {
         this.collapse();
     }
-    this.activeElement = document.querySelector(this.settings.SELECTOR_NAV + ' .' + this.classNameActive);
+    this.activeElement = document.querySelector('.' + this.settings.SELECTOR_NAV + ' .' + this.classNameActive);
 }
 
 NavControl.prototype.collapse = function() {
@@ -136,7 +142,7 @@ NavControl.prototype.mobileExpand = function() {
     console.log('expand');
     this.hiddenArea.setAttribute('aria-hidden', 'false');
     this.parentContainer.classList.add(this.classNameActive);
-    this.el.insertAdjacentHTML('afterend', this.button.nextElementSibling.outerHTML);
+    this.el.insertAdjacentHTML('beforeend', this.button.nextElementSibling.outerHTML);
 }
 
 NavControl.prototype.mobileCollapse = function() {
