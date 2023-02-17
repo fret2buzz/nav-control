@@ -21,25 +21,23 @@ function NavControl(options) {
 
 NavControl.prototype.init = function () {
     if (this.el) {
-        let lastToFocus = this.el.querySelectorAll('a, button');
-        let index = lastToFocus.length - 1;
 
-        lastToFocus[index].addEventListener('focusout', (e) => {
-            if (!this.el.matches(':focus-within')) {
-                this.collapse();
-            }
-        });
+        let breakpointType = typeof this.settings.breakpoint === 'number';
+        let breakpointWidth = window.innerWidth >= this.settings.breakpoint;
+
+        if (breakpointType && breakpointWidth) {
+            this.lastFocusDesktop();
+        }
 
         this.el.addEventListener('click', (e) => {
-            let breakpointType = typeof this.settings.breakpoint === 'number';
-            let breakpointWidth = window.innerWidth >= this.settings.breakpoint;
+            breakpointWidth = window.innerWidth >= this.settings.breakpoint;
             this.target = e.target;
 
             if (breakpointType && breakpointWidth) {
                 //desktop
                 this.parentContainer = this.findParent(this.target, 'main');
-                this.button = this.parentContainer.querySelector('[aria-haspopup]');
-                this.hiddenArea = this.parentContainer.querySelector('[aria-hidden]');
+                this.button = this.target;
+                this.hiddenArea = this.parentContainer ? this.parentContainer.querySelector('[aria-hidden]') : false;
 
                 switch (true) {
                     case this.target.getAttribute('aria-haspopup') === 'true':
@@ -64,13 +62,11 @@ NavControl.prototype.init = function () {
                 }
             } else {
                 //mobile
-                console.log('mobile');
 
                 switch (true) {
                     case this.target.getAttribute('aria-haspopup') === 'true':
                         this.parentContainer = this.findParent(this.target, 'main');
-                        this.button = this.parentContainer.querySelector('[aria-haspopup]');
-                        this.hiddenArea = this.parentContainer.querySelector('[aria-hidden]');
+                        this.button = this.target;
 
                         if (!this.parentContainer.classList.contains(this.classNameActive)) {
                             this.mobileExpand();
@@ -92,8 +88,7 @@ NavControl.prototype.init = function () {
         });
 
         this.el.addEventListener('keydown', (e) => {
-            let breakpointType = typeof this.settings.breakpoint === 'number';
-            let breakpointWidth = window.innerWidth >= this.settings.breakpoint;
+            breakpointWidth = window.innerWidth >= this.settings.breakpoint;
 
             if (breakpointType && breakpointWidth) {
                 let key = e.which;
@@ -109,7 +104,6 @@ NavControl.prototype.init = function () {
 };
 
 NavControl.prototype.findParent = function (element, type) {
-    console.log(element.parentElement, element);
     let end = element.parentElement.classList.contains(this.settings.SELECTOR_NAV);
 
     if (Object.keys(element.dataset).includes(type)) {
@@ -132,6 +126,10 @@ NavControl.prototype.expand = function() {
 }
 
 NavControl.prototype.collapse = function() {
+    if (!this.hiddenArea) {
+        return false;
+    }
+
     this.hiddenArea.setAttribute('aria-hidden', 'true');
     this.button.setAttribute('aria-expanded', 'false');
     this.activeElement.classList.remove(this.classNameActive);
@@ -139,15 +137,45 @@ NavControl.prototype.collapse = function() {
 }
 
 NavControl.prototype.mobileExpand = function() {
-    console.log('expand');
-    this.hiddenArea.setAttribute('aria-hidden', 'false');
+    this.button.setAttribute('aria-expanded', 'true');
     this.parentContainer.classList.add(this.classNameActive);
-    this.el.insertAdjacentHTML('beforeend', this.button.nextElementSibling.outerHTML);
+    this.el.classList.add('m-opened');
+
+    if (this.activeElement && this.parentContainer !== this.activeElement) {
+        this.mobileCollapse();
+    }
+
+    if (this.sub) {
+        this.sub.remove();
+        this.sub = null;
+    }
+
+    let cloneElement = this.button.nextElementSibling.cloneNode(true);
+    cloneElement.id = "next-level";
+    this.el.appendChild(cloneElement);
+    this.sub = document.getElementById('next-level');
+    this.sub.setAttribute('aria-hidden', 'false');
+    this.sub.querySelector('a, button').focus();
+
+    this.activeElement = document.querySelector('.' + this.settings.SELECTOR_NAV + ' .' + this.classNameActive);
 }
 
 NavControl.prototype.mobileCollapse = function() {
-    console.log('collapse');
-    this.hiddenArea.setAttribute('aria-hidden', 'true');
-    this.parentContainer.classList.remove(this.classNameActive);
-    this.el.nextElementSibling.remove();
+    this.el.classList.remove('m-opened');
+    this.button.setAttribute('aria-expanded', 'false');
+    this.button.focus();
+    this.activeElement.classList.remove(this.classNameActive);
+    this.activeElement = null;
+}
+
+NavControl.prototype.lastFocusDesktop = function() {
+    this.toFocus = this.el.querySelectorAll('a, button');
+
+    this.toFocus.forEach((el) => {
+        el.addEventListener('focusout', (e) => {
+                if (!this.el.matches(':focus-within')) {
+                    this.collapse();
+                }
+        });
+    });
 }
