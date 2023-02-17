@@ -126,7 +126,7 @@ NavControl.prototype.expand = function() {
 }
 
 NavControl.prototype.collapse = function() {
-    if (!this.hiddenArea) {
+    if (!this.hiddenArea || !this.activeElement) {
         return false;
     }
 
@@ -169,13 +169,11 @@ NavControl.prototype.mobileCollapse = function() {
 }
 
 NavControl.prototype.lastFocusDesktop = function() {
-    this.toFocus = this.el.querySelectorAll('a, button');
-
-    this.toFocus.forEach((el) => {
-        el.addEventListener('focusout', (e) => {
-                if (!this.el.matches(':focus-within')) {
-                    this.collapse();
-                }
-        });
+    this.el.addEventListener('keydown', (e) => {
+        setTimeout(() => {
+            if (!this.el.matches(':focus-within')) {
+                this.collapse();
+            }
+        }, 200);
     });
 }
