@@ -29,20 +29,18 @@ class NavControl {
             return false;
         }
 
-        if (this.isDesktop()) {
-            this.handleKeyDown = this.handleKeyDown.bind(this);
-            this.el.addEventListener('keydown', this.handleKeyDown);
-            this.clickOutside = this.clickOutside.bind(this);
-            window.addEventListener('click', this.clickOutside);
-        } else {
-            this.el.style = "--time:" + this.settings.TIME + 'ms;';
-        }
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.el.addEventListener('keydown', this.handleKeyDown);
+        this.clickOutside = this.clickOutside.bind(this);
+        window.addEventListener('click', this.clickOutside);
 
         this.handleClick = this.handleClick.bind(this);
         this.el.addEventListener('click', this.handleClick);
 
         this.reset = this.reset.bind(this);
         window.addEventListener('resize', this.reset);
+
+        this.el.style = "--time:" + this.settings.TIME + 'ms;';
     }
 
     destroy() {
@@ -88,6 +86,10 @@ class NavControl {
     }
 
     clickOutside(e) {
+        if (!this.isDesktop()) {
+            return false;
+        }
+
         const isClickInside = this.el.contains(e.target);
         if (!isClickInside) {
             this.collapse();
@@ -95,6 +97,10 @@ class NavControl {
     }
 
     handleKeyDown(e) {
+        if (!this.isDesktop()) {
+            return false;
+        }
+
         const key = e.which;
 
         if (key === 27) {
