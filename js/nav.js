@@ -44,7 +44,7 @@ class NavControl {
     }
 
     clickOutside(e) {
-        let isClickInside = this.el.contains(e.target);
+        const isClickInside = this.el.contains(e.target);
         if (!isClickInside) {
             this.collapse();
         }
@@ -52,7 +52,7 @@ class NavControl {
 
     handleKeyDown(e) {
         if (this.isDesktop()) {
-            let key = e.which;
+            const key = e.which;
             if (key === 27) {
                 // escape
                 e.preventDefault();
@@ -68,13 +68,15 @@ class NavControl {
         if (this.isDesktop()) {
 
             //desktop
-            this.initParentContainer();
 
             switch (true) {
                 case this.target.getAttribute('aria-haspopup') === 'true':
+                    this.initParentContainer();
+
                     if (!this.parentContainer.classList.contains(this.classNameActive)) {
                         // close previous
                         this.collapse();
+                        // expand new
                         this.expand();
                     } else {
                         this.collapse();
@@ -101,7 +103,6 @@ class NavControl {
 
             switch (true) {
                 case this.target.getAttribute('aria-haspopup') === 'true':
-
                     this.initParentContainer();
 
                     if (!this.parentContainer.classList.contains(this.classNameActive)) {
@@ -157,7 +158,6 @@ class NavControl {
     }
 
     expand() {
-        // expand new
         this.hiddenArea.setAttribute('aria-hidden', 'false');
         this.button.setAttribute('aria-expanded', 'true');
         this.parentContainer.classList.add(this.classNameActive);
@@ -193,7 +193,7 @@ class NavControl {
             this.sub = null;
         }
 
-        let cloneElement = this.button.nextElementSibling.cloneNode(true);
+        const cloneElement = this.button.nextElementSibling.cloneNode(true);
         cloneElement.id = "next-level";
         this.el.appendChild(cloneElement);
         this.sub = document.getElementById('next-level');
@@ -223,4 +223,3 @@ class NavControl {
         });
       }
 }
-
