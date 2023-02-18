@@ -41,8 +41,8 @@ class NavControl {
         this.handleClick = this.handleClick.bind(this);
         this.el.addEventListener('click', this.handleClick);
 
-        this.resizeWindow = this.resizeWindow.bind(this);
-        window.addEventListener('resize', this.resizeWindow);
+        this.reset = this.reset.bind(this);
+        window.addEventListener('resize', this.reset);
     }
 
     destroy() {
@@ -51,6 +51,13 @@ class NavControl {
         this.el.removeEventListener('click', this.handleClick);
         window.removeEventListener('resize', this.resizeWindow);
         window.removeEventListener('click', this.clickOutside);
+    }
+
+    removeSub() {
+        if (this.sub) {
+            this.sub.remove();
+            this.sub = null;
+        }
     }
 
     debounce(func, delay) {
@@ -65,9 +72,15 @@ class NavControl {
         }
     }
 
-    resizeWindow() {
+    reset() {
         let resizeFunc = this.debounce(() => {
             console.log('resized');
+            if (this.activeElement) {
+                this.removeSub();
+                this.collapse();
+                this.mobileRemoveClone();
+                this.el.style = "--time:" + this.settings.TIME + 'ms;';
+            }
 
         }, 200);
 
@@ -106,12 +119,12 @@ class NavControl {
         }
 
         this.target = e.target;
-        let hasClose = Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE);
-        let hasPopup = this.target.getAttribute('aria-haspopup') === 'true';
+        this.hasClose = Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE);
+        this.hasPopup = this.target.getAttribute('aria-haspopup') === 'true';
 
         if (this.isDesktop()) {
             // click on level 1 button
-            if (hasPopup) {
+            if (this.hasPopup) {
                 this.initParentContainer();
 
                 if (!this.parentContainer.classList.contains(this.classNameActive)) {
@@ -127,7 +140,7 @@ class NavControl {
             }
 
             // close button
-            if (hasClose) {
+            if (this.hasClose) {
                 this.collapse();
                 this.button.focus();
 
@@ -136,7 +149,7 @@ class NavControl {
         } else {
 
             // Prevent double-click
-            if (hasPopup || hasClose) {
+            if (this.hasPopup || this.hasClose) {
                 if(this.inProgress) {
                     return false;
                 }
@@ -149,7 +162,7 @@ class NavControl {
             }
 
             // click on level 1 button
-            if (hasPopup) {
+            if (this.hasPopup) {
                 this.initParentContainer();
 
                 if (!this.parentContainer.classList.contains(this.classNameActive)) {
@@ -161,7 +174,7 @@ class NavControl {
             }
 
             // close button
-            if (hasClose) {
+            if (this.hasClose) {
                 this.mobileCollapse();
                 e.preventDefault();
             }
@@ -220,7 +233,7 @@ class NavControl {
 
     mobileExpand() {
         this.expand();
-        this.mobileAddClone()
+        this.mobileAddClone();
     }
 
     mobileCollapse() {
@@ -229,10 +242,7 @@ class NavControl {
     }
 
     mobileAddClone() {
-        if (this.sub) {
-            this.sub.remove();
-            this.sub = null;
-        }
+        this.removeSub();
 
         const cloneElement = this.button.nextElementSibling.cloneNode(true);
         cloneElement.id = "active-level";
