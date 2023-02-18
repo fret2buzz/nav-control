@@ -66,63 +66,46 @@ class NavControl {
         this.target = e.target;
 
         if (this.isDesktop()) {
+            // click on level 1 button
+            if (this.target.getAttribute('aria-haspopup') === 'true') {
+                this.initParentContainer();
 
-            //desktop
-
-            switch (true) {
-                case this.target.getAttribute('aria-haspopup') === 'true':
-                    this.initParentContainer();
-
-                    if (!this.parentContainer.classList.contains(this.classNameActive)) {
-                        // close previous
-                        this.collapse();
-                        // expand new
-                        this.expand();
-                    } else {
-                        this.collapse();
-                    }
-
-                    e.preventDefault();
-
-                    break;
-
-                case Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE):
+                if (!this.parentContainer.classList.contains(this.classNameActive)) {
+                    // close previous
                     this.collapse();
-                    this.button.focus();
+                    // expand new
+                    this.expand();
+                } else {
+                    this.collapse();
+                }
 
-                    e.preventDefault();
+                e.preventDefault();
+            }
 
-                    break;
+            // close button
+            if (Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE)) {
+                this.collapse();
+                this.button.focus();
 
-                default:
-                    break;
+                e.preventDefault();
             }
         } else {
+            // click on level 1 button
+            if (this.target.getAttribute('aria-haspopup') === 'true') {
+                this.initParentContainer();
 
-            //mobile
+                if (!this.parentContainer.classList.contains(this.classNameActive)) {
+                    this.mobileCollapse();
+                    this.mobileExpand();
+                }
 
-            switch (true) {
-                case this.target.getAttribute('aria-haspopup') === 'true':
-                    this.initParentContainer();
+                e.preventDefault();
+            }
 
-                    if (!this.parentContainer.classList.contains(this.classNameActive)) {
-                        this.mobileCollapse();
-                        this.mobileExpand();
-                    }
-
-                    e.preventDefault();
-
-                    break;
-
-                    case Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE):
-                        this.mobileCollapse();
-
-                        e.preventDefault();
-
-                        break;
-
-                default:
-                    break;
+            // close button
+            if (Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE)) {
+                this.mobileCollapse();
+                e.preventDefault();
             }
         }
     }
