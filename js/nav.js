@@ -8,15 +8,18 @@ class NavControl {
         // Default settings
         this.defaults = {
             breakpoint: 1024,
-            SELECTOR_NAV: 'js-nav',
+            CLASSNAME_NAV: 'js-nav',
             CLASSNAME_VISIBLE: 'm-active',
+            CLASSNAME_OPENED: 'm-opened',
+            DATA_MAIN: 'main',
+            DATA_CLOSE: 'close',
         };
 
         // Merge user options into defaults
         this.settings = Object.assign({}, this.defaults, options);
         this.classNameActive = this.settings.CLASSNAME_VISIBLE;
 
-        this.el = document.querySelector('.' + this.settings.SELECTOR_NAV);
+        this.el = document.querySelector('.' + this.settings.CLASSNAME_NAV);
     }
 
     // Method
@@ -63,30 +66,28 @@ class NavControl {
         this.target = e.target;
 
         if (this.isDesktop()) {
+
             //desktop
-            this.parentContainer = this.findParent(this.target, 'main');
-
-            if (!this.parentContainer) {
-                return false;
-            }
-
-            this.button = this.target;
-            this.hiddenArea = this.parentContainer.querySelector('[aria-hidden]');
+            this.initParentContainer();
 
             switch (true) {
                 case this.target.getAttribute('aria-haspopup') === 'true':
                     if (!this.parentContainer.classList.contains(this.classNameActive)) {
+                        // close previous
+                        this.collapse();
                         this.expand();
                     } else {
                         this.collapse();
                     }
+
                     e.preventDefault();
 
                     break;
 
-                case Object.keys(this.target.dataset).includes('close'):
+                case Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE):
                     this.collapse();
                     this.button.focus();
+
                     e.preventDefault();
 
                     break;
@@ -95,22 +96,26 @@ class NavControl {
                     break;
             }
         } else {
+
             //mobile
 
             switch (true) {
                 case this.target.getAttribute('aria-haspopup') === 'true':
-                    this.parentContainer = this.findParent(this.target, 'main');
-                    this.button = this.target;
+
+                    this.initParentContainer();
 
                     if (!this.parentContainer.classList.contains(this.classNameActive)) {
+                        this.mobileCollapse();
                         this.mobileExpand();
                     }
+
                     e.preventDefault();
 
                     break;
 
-                    case Object.keys(this.target.dataset).includes('close'):
+                    case Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE):
                         this.mobileCollapse();
+
                         e.preventDefault();
 
                         break;
@@ -121,13 +126,26 @@ class NavControl {
         }
     }
 
+    initParentContainer() {
+        this.parentContainer = this.findParent(this.target, this.settings.DATA_MAIN);
+        if (!this.parentContainer) {
+            return false;
+        }
+        this.button = this.target;
+        this.hiddenArea = this.parentContainer.querySelector('[aria-hidden]');
+    }
+
     isDesktop() {
         let typeNumber = typeof this.settings.breakpoint === 'number';
         return typeNumber && window.innerWidth >= this.settings.breakpoint;
     }
 
     findParent(element, type) {
-        let end = element.parentElement.classList.contains(this.settings.SELECTOR_NAV);
+        if (!element) {
+            return false;
+        }
+
+        let end = element.parentElement.classList.contains(this.settings.CLASSNAME_NAV);
 
         if (Object.keys(element.dataset).includes(type)) {
             return element;
@@ -139,17 +157,17 @@ class NavControl {
     }
 
     expand() {
+        // expand new
         this.hiddenArea.setAttribute('aria-hidden', 'false');
         this.button.setAttribute('aria-expanded', 'true');
         this.parentContainer.classList.add(this.classNameActive);
-        if (this.activeElement && this.parentContainer !== this.activeElement) {
-            this.collapse();
-        }
-        this.activeElement = document.querySelector('.' + this.settings.SELECTOR_NAV + ' .' + this.classNameActive);
+
+        const sel = '.' + this.settings.CLASSNAME_NAV + ' .' + this.classNameActive;
+        this.activeElement = document.querySelector(sel);
     }
 
     collapse() {
-        if (!this.hiddenArea || !this.activeElement) {
+        if (!this.activeElement) {
             return false;
         }
 
@@ -160,14 +178,16 @@ class NavControl {
     }
 
     mobileExpand() {
-        this.button.setAttribute('aria-expanded', 'true');
-        this.parentContainer.classList.add(this.classNameActive);
-        this.el.classList.add('m-opened');
+        this.expand();
+        this.mobileAddClone()
+    }
 
-        if (this.activeElement && this.parentContainer !== this.activeElement) {
-            this.mobileCollapse();
-        }
+    mobileCollapse() {
+        this.collapse();
+        this.mobileRemoveClone();
+    }
 
+    mobileAddClone() {
         if (this.sub) {
             this.sub.remove();
             this.sub = null;
@@ -177,27 +197,30 @@ class NavControl {
         cloneElement.id = "next-level";
         this.el.appendChild(cloneElement);
         this.sub = document.getElementById('next-level');
-        this.sub.setAttribute('aria-hidden', 'false');
         this.sub.querySelector('a, button').focus();
-
-        this.activeElement = document.querySelector('.' + this.settings.SELECTOR_NAV + ' .' + this.classNameActive);
+        this.el.classList.add(this.settings.CLASSNAME_OPENED);
     }
 
-    mobileCollapse() {
-        this.el.classList.remove('m-opened');
-        this.button.setAttribute('aria-expanded', 'false');
+    mobileRemoveClone() {
+        this.el.classList.remove(this.settings.CLASSNAME_OPENED);
         this.button.focus();
-        this.activeElement.classList.remove(this.classNameActive);
-        this.activeElement = null;
     }
 
     lastFocusDesktop() {
+        let timeoutId;
+
         this.el.addEventListener('keydown', (e) => {
-            setTimeout(() => {
-                if (!this.el.matches(':focus-within')) {
-                    this.collapse();
-                }
-            }, 200);
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
+            if (!this.el.matches(':focus-within')) {
+              this.collapse();
+            }
+          }, 200);
         });
-    }
+
+        this.el.addEventListener('mousedown', (e) => {
+          clearTimeout(timeoutId);
+        });
+      }
 }
+
