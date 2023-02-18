@@ -1,7 +1,8 @@
 *,
 *:after,
 *:before {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
@@ -117,17 +118,26 @@ body a {
   }
   .b-nav {
     background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: row nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
     height: 100%;
     left: 0;
     position: fixed;
     top: 0;
     width: 100%;
-    transition: transform 0.3s ease-out;
+    -webkit-transition: -webkit-transform var(--time, 0ms) ease-out;
+    transition: -webkit-transform var(--time, 0ms) ease-out;
+    transition: transform var(--time, 0ms) ease-out;
+    transition: transform var(--time, 0ms) ease-out, -webkit-transform var(--time, 0ms) ease-out;
   }
   .b-nav.m-opened {
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
   }
   .b-nav > .b-nav__level {
     min-height: 100%;
@@ -142,6 +152,13 @@ body a {
   .b-nav__level--1 .b-nav__level--2,
   .b-nav__level--1 .b-nav__level--3 {
     display: none;
+  }
+  .b-nav__level--3 {
+    border: 2px solid #888;
+    margin-left: 2rem;
+  }
+  .b-nav__level--3 li {
+    font-size: 0.85rem;
   }
   .b-nav__item-button,
   .b-nav__item-link {
@@ -239,6 +256,8 @@ body a {
     background-size: 100%;
   }
   .b-nav__level--1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
   }
@@ -259,5 +278,3 @@ body a {
     font-size: 0.85rem;
   }
 }
-
-/*# sourceMappingURL=main.css.map */

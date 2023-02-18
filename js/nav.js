@@ -8,6 +8,7 @@ class NavControl {
         // Default settings
         this.defaults = {
             BREAKPOINT: 1024,
+            TIME: 300,
             CLASSNAME_NAV: 'js-nav',
             CLASSNAME_VISIBLE: 'm-active',
             CLASSNAME_OPENED: 'm-opened',
@@ -24,21 +25,53 @@ class NavControl {
 
     // Init
     init() {
-        if (this.el) {
-            if (this.isDesktop()) {
-                document.addEventListener('click', event => {
-                    this.clickOutside(event);
-                });
-
-                this.el.addEventListener('keydown', event => {
-                    this.handleKeyDown(event);
-                });
-            }
-
-            this.el.addEventListener('click', event => {
-                this.handleClick(event);
-            });
+        if (!this.el) {
+            return false;
         }
+
+        if (this.isDesktop()) {
+            this.handleKeyDown = this.handleKeyDown.bind(this);
+            this.el.addEventListener('keydown', this.handleKeyDown);
+            this.clickOutside = this.clickOutside.bind(this);
+            window.addEventListener('click', this.clickOutside);
+        } else {
+            this.el.style = "--time:" + this.settings.TIME + 'ms;';
+        }
+
+        this.handleClick = this.handleClick.bind(this);
+        this.el.addEventListener('click', this.handleClick);
+
+        this.resizeWindow = this.resizeWindow.bind(this);
+        window.addEventListener('resize', this.resizeWindow);
+    }
+
+    destroy() {
+        console.log('destroyed');
+        this.el.removeEventListener('keydown', this.handleKeyDown);
+        this.el.removeEventListener('click', this.handleClick);
+        window.removeEventListener('resize', this.resizeWindow);
+        window.removeEventListener('click', this.clickOutside);
+    }
+
+    debounce(func, delay) {
+        this.timeoutId;
+
+        return () => {
+            const args = arguments;
+            clearTimeout(this.timeoutId);
+            this.timeoutId = setTimeout(() => {
+                func(args);
+            }, delay);
+        }
+    }
+
+    resizeWindow() {
+        let resizeFunc = this.debounce(() => {
+            console.log('resized');
+
+        }, 200);
+
+        resizeFunc();
     }
 
     clickOutside(e) {
@@ -50,7 +83,6 @@ class NavControl {
 
     handleKeyDown(e) {
         const key = e.which;
-        let hasFocus = this.el.matches(':focus-within');
 
         if (key === 27) {
             // escape
@@ -59,12 +91,13 @@ class NavControl {
             this.button.focus();
         }
 
-        clearTimeout(this.timeoutId);
-        this.timeoutId = setTimeout(() => {
-          if (!hasFocus) {
-            this.collapse();
-          }
+        let handleFocus = this.debounce(() => {
+            let hasFocus = this.el.matches(':focus-within');
+            if (!hasFocus) {
+                this.collapse();
+            }
         }, 200);
+        handleFocus();
     }
 
     handleClick(e) {
@@ -73,10 +106,12 @@ class NavControl {
         }
 
         this.target = e.target;
+        let hasClose = Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE);
+        let hasPopup = this.target.getAttribute('aria-haspopup') === 'true';
 
         if (this.isDesktop()) {
             // click on level 1 button
-            if (this.target.getAttribute('aria-haspopup') === 'true') {
+            if (hasPopup) {
                 this.initParentContainer();
 
                 if (!this.parentContainer.classList.contains(this.classNameActive)) {
@@ -92,15 +127,29 @@ class NavControl {
             }
 
             // close button
-            if (Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE)) {
+            if (hasClose) {
                 this.collapse();
                 this.button.focus();
 
                 e.preventDefault();
             }
         } else {
+
+            // Prevent double-click
+            if (hasPopup || hasClose) {
+                if(this.inProgress) {
+                    return false;
+                }
+
+                this.inProgress = true;
+
+                setTimeout(() => {
+                    this.inProgress = false;
+                }, this.settings.TIME);
+            }
+
             // click on level 1 button
-            if (this.target.getAttribute('aria-haspopup') === 'true') {
+            if (hasPopup) {
                 this.initParentContainer();
 
                 if (!this.parentContainer.classList.contains(this.classNameActive)) {
@@ -112,7 +161,7 @@ class NavControl {
             }
 
             // close button
-            if (Object.keys(this.target.dataset).includes(this.settings.DATA_CLOSE)) {
+            if (hasClose) {
                 this.mobileCollapse();
                 e.preventDefault();
             }
