@@ -7,7 +7,7 @@ class NavControl {
     constructor(options) {
         // Default settings
         this.defaults = {
-            breakpoint: 1024,
+            BREAKPOINT: 1024,
             CLASSNAME_NAV: 'js-nav',
             CLASSNAME_VISIBLE: 'm-active',
             CLASSNAME_OPENED: 'm-opened',
@@ -18,27 +18,25 @@ class NavControl {
         // Merge user options into defaults
         this.settings = Object.assign({}, this.defaults, options);
         this.classNameActive = this.settings.CLASSNAME_VISIBLE;
-
+        this.timeoutId = null;
         this.el = document.querySelector('.' + this.settings.CLASSNAME_NAV);
     }
 
-    // Method
+    // Init
     init() {
         if (this.el) {
             if (this.isDesktop()) {
-                this.lastFocusDesktop();
-
                 document.addEventListener('click', event => {
                     this.clickOutside(event);
+                });
+
+                this.el.addEventListener('keydown', event => {
+                    this.handleKeyDown(event);
                 });
             }
 
             this.el.addEventListener('click', event => {
                 this.handleClick(event);
-            });
-
-            this.el.addEventListener('keydown', event => {
-                this.handleKeyDown(event);
             });
         }
     }
@@ -51,18 +49,29 @@ class NavControl {
     }
 
     handleKeyDown(e) {
-        if (this.isDesktop()) {
-            const key = e.which;
-            if (key === 27) {
-                // escape
-                e.preventDefault();
-                this.collapse();
-                this.button.focus();
-            }
+        const key = e.which;
+        let hasFocus = this.el.matches(':focus-within');
+
+        if (key === 27) {
+            // escape
+            e.preventDefault();
+            this.collapse();
+            this.button.focus();
         }
+
+        clearTimeout(this.timeoutId);
+        this.timeoutId = setTimeout(() => {
+          if (!hasFocus) {
+            this.collapse();
+          }
+        }, 200);
     }
 
     handleClick(e) {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+        }
+
         this.target = e.target;
 
         if (this.isDesktop()) {
@@ -120,8 +129,8 @@ class NavControl {
     }
 
     isDesktop() {
-        let typeNumber = typeof this.settings.breakpoint === 'number';
-        return typeNumber && window.innerWidth >= this.settings.breakpoint;
+        let typeNumber = typeof this.settings.BREAKPOINT === 'number';
+        return typeNumber && window.innerWidth >= this.settings.BREAKPOINT;
     }
 
     findParent(element, type) {
@@ -177,9 +186,9 @@ class NavControl {
         }
 
         const cloneElement = this.button.nextElementSibling.cloneNode(true);
-        cloneElement.id = "next-level";
+        cloneElement.id = "active-level";
         this.el.appendChild(cloneElement);
-        this.sub = document.getElementById('next-level');
+        this.sub = document.getElementById('active-level');
         this.sub.querySelector('a, button').focus();
         this.el.classList.add(this.settings.CLASSNAME_OPENED);
     }
@@ -188,21 +197,4 @@ class NavControl {
         this.el.classList.remove(this.settings.CLASSNAME_OPENED);
         this.button.focus();
     }
-
-    lastFocusDesktop() {
-        let timeoutId;
-
-        this.el.addEventListener('keydown', (e) => {
-          clearTimeout(timeoutId);
-          timeoutId = setTimeout(() => {
-            if (!this.el.matches(':focus-within')) {
-              this.collapse();
-            }
-          }, 200);
-        });
-
-        this.el.addEventListener('mousedown', (e) => {
-          clearTimeout(timeoutId);
-        });
-      }
 }
