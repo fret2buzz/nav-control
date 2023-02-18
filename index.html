@@ -16,14 +16,14 @@
 <a href="#main">Skip to main content</a> or <a href="#footer">Skip to footer</a>
 </div>
 <nav class="js-nav b-nav">
-<ul class="b-nav__level b-nav__level--1">
+<ul class="b-nav__level b-nav__level--1" data-id="1">
 <li class="b-nav__item" data-main>
-<button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false">
+<button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false" data-level="2">
 <span>Men</span>
 </button>
-<ul class="b-nav__level b-nav__level--2" aria-hidden="true">
+<ul class="b-nav__level b-nav__level--2" data-id="2" aria-hidden="true">
 <li>
-<button type="button" data-close>
+<button type="button" data-close data-level="1">
 Close
 </button>
 </li>
@@ -36,7 +36,7 @@ Close
 <a href="#" class="b-nav__item-link">
 <span>Shoes</span>
 </a>
-<ul class="b-nav__level b-nav__level--3">
+<ul class="b-nav__level b-nav__level--3" data-id="3">
 <li>
 <a href="#" class="b-nav__item-link">
 <span>Autumn</span>
@@ -53,7 +53,7 @@ Close
 <a href="#" class="b-nav__item-link">
 <span>Top wear</span>
 </a>
-<ul class="b-nav__level b-nav__level--3">
+<ul class="b-nav__level b-nav__level--3" data-id="3">
 <li>
 <a href="#" class="b-nav__item-link">
 <span>Cycling</span>
@@ -74,12 +74,12 @@ Close
 </ul>
 </li>
 <li class="b-nav__item" data-main>
-<button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false">
+<button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false" data-level="2">
 <span>Women</span>
 </button>
-<ul class="b-nav__level b-nav__level--2" aria-hidden="true">
+<ul class="b-nav__level b-nav__level--2" data-id="2" aria-hidden="true">
 <li>
-<button type="button" data-close>
+<button type="button" data-close data-level="1">
 Close
 </button>
 </li>
@@ -121,12 +121,12 @@ Close
 </a>
 </li>
 <li class="b-nav__item" data-main>
-<button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false">
+<button class="b-nav__item-button" type="button" aria-haspopup="true" aria-expanded="false" data-level="2">
 <span>Kids</span>
 </button>
-<ul class="b-nav__level b-nav__level--2" aria-hidden="true">
+<ul class="b-nav__level b-nav__level--2" data-id="2" aria-hidden="true">
 <li>
-<button type="button" data-close>
+<button type="button" data-close data-level="1">
 Close
 </button>
 </li>
