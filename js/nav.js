@@ -41,6 +41,7 @@ class NavControl {
         window.addEventListener('resize', this.reset);
 
         this.el.style = "--time:" + this.settings.TIME + 'ms;';
+        this.focusableEls = document.querySelectorAll('#level1 > li > a, #level1 > li > button');
     }
 
     destroy() {
@@ -98,12 +99,14 @@ class NavControl {
 
     handleKeyDown(e) {
         if (!this.isDesktop()) {
+            this.trapFocus(e);
+
             return false;
         }
 
         const key = e.which;
 
-        if (key === 27) {
+        if (key === 'Escape') {
             // escape
             e.preventDefault();
             this.collapse();
@@ -149,7 +152,6 @@ class NavControl {
             if (this.hasClose) {
                 this.collapse();
                 this.button.focus();
-
                 e.preventDefault();
             }
         } else {
@@ -177,12 +179,18 @@ class NavControl {
                 }
 
                 e.preventDefault();
+
+                // update focusableEls
+                this.focusableEls = this.sub.querySelectorAll('a, button');
             }
 
             // close button
             if (this.hasClose) {
                 this.mobileCollapse();
                 e.preventDefault();
+
+                // update focusableEls
+                this.focusableEls = document.querySelectorAll('#level1 > li > a, #level1 > li > button');
             }
         }
     }
@@ -251,9 +259,9 @@ class NavControl {
         this.removeSub();
 
         const cloneElement = this.button.nextElementSibling.cloneNode(true);
-        cloneElement.id = "active-level";
+        cloneElement.id = "level2";
         this.el.appendChild(cloneElement);
-        this.sub = document.getElementById('active-level');
+        this.sub = document.getElementById('level2');
         this.sub.querySelector('a, button').focus();
         this.el.classList.add(this.settings.CLASSNAME_OPENED);
     }
@@ -261,5 +269,27 @@ class NavControl {
     mobileRemoveClone() {
         this.el.classList.remove(this.settings.CLASSNAME_OPENED);
         this.button.focus();
+    }
+
+    trapFocus(event) {
+        const firstFocusableEl = this.focusableEls[0];
+        const lastFocusableEl = this.focusableEls[this.focusableEls.length - 1];
+        const isTabPressed = event.key === 'Tab';
+
+        if (!isTabPressed) {
+            return;
+        }
+
+        if (event.shiftKey) {
+            if (document.activeElement === firstFocusableEl) {
+                lastFocusableEl.focus();
+                event.preventDefault();
+            }
+        } else {
+            if (document.activeElement === lastFocusableEl) {
+                firstFocusableEl.focus();
+                event.preventDefault();
+            }
+        }
     }
 }
