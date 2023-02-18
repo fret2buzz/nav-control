@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Navigation</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/nav.js"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+</head>
+<body>
+
+{% macro navigationItem(item, index) %}
+    {% set hiddenItem = item.children and item.level == 1 %}
+
+    {% set idx = item.level + 1 %}
+
+    <li {% if item.level == 1 %}class="b-nav__item" data-main{% endif %}>
+        {% if hiddenItem %}
+            <button
+                class="b-nav__item-button"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-level="{{idx}}-{{index}}"
+            >
+                <span>{{ item.name }}</span>
+            </button>
+        {% else %}
+            <a
+                href="#"
+                class="b-nav__item-link"
+            >
+                <span>{{ item.name }}</span>
+            </a>
+        {% endif %}
+
+        {% if item.children %}
+            <ul
+                class="b-nav__level b-nav__level--{{idx}}"
+                data-id="{{idx}}-{{index}}"
+                {% if hiddenItem %}aria-hidden="true"{% endif %}
+            >
+                {% if hiddenItem %}
+                <li>
+                    <button type="button" data-close data-level="{{item.level}}-{{index}}">
+                        Close
+                    </button>
+                </li>
+                {% endif %}
+                {% for item in item.children %}
+                    {{ navigationItem(item, loop.index) }}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endmacro %}
+
+<div class="l-container">
+    <header class="b-header">
+        <h1>Header</h1>
+    </header>
+
+    <div class="b-skip">
+        <a href="#main">Skip to main content</a> or <a href="#footer">Skip to footer</a>
+    </div>
+
+    <nav class="js-nav b-nav">
+        <ul class="b-nav__level b-nav__level--1" data-id="1-1" id="level1">
+            {% for item in navigation %}
+                {{ navigationItem(item, loop.index) }}
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <main class="b-section" id="main" tabindex="-1">
+        <h1>
+            Accessible navigation
+        </h1>
+        <p>
+            <a href="https://github.com/fret2buzz/nav-control">Github</a>
+        </p>
+
+        <table class="b-section__table">
+            <tr style="opacity: 0.5;">
+                <td><kbd>left arrow</kbd>, <kbd>right arrow</kbd></td>
+                <td>Use left and right keys to navigate through first level of menu items</td>
+            </tr>
+            <tr style="opacity: 0.5;">
+                <td><kbd>up arrow</kbd>, <kbd>down arrow</kbd></td>
+                <td>Use up and down keys to navigate through the entire menu. First press on the down key on the first level menu expands the submenu</td>
+            </tr>
+            <tr>
+                <td><kbd>esc</kbd></td>
+                <td>Use escape key to close submenu</td>
+            </tr>
+            <tr>
+                <td><kbd>enter</kbd>, <kbd>space</kbd></td>
+                <td>Use enter or space to expand submenu</td>
+            </tr>
+            <tr>
+                <td><kbd>tab</kbd>, <kbd>shift</kbd>+<kbd>tab</kbd></td>
+                <td>Use tab or shift+tab to navigate through menu</td>
+            </tr>
+        </table>
+    </main>
+    <footer class="b-footer" id="footer" tabindex="-1">
+        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/">Source</a>
+    </footer>
+</div>
+
+<script>
+    window.onload = function () {
+        var navigation = new NavControl();
+        navigation.init();
+    };
+</script>
+</body>
+</html>

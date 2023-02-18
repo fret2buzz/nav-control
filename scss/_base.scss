@@ -1,0 +1,123 @@
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+.l-container {
+	width: 375px;
+	margin: 0 auto;
+
+	@include media(lg-up) {
+		width: 980px;
+	}
+}
+
+$spacer: 1rem;
+$arrow-xs: 1.2rem;
+$arrow-lg: 0.75rem;
+
+$black: #000;
+$white: #fff;
+
+$color-focus: #c33;
+$color-block: #eee;
+
+$gray-100: #888;
+$gray-200: #ccc;
+
+html {
+	font-size: 16px;
+}
+
+body {
+	font-family: 'Arial', sans-serif;
+	font-size: 1rem;
+
+	a {
+		color: $black;
+	}
+}
+
+.b-header {
+	display: none;
+	background: $color-block;
+	padding: ($spacer * 2) $spacer;
+
+	@include media(lg-up) {
+		display: block;
+	}
+}
+
+*:focus {
+	outline: none;
+}
+
+*:focus-visible {
+	outline: 2px dashed $color-focus;
+}
+
+.b-skip {
+	background: $white;
+	left: 0;
+	opacity: 0;
+	padding: 1rem;
+	pointer-events: none;
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	border: 3px solid $black;
+
+	&:focus-within {
+		opacity: 1;
+		pointer-events: auto;
+	}
+}
+
+.b-section {
+	display: none;
+	padding: ($spacer * 2) $spacer;
+	background: $color-block;
+	height: 48rem;
+
+	&__table {
+		font-size: 12px;
+
+		td {
+			padding: 7px 20px 7px 0;
+		}
+
+		kbd {
+			border: 1px outset $gray-100;
+			background-color: $white;
+			padding: 5px;
+			cursor: default;
+			color: $black;
+			display: inline-block;
+		}
+	}
+
+	@include media(lg-up) {
+		display: block;
+	}
+}
+
+.b-footer {
+	display: none;
+	background: $gray-200;
+	padding: ($spacer * 2) $spacer;
+
+	@include media(lg-up) {
+		display: block;
+	}
+}
+
+.sr-only {
+	clip: rect(0, 0, 0, 0);
+	height: 0;
+	overflow: hidden;
+	position: absolute;
+	width: 0;
+}

@@ -1,0 +1,42 @@
+// Breakpoints
+$break-xxxl: 2559px;
+$break-xxl: 1919px;
+$break-xl: 1366px;
+$break-lg: 1024px;
+$break-md: 768px;
+
+// config for `media()` mixin
+$media: (
+	sm: 'screen and (max-width: #{$break-md - 1})',
+	md: 'screen and (min-width: #{$break-md}) and (max-width: #{$break-lg - 1})',
+	lg: 'screen and (min-width: #{$break-lg}) and (max-width: #{$break-xl - 1})',
+	xl: 'screen and (min-width: #{$break-xl})',
+	xxl: 'screen and (min-width: #{$break-xxl})',
+	xxxl: 'screen and (min-width: #{$break-xxxl})',
+	md-up: 'screen and (min-width: #{$break-md})',
+	md-down: 'screen and (max-width: #{$break-lg - 1})',
+	lg-up: 'screen and (min-width: #{$break-lg})',
+	lg-down: 'screen and (max-width: #{$break-xl - 1})'
+);
+
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:string';
+
+@mixin media($query) {
+	$__query: null;
+
+	@each $type in $query {
+		@if map.has-key($media, $type) {
+			$__query: list.append($__query, string.unquote(map.get($media, $type)), comma);
+		} @else {
+			@warn $type;
+		}
+	}
+
+	@media #{$__query} {
+		@content;
+	}
+}
+
+

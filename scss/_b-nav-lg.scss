@@ -1,118 +1,101 @@
-@include media-breakpoint-up('lg') {
-    .b-nav {
-        background: $gray-100;
-    }
+@use 'sass:math';
 
-    // Hiding mobile specific blocks
-    .b-nav__level-header {
-        display: none;
-    }
+@include media(lg-up) {
+	body {
+		overflow-y: scroll;
+	}
 
-    // Overriding mobile inline styles
-    .b-nav__in {
-        height: auto !important;
-    }
-    .b-nav__level {
-        left: 0 !important;
-        display: flex;
-        position: relative;
-    }
-    .b-nav__item {
-        .b-nav__item-button--has-child span {
-            display: block;
-            position: relative;
-            padding-right: calc(#{$arrow-lg} + #{$spacer * 0.5});
+	.b-nav {
+		background: $gray-200;
+		position: relative;
+	}
 
-            &::after {
-                content: '';
-                width: $arrow-lg;
-                height: $arrow-lg;
-                position: absolute;
-                right: 0;
-                top: 50%;
-                margin-top: -#{$arrow-lg / 2};
+	.b-nav__level {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
 
-                @include svg-mono($icon-arrow-down, $blue);
-            }
-        }
-        .b-nav__item-button {
-            font-weight: 700;
-            padding: $spacer;
-            display: block;
-            position: relative;
+	.b-nav__item {
+		&.m-active {
+			background: $white;
 
-            &:hover {
-                text-decoration: none;
-            }
-            &::after {
-                content: '';
-                position: absolute;
-                width: 0;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                height: 4px;
-                transition: width 0.5s, background 0.5s;
-            }
-            * {
-                pointer-events: none;
-            }
-        }
-        .b-nav__level {
-            display: none;
-        }
-        &:hover .b-nav__item-button,
-        &.active .b-nav__item-button {
-            &::after {
-                width: 100%;
-                background: $black;
-            }
-        }
-        // &:hover .b-nav__level,
-        &.active .b-nav__level {
-            position: absolute;
-            left: 0;
-            top: 100% !important;
-            width: 100%;
-            background: $gray-300;
-            padding: $spacer;
-            display: flex;
+			.b-nav__level--2 {
+				background: $white;
+				display: block;
+				left: 0;
+				padding: $spacer;
+				position: absolute;
+				top: 100%;
+				width: 100%;
+				z-index: 2;
+			}
+		}
+	}
 
-            .b-nav__level {
-                display: block;
-                position: relative;
-                top: 0 !important;
-                padding: 0;
-            }
-            .b-nav__item-button {
-                background: 0 0;
-                padding: 0;
-                margin: 0 0 $spacer;
+	.b-nav__item-button,
+	.b-nav__item-link {
+		background: 0 0;
+		border: 0;
+		cursor: pointer;
+		display: inline-block;
+		padding: $spacer;
+		position: relative;
+		vertical-align: top;
 
-                &::after {
-                    display: none;
-                }
-                &:hover {
-                    text-decoration: underline;
-                }
-                span {
-                    padding: 0;
+		&:hover {
+			text-decoration: none;
+		}
 
-                    &::after {
-                        display: none;
-                    }
-                }
-            }
-        }
-        .b-nav__item {
-            padding-left: $spacer;
+		&:focus-visible {
+			outline-offset: -2px;
+		}
 
-            &:first-child {
-                padding-left: 0;
-            }
-        }
-        .b-nav__level-header + .b-nav__item {
-            padding-left: 0;
-        }
-    }
+		* {
+			pointer-events: none;
+		}
+	}
+
+	.b-nav__item-button span {
+		display: block;
+		position: relative;
+		padding-right: calc(#{$arrow-lg} + #{$spacer * 0.5});
+
+		&::after {
+			content: '';
+			width: $arrow-lg;
+			height: $arrow-lg;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			margin-top: math.div($arrow-lg, -2);
+
+			@include svg-mono($icon-arrow-down, $black);
+		}
+	}
+
+	.b-nav__level--1 {
+		display: flex;
+		position: relative;
+
+		> .b-nav__item > .b-nav__item-button,
+		> .b-nav__item > .b-nav__item-link {
+			font-size: 1rem;
+			font-weight: 700;
+		}
+	}
+
+	.b-nav__level--2 {
+		display: none;
+		border: 2px solid black;
+	}
+
+	.b-nav__level--3 {
+		border: 2px solid $gray-100;
+		margin-left: 2rem;
+
+		li {
+			font-size: 0.85rem;
+		}
+	}
 }

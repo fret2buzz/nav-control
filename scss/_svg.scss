@@ -4,34 +4,34 @@ $icon-arrow-right: ('M8.269 3.342a.998.998 0 00.088 1.445l12.99 11.145L8.351 27.
 $icon-arrow-up: ('M3.344 23.73a.998.998 0 001.445-.088l11.144-12.99 11.284 12.996a.998.998 0 001.445.078c.42-.392.454-1.063.075-1.499L16.687 8.35a1 1 0 00-1.524.004L3.259 22.231a1.09 1.09 0 00.085 1.5z', 32, 32);
 
 @function create-svg($name, $fill-color) {
-    $path: nth($name, 1);
-    $w: nth($name, 2);
-    $h: nth($name, 3);
+	$path: nth($name, 1);
+	$w: nth($name, 2);
+	$h: nth($name, 3);
 
-    $fill-color: str-slice(inspect($fill-color), 2);
-    $fill-color: '%23' + $fill-color;
-    $icon: 'data:image/svg+xml;charset%3Dutf8,%3Csvg xmlns%3D%22http://www.w3.org/2000/svg%22 width%3D%22#{$w}%22 height%3D%22#{$h}%22%3E%3Cpath fill%3D%22#{$fill-color}%22 d%3D%22#{$path}%22/%3E%3C/svg%3E%0A';
-    @return $icon;
+	$fill-color: str-slice(inspect($fill-color), 2);
+	$fill-color: '%23' + $fill-color;
+	$icon: 'data:image/svg+xml;charset%3Dutf8,%3Csvg xmlns%3D%22http://www.w3.org/2000/svg%22 width%3D%22#{$w}%22 height%3D%22#{$h}%22%3E%3Cpath fill%3D%22#{$fill-color}%22 d%3D%22#{$path}%22/%3E%3C/svg%3E%0A';
+	@return $icon;
 }
 
 @mixin svg-mono($name, $fill-color: #000) {
-    $svg: create-svg($name, $fill-color);
-    background: transparent url($svg) no-repeat 50% 50%;
-    background-size: 100%;
+	$svg: create-svg($name, $fill-color);
+	background: transparent url($svg) no-repeat 50% 50%;
+	background-size: 100%;
 }
 
 @mixin svg-mono-image($name, $fill-color: #000) {
-    $svg: create-svg($name, $fill-color);
-    background-image: url($svg);
+	$svg: create-svg($name, $fill-color);
+	background-image: url($svg);
 }
 
 @mixin svg-multi($name) {
-    $svg: nth($name, 1);
-    background: transparent url($svg) no-repeat 50% 50%;
-    background-size: 100%;
+	$svg: nth($name, 1);
+	background: transparent url($svg) no-repeat 50% 50%;
+	background-size: 100%;
 }
 
 @mixin svg-multi-image($name) {
-    $svg: nth($name, 1);
-    background-image: url($svg);
+	$svg: nth($name, 1);
+	background-image: url($svg);
 }
