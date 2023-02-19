@@ -18,7 +18,7 @@ window.onload = function () {
 
 ## Demo
 
-Check out the demo,  @ https://fret2buzz.github.io/nav-control/index.html
+Check out the demo,  @ https://nav-control.onrender.com/
 
 ## Options
 
