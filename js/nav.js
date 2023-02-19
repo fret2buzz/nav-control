@@ -106,11 +106,13 @@ class NavControl {
 
         const key = e.which;
 
-        if (key === 'Escape') {
+        if (key === 27) {
             // escape
             e.preventDefault();
             this.collapse();
-            this.button.focus();
+            if (this.button) {
+                this.button.focus();
+            }
         }
 
         let handleFocus = this.debounce(() => {
