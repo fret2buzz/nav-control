@@ -10,7 +10,7 @@
     "watch:html": "node index.js watch",
     "build:html": "node index.js",
     "build:css": "npx sass --load-path=node_modules scss/main.scss public/css/main.css --no-source-map",
-    "prefix": "npx postcss css/main.css --use autoprefixer --replace --no-map",
+    "prefix": "npx postcss public/css/main.css --use autoprefixer --replace --no-map",
     "build:all": "npm run build:html && npm run build:css && npm run prefix"
   },
   "author": "fret2buzz",
