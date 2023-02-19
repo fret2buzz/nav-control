@@ -18,7 +18,7 @@ async function compileHtml() {
         preserveLineBreaks: true
     });
 
-    fs.writeFile("index.html", html, function(err) {
+    fs.writeFile("public/index.html", html, function(err) {
         console.log("The HTML file was saved!");
 
         if(err) {

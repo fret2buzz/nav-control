@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx live-server",
-    "watch:css": "npx sass --load-path=node_modules scss/main.scss css/main.css -w",
+    "watch:css": "npx sass --load-path=node_modules scss/main.scss public/css/main.css -w",
     "watch:html": "node index.js watch",
     "build:html": "node index.js",
-    "build:css": "npx sass --load-path=node_modules scss/main.scss css/main.css --no-source-map",
+    "build:css": "npx sass --load-path=node_modules scss/main.scss public/css/main.css --no-source-map",
     "prefix": "npx postcss css/main.css --use autoprefixer --replace --no-map",
     "build:all": "npm run build:html && npm run build:css && npm run prefix"
   },
