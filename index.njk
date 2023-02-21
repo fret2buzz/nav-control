@@ -42,8 +42,9 @@
             >
                 {% if hiddenItem %}
                 <li>
-                    <button type="button" data-close data-level="{{item.level}}-{{index}}">
-                        Close
+                    <button class="b-close" type="button" data-close data-level="{{item.level}}-{{index}}">
+                        <span class="b-close__text b-close__text--lg">Close</span>
+                        <span class="b-close__text b-close__text--md">Back to {{ item.name }}</span>
                     </button>
                 </li>
                 {% endif %}

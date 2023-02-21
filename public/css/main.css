@@ -109,12 +109,36 @@ body a {
   width: 0;
 }
 
+.b-close {
+  font-family: "Arial", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  padding: 1rem;
+  position: relative;
+  vertical-align: top;
+}
+.b-close__text {
+  display: none;
+  pointer-events: none;
+}
+
 @media screen and (max-width: 1023px) {
   *:focus-visible {
     outline-offset: -3px;
   }
   body {
     overflow: hidden;
+  }
+  .b-close {
+    display: block;
+    width: 100%;
+  }
+  .b-close__text--md {
+    display: block;
   }
   .b-nav {
     background: #fff;
@@ -153,13 +177,6 @@ body a {
   .b-nav__level--1 .b-nav__level--3 {
     display: none;
   }
-  .b-nav__level--3 {
-    border: 2px solid #888;
-    margin-left: 2rem;
-  }
-  .b-nav__level--3 li {
-    font-size: 0.85rem;
-  }
   .b-nav__item-button,
   .b-nav__item-link {
     background: 0 0;
@@ -190,6 +207,14 @@ body a {
     background: transparent url("data:image/svg+xml;charset%3Dutf8,%3Csvg xmlns%3D%22http://www.w3.org/2000/svg%22 width%3D%2232%22 height%3D%2232%22%3E%3Cpath fill%3D%22%23000%22 d%3D%22M8.269 3.342a.998.998 0 00.088 1.445l12.99 11.145L8.351 27.215a.998.998 0 00-.078 1.444c.392.42 1.063.454 1.499.075l13.877-12.05a1 1 0 00.351-.763 1.007 1.007 0 00-.355-.76L9.768 3.256a1.09 1.09 0 00-1.499.086z%22/%3E%3C/svg%3E%0A") no-repeat 50% 50%;
     background-size: 100%;
   }
+  .b-nav__level--3 {
+    border: 2px solid #888;
+    margin: 0 1rem 1rem;
+  }
+  .b-nav__level--3 li,
+  .b-nav__level--3 .b-nav__item-link {
+    font-size: 0.85rem;
+  }
 }
 @media screen and (min-width: 1024px) {
   body {
@@ -198,6 +223,9 @@ body a {
   .b-nav {
     background: #ccc;
     position: relative;
+  }
+  .b-close__text--lg {
+    display: block;
   }
   .b-nav__level {
     list-style: none;
@@ -219,6 +247,7 @@ body a {
   }
   .b-nav__item-button,
   .b-nav__item-link {
+    font-family: "Arial", sans-serif;
     background: 0 0;
     border: 0;
     cursor: pointer;
@@ -272,7 +301,8 @@ body a {
   }
   .b-nav__level--3 {
     border: 2px solid #888;
-    margin-left: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
   .b-nav__level--3 li {
     font-size: 0.85rem;

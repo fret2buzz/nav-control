@@ -16,10 +16,6 @@ window.onload = function () {
 };
 ```
 
-## Demo
-
-Check out the demo,  @ https://nav-control.onrender.com/
-
 ## Options
 
 ```

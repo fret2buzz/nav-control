@@ -121,3 +121,21 @@ body {
 	position: absolute;
 	width: 0;
 }
+
+.b-close {
+	font-family: 'Arial', sans-serif;
+	font-size: 1rem;
+	font-weight: 700;
+	background: 0 0;
+	border: 0;
+	cursor: pointer;
+	display: inline-block;
+	padding: $spacer;
+	position: relative;
+	vertical-align: top;
+
+	&__text {
+		display: none;
+		pointer-events: none;
+	}
+}

@@ -9,6 +9,17 @@
 		overflow: hidden;
 	}
 
+	.b-close {
+		display: block;
+		width: 100%;
+
+		&__text {
+			&--md {
+				display: block;
+			}
+		}
+	}
+
 	.b-nav {
 		background: $white;
 		display: flex;
@@ -44,15 +55,6 @@
 		}
 	}
 
-	.b-nav__level--3 {
-		border: 2px solid $gray-100;
-		margin-left: 2rem;
-
-		li {
-			font-size: 0.85rem;
-		}
-	}
-
 	.b-nav__item-button,
 	.b-nav__item-link {
 		background: 0 0;
@@ -83,6 +85,16 @@
 			margin-top: math.div($arrow-xs, -2);
 
 			@include svg-mono($icon-arrow-right, $black);
+		}
+	}
+
+	.b-nav__level--3 {
+		border: 2px solid $gray-100;
+		margin: 0 $spacer $spacer;
+
+		li,
+		.b-nav__item-link {
+			font-size: 0.85rem;
 		}
 	}
 }

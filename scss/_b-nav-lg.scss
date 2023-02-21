@@ -10,6 +10,14 @@
 		position: relative;
 	}
 
+	.b-close {
+		&__text {
+			&--lg {
+				display: block;
+			}
+		}
+	}
+
 	.b-nav__level {
 		list-style: none;
 		padding: 0;
@@ -35,6 +43,7 @@
 
 	.b-nav__item-button,
 	.b-nav__item-link {
+		font-family: 'Arial', sans-serif;
 		background: 0 0;
 		border: 0;
 		cursor: pointer;
@@ -92,7 +101,8 @@
 
 	.b-nav__level--3 {
 		border: 2px solid $gray-100;
-		margin-left: 2rem;
+		margin-left: $spacer;
+		margin-right: $spacer;
 
 		li {
 			font-size: 0.85rem;
